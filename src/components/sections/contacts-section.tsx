@@ -42,6 +42,7 @@ export function ContactsSection() {
               <Image
                 src={assets.iconParking}
                 alt=""
+                aria-hidden
                 width={22}
                 height={22}
                 className="size-[22px] shrink-0"

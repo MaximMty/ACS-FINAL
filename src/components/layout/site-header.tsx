@@ -63,7 +63,10 @@ export function SiteHeader({
           )}
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-[clamp(12px,2.5vw,40px)] lg:flex">
+        <nav
+          aria-label="Основная навигация"
+          className="hidden min-w-0 flex-1 items-center justify-center gap-[clamp(12px,2.5vw,40px)] lg:flex"
+        >
           {NAV_LINKS.map((link) => (
             <NavSectionLink
               key={link.href}

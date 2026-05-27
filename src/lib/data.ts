@@ -169,6 +169,7 @@ export const HOTEL_LOCATION = [
 
 export const CONTACTS = {
   phone: "+7 (495) 157-39-92",
+  telegramUrl: "https://t.me/avulus",
   address: "Москва, Серебрянический переулок, 12с1",
   parking: "Бесплатная парковка",
   hours: "Открыты 24/7",

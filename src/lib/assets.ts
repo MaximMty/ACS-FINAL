@@ -42,15 +42,15 @@ export const assets = {
 
   rooms: {
     pattern: assetUrl("/images/rooms-section-pattern.webp"),
-    private: assetUrl("/images/room-private.svg"),
-    privatePlus: assetUrl("/images/room-private-plus.svg"),
-    vip: assetUrl("/images/room-vip.svg"),
-    stream: assetUrl("/images/room-stream.svg"),
-    superVip: assetUrl("/images/room-super-vip.svg"),
+    private: assetUrl("/images/room-private.webp"),
+    privatePlus: assetUrl("/images/room-private-plus.webp"),
+    vip: assetUrl("/images/room-vip.webp"),
+    stream: assetUrl("/images/room-stream.webp"),
+    superVip: assetUrl("/images/room-super-vip.webp"),
   },
 
-  roomPrivate: assetUrl("/images/room-private.jpg"),
-  hotelPrivate: assetUrl("/images/room-private-plus.jpg"),
+  roomPrivate: assetUrl("/images/room-private.webp"),
+  hotelPrivate: assetUrl("/images/room-private-plus.webp"),
 
   stepIcons: {
     format: assetUrl("/images/icon-step-format.png"),
