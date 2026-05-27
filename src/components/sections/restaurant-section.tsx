@@ -40,7 +40,6 @@ export function RestaurantSection() {
             fill
             className="object-contain object-bottom"
             sizes="(max-width: 1024px) 100vw, 50vw"
-            unoptimized
             priority
           />
 
@@ -68,7 +67,6 @@ export function RestaurantSection() {
             fill
             className="object-contain object-center"
             sizes="(max-width: 1024px) 100vw, 50vw"
-            unoptimized
           />
         </div>
       </div>

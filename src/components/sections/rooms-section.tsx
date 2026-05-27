@@ -89,7 +89,6 @@ function RoomCardItem({ room }: { room: RoomCard }) {
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 433px"
-          unoptimized
         />
         {images.length > 1 && (
           <div className="absolute bottom-3 right-3 flex gap-1">
@@ -154,7 +153,6 @@ function PromoCard() {
         fill
         className="object-cover"
         sizes="(max-width: 1280px) 50vw, 433px"
-        unoptimized
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
       <div className="relative mt-auto p-6 sm:p-8">
@@ -176,7 +174,7 @@ function SpecRow({ icon, label }: { icon: string; label: string }) {
   return (
     <li className="flex items-start gap-3">
       <span className="relative mt-0.5 size-5 shrink-0">
-        <Image src={icon} alt="" fill className="object-contain" unoptimized />
+        <Image src={icon} alt="" fill className="object-contain" />
       </span>
       <span>{label}</span>
     </li>

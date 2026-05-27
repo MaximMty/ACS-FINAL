@@ -92,7 +92,6 @@ export function HeroHeadline({ className }: HeroHeadlineProps) {
               className="object-contain object-left-top"
               sizes="(max-width: 1195px) 95vw, 1195px"
               priority={layer.priority}
-              unoptimized
             />
           </div>
         ))}

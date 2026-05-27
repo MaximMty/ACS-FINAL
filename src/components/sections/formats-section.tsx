@@ -76,7 +76,6 @@ function FormatCardItem({ card }: { card: FormatCard }) {
             width={102}
             height={102}
             className="size-[clamp(64px,16vw,102px)] object-contain opacity-10"
-            unoptimized
           />
         )}
       </div>

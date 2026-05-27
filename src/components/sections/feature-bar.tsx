@@ -22,7 +22,6 @@ export function FeatureBar({ className }: FeatureBarProps) {
         priority
         className="object-cover object-center"
         sizes="100vw"
-        unoptimized
       />
     </section>
   );

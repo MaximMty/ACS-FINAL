@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/avulus/container";
+import { NavSectionLink } from "@/components/layout/nav-section-link";
 import { assets } from "@/lib/assets";
 import { figmaCtaCorners } from "@/lib/cta-styles";
 import { NAV_LINKS } from "@/lib/data";
@@ -35,7 +36,6 @@ export function SiteHeader({
                   fill
                   className="object-contain object-left"
                   priority
-                  unoptimized
                 />
               </div>
               {/* mobile: compact logo emblem */}
@@ -46,7 +46,6 @@ export function SiteHeader({
                 height={48}
                 className="size-12 object-contain sm:hidden"
                 priority
-                unoptimized
               />
               <span className="text-sm font-medium uppercase tracking-wide text-white/90">
                 {logoSuffix}
@@ -60,25 +59,24 @@ export function SiteHeader({
               height={103}
               className="size-[72px] object-contain sm:size-[103px]"
               priority
-              unoptimized
             />
           )}
         </Link>
 
         <nav className="hidden min-w-0 flex-1 items-center justify-center gap-[clamp(12px,2.5vw,40px)] lg:flex">
           {NAV_LINKS.map((link) => (
-            <Link
+            <NavSectionLink
               key={link.href}
               href={link.href}
               className="shrink-0 text-[clamp(13px,1.46vw,21px)] font-medium uppercase leading-6 tracking-normal text-white transition-opacity hover:opacity-70"
             >
               {link.label}
-            </Link>
+            </NavSectionLink>
           ))}
         </nav>
 
-        <Link
-          href="#book"
+        <NavSectionLink
+          href="/#book"
           className={cn(
             figmaCtaCorners,
             "inline-flex shrink-0 items-center justify-center uppercase leading-none transition-opacity hover:opacity-90",
@@ -88,7 +86,7 @@ export function SiteHeader({
           )}
         >
           Забронировать
-        </Link>
+        </NavSectionLink>
       </Container>
     </header>
   );

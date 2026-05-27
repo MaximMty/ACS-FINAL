@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 export function ContactsSection() {
   const routeHref = CONTACTS.mapRouteUrl;
   const phoneHref = `tel:${CONTACTS.phone.replace(/\s/g, "")}`;
+  const currentYear = new Date().getFullYear();
 
   return (
     <section id="contacts" className="bg-black py-14 lg:py-20">
@@ -44,7 +45,6 @@ export function ContactsSection() {
                 width={22}
                 height={22}
                 className="size-[22px] shrink-0"
-                unoptimized
               />
               <p className="text-sm font-medium uppercase tracking-wide text-white">
                 {CONTACTS.parking}
@@ -71,14 +71,20 @@ export function ContactsSection() {
 
         <footer className="mt-16 flex flex-col gap-4 border-t border-white/15 pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <Link href="#" className="text-white transition-opacity hover:opacity-70">
+            <Link
+              href="/privacy-policy"
+              className="text-white transition-opacity hover:opacity-70"
+            >
               Политика конфиденциальности
             </Link>
-            <Link href="#" className="text-white transition-opacity hover:opacity-70">
+            <Link
+              href="/public-offer"
+              className="text-white transition-opacity hover:opacity-70"
+            >
               Публичная оферта
             </Link>
           </div>
-          <p className="text-white sm:text-right">© 2023 Avulus</p>
+          <p className="text-white sm:text-right">© {currentYear} Avulus</p>
         </footer>
       </Container>
     </section>

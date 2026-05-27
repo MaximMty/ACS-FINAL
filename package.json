@@ -7,8 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "figma:assets": "node scripts/download-figma-assets.mjs",
-    "figma:assets:rooms": "node scripts/download-figma-assets.mjs -- --only rooms",
     "dev:fresh": "rm -rf .next && next dev"
   },
   "dependencies": {
@@ -28,7 +26,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",

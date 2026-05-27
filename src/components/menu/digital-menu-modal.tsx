@@ -57,6 +57,7 @@ export function DigitalMenuModal({
     setIsZoomed(false);
     setPan({ x: 0, y: 0 });
     panRef.current = { x: 0, y: 0 };
+    viewportRef.current?.scrollTo({ top: 0, behavior: "auto" });
   }, []);
 
   useEffect(() => {
@@ -65,14 +66,50 @@ export function DigitalMenuModal({
     resetView();
     setShowZoomHint(true);
     setSlideEnabled(false);
+    requestAnimationFrame(() => {
+      viewportRef.current?.scrollTo({ top: 0, behavior: "auto" });
+    });
   }, [isOpen, resetView]);
 
   useEffect(() => {
     if (!isOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+
+    const scrollY = window.scrollY;
+    const { body, documentElement } = document;
+    const prevBodyOverflow = body.style.overflow;
+    const prevBodyPosition = body.style.position;
+    const prevBodyTop = body.style.top;
+    const prevBodyWidth = body.style.width;
+    const prevBodyTouchAction = body.style.touchAction;
+    const prevHtmlOverflow = documentElement.style.overflow;
+
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.touchAction = "none";
+    documentElement.style.overflow = "hidden";
+
+    const allowScrollInModal = (target: EventTarget | null) =>
+      target instanceof Node && viewportRef.current?.contains(target);
+
+    const onTouchMove = (event: TouchEvent) => {
+      if (!allowScrollInModal(event.target)) {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("touchmove", onTouchMove, { passive: false });
+
     return () => {
-      document.body.style.overflow = prev;
+      document.removeEventListener("touchmove", onTouchMove);
+      body.style.overflow = prevBodyOverflow;
+      body.style.position = prevBodyPosition;
+      body.style.top = prevBodyTop;
+      body.style.width = prevBodyWidth;
+      body.style.touchAction = prevBodyTouchAction;
+      documentElement.style.overflow = prevHtmlOverflow;
+      window.scrollTo(0, scrollY);
     };
   }, [isOpen]);
 
@@ -218,6 +255,20 @@ export function DigitalMenuModal({
         onClick={onClose}
       />
 
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close menu"
+        className={cn(
+          "absolute right-3 top-3 z-30 flex size-11 items-center justify-center rounded-full",
+          "border border-white/20 bg-black/65 text-white shadow-lg backdrop-blur-md",
+          "transition-colors hover:bg-black/80",
+          "sm:right-6 sm:top-6",
+        )}
+      >
+        <X className="size-5" strokeWidth={1.9} />
+      </button>
+
       <div
         className={cn(
           "relative z-10 mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col overflow-hidden",
@@ -258,7 +309,13 @@ export function DigitalMenuModal({
 
           <div
             ref={viewportRef}
-            className="relative min-h-0 min-w-0 flex-1 overflow-hidden"
+            className={cn(
+              "relative min-h-0 min-w-0 flex-1 overscroll-y-contain",
+              isZoomed
+                ? "overflow-hidden touch-none"
+                : "overflow-y-auto touch-pan-y",
+            )}
+            style={{ WebkitOverflowScrolling: "touch" }}
           >
             {!isZoomed && showZoomHint && (
               <p
@@ -274,14 +331,21 @@ export function DigitalMenuModal({
             )}
 
             <div
-              className="flex h-full w-full items-center justify-center p-3 sm:p-5 md:p-6"
+              className={cn(
+                "flex w-full p-3 sm:p-5 md:p-6",
+                isZoomed
+                  ? "h-full min-h-full items-center justify-center"
+                  : "min-h-full items-start justify-center",
+              )}
               style={{ backgroundColor: imageBackgroundColor }}
             >
               <div
                 key={page}
                 className={cn(
-                  "relative h-full w-full max-h-full max-w-full touch-none",
-                  isZoomed ? "cursor-grab active:cursor-grabbing" : "cursor-zoom-in",
+                  "relative w-full max-w-full",
+                  isZoomed
+                    ? "h-full max-h-full touch-none cursor-grab active:cursor-grabbing"
+                    : "cursor-zoom-in",
                   slideEnabled &&
                     !isZoomed &&
                     (slideDirection === 1
@@ -303,8 +367,12 @@ export function DigitalMenuModal({
                 <Image
                   src={images[page]}
                   alt={`Menu page ${page + 1} of ${total}`}
-                  fill
-                  className="object-contain select-none"
+                  width={720}
+                  height={903}
+                  className={cn(
+                    "h-auto w-full max-w-full select-none object-contain",
+                    isZoomed && "h-full",
+                  )}
                   sizes="(max-width: 768px) 100vw, 80vw"
                   unoptimized
                   draggable={false}

@@ -5,6 +5,7 @@ import { Check, ChevronLeft } from "lucide-react";
 import { Container } from "@/components/avulus/container";
 import { FloatingActions } from "@/components/layout/floating-actions";
 import { SiteHeader } from "@/components/layout/site-header";
+import { BookingSection } from "@/components/sections/booking-section";
 import { ContactsSection } from "@/components/sections/contacts-section";
 import { assets } from "@/lib/assets";
 import { bookButtonFullClass } from "@/lib/cta-styles";
@@ -13,6 +14,7 @@ import {
   HOTEL_DESCRIPTION,
   HOTEL_LOCATION,
   HOTEL_SERVICES,
+  ROOM_CARDS,
 } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -51,7 +53,6 @@ export default function HotelPage() {
                 className="object-cover"
                 priority
                 sizes="(max-width: 1024px) 100vw, 60vw"
-                unoptimized
               />
             </div>
             <div className="grid grid-cols-2 gap-4 lg:col-span-5">
@@ -66,7 +67,6 @@ export default function HotelPage() {
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 50vw, 20vw"
-                    unoptimized
                   />
                   {i === 3 && (
                     <span className="absolute inset-0 flex items-center justify-center bg-black/50 text-lg font-medium text-white">
@@ -124,9 +124,17 @@ export default function HotelPage() {
 
             <div className="grid gap-6 lg:grid-cols-2">
               {[
-                { image: assets.roomPrivate },
-                { image: assets.hotelPrivate },
-              ].map(({ image }, n) => (
+                {
+                  image: assets.roomPrivate,
+                  description:
+                    "PRIVATE в AVULUS CYBER HOTEL — это приватное пространство для отдыха после игры: мягкий свет, тишина и продуманная атмосфера premium-уровня. В номере есть все необходимое для комфортного stay, чтобы переключиться, восстановиться и продолжить ночь в своем ритме.",
+                },
+                {
+                  image: assets.hotelPrivate,
+                  description:
+                    "Вторая категория PRIVATE создана для более длительного размещения: больше уюта, больше личного пространства и тот же фирменный AVULUS стиль. Идеальный вариант, если нужен спокойный номер с cyberpunk-настроением в центре Москвы.",
+                },
+              ].map(({ image, description }, n) => (
                 <article
                   key={n}
                   className="overflow-hidden bg-white text-black"
@@ -138,16 +146,12 @@ export default function HotelPage() {
                       fill
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      unoptimized
                     />
                   </div>
                   <div className="p-8">
                     <h3 className="text-4xl font-black uppercase">PRIVATE</h3>
                     <p className="mt-4 max-w-xl text-sm leading-relaxed text-black/70">
-                      В номерах в Salute Premium Hotel &amp; Spa установлен
-                      кондиционер, сейф и телевизор с плоским экраном. Среди
-                      прочих удобств — письменный стол, чайник, холодильник и
-                      мини-бар, а также собственная ванная комната.
+                      {description}
                     </p>
                     <p className="mt-4 flex items-baseline gap-2">
                       <span className="text-sm font-medium uppercase text-black/60">от</span>
@@ -166,6 +170,12 @@ export default function HotelPage() {
             </div>
           </Container>
         </section>
+
+        <BookingSection
+          rooms={ROOM_CARDS.map((room) => ({ id: room.id, name: room.name }))}
+          title="бронирование номера"
+          subtitle="Выберите номер, дату и время. Мы подтвердим бронь по телефону или в Telegram."
+        />
 
         <ContactsSection />
       </main>

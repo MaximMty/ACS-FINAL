@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import { HashScrollHandler } from "@/components/layout/hash-scroll-handler";
+
 import "./globals.css";
 
 const inter = Inter({
@@ -35,6 +37,7 @@ export default function RootLayout({
           } as React.CSSProperties
         }
       >
+        <HashScrollHandler />
         {children}
       </body>
     </html>

@@ -1,12 +1,23 @@
 import Image from "next/image";
 import { Container } from "@/components/avulus/container";
 import { assets } from "@/lib/assets";
+import { ROOM_PROMO } from "@/lib/data";
 
 const PROMOS = [
-  { image: assets.promoHookah, title: "кальян бесплатно", tag: "ПРОМО", note: "При бронировании SUPER VIP. Только до 10 мая." },
-  { image: assets.promos[0], title: "кальян бесплатно", tag: "ПРОМО", note: "При бронировании SUPER VIP." },
-  { image: assets.promos[1], title: "кальян бесплатно", tag: "ПРОМО", note: "" },
-  { image: assets.promos[2], title: "кальян бесплатно", tag: "ПРОМО", note: "" },
+  {
+    image: assets.promoHookah,
+    title: ROOM_PROMO.title,
+    tag: ROOM_PROMO.tag,
+    note: ROOM_PROMO.note,
+  },
+  {
+    image: assets.promos[0],
+    title: ROOM_PROMO.title,
+    tag: ROOM_PROMO.tag,
+    note: "При бронировании SUPER VIP.",
+  },
+  { image: assets.promos[1], title: ROOM_PROMO.title, tag: ROOM_PROMO.tag, note: "" },
+  { image: assets.promos[2], title: ROOM_PROMO.title, tag: ROOM_PROMO.tag, note: "" },
 ];
 
 export function PromotionsSection() {
@@ -29,7 +40,6 @@ export function PromotionsSection() {
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 1280px) 50vw, 25vw"
-                unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6">

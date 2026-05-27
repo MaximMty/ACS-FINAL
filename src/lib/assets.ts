@@ -1,8 +1,9 @@
 import { ASSET_VERSION } from "./asset-version";
 
-/** Appends cache-bust query so browsers pick up new files after Figma export */
+/** Normalized local /public asset URL */
 export function assetUrl(path: string): string {
-  return `${path}?v=${ASSET_VERSION}`;
+  void ASSET_VERSION;
+  return path;
 }
 
 export const assets = {

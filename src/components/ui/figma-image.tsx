@@ -5,6 +5,6 @@ type FigmaImageProps = Omit<ImageProps, "src"> & {
 };
 
 /** Static images from /public with cache-busting query params */
-export function FigmaImage({ src, alt = "", unoptimized = true, ...props }: FigmaImageProps) {
+export function FigmaImage({ src, alt = "", unoptimized = false, ...props }: FigmaImageProps) {
   return <Image src={src} alt={alt} unoptimized={unoptimized} {...props} />;
 }
