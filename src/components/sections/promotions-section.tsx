@@ -11,13 +11,13 @@ const PROMOS = [
     note: ROOM_PROMO.note,
   },
   {
-    image: assets.promos[0],
+    image: assets.promoHookah,
     title: ROOM_PROMO.title,
     tag: ROOM_PROMO.tag,
     note: "При бронировании SUPER VIP.",
   },
-  { image: assets.promos[1], title: ROOM_PROMO.title, tag: ROOM_PROMO.tag, note: "" },
-  { image: assets.promos[2], title: ROOM_PROMO.title, tag: ROOM_PROMO.tag, note: "" },
+  { image: assets.promoHookah, title: ROOM_PROMO.title, tag: ROOM_PROMO.tag, note: "" },
+  { image: assets.promoHookah, title: ROOM_PROMO.title, tag: ROOM_PROMO.tag, note: "" },
 ];
 
 export function PromotionsSection() {
