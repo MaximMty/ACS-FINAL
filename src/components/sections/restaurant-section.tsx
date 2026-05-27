@@ -33,12 +33,12 @@ export function RestaurantSection() {
   return (
     <section id="restaurant" className="bg-black">
       <div className="grid lg:grid-cols-2">
-        <div className="relative aspect-[720/903] w-full min-h-[min(125vw,920px)] overflow-hidden lg:min-h-0">
+        <div className="relative aspect-[2/3] w-full overflow-hidden">
           <Image
             src={assets.restaurantFood}
             alt=""
             fill
-            className="object-contain object-bottom"
+            className="object-cover object-bottom"
             sizes="(max-width: 1024px) 100vw, 50vw"
             loading="lazy"
             fetchPriority="low"
@@ -61,12 +61,12 @@ export function RestaurantSection() {
           </div>
         </div>
 
-        <div className="relative aspect-[720/903] w-full min-h-[min(125vw,920px)] overflow-hidden lg:min-h-0">
+        <div className="relative aspect-[2/3] w-full overflow-hidden">
           <Image
             src={assets.restaurantDrink}
             alt=""
             fill
-            className="object-contain object-center"
+            className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 50vw"
             loading="lazy"
             fetchPriority="low"

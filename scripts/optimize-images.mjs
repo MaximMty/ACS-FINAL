@@ -21,12 +21,22 @@ const WEBP = { quality: 82, effort: 4 };
 const DATA_URI_RE =
   /xlink:href="data:image\/(png|jpeg);base64,([^"]+)"/i;
 
+/** Pick the topmost / room-specific embedded raster when Figma stacks layers. */
+function extractBestEmbeddedBuffer(svg) {
+  const matches = [...svg.matchAll(DATA_URI_RE)];
+  if (matches.length > 0) {
+    const pick = matches.length > 1 ? matches[matches.length - 1] : matches[0];
+    return Buffer.from(pick[2], "base64");
+  }
+  return null;
+}
+
 /** @param {string} filePath */
 async function rasterizeSvg(filePath, width) {
   const svg = await fs.readFile(filePath, "utf8");
-  const match = svg.match(DATA_URI_RE);
-  if (match) {
-    return Buffer.from(match[2], "base64");
+  const embedded = extractBestEmbeddedBuffer(svg);
+  if (embedded) {
+    return embedded;
   }
 
   const resvg = new Resvg(svg, {
