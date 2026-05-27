@@ -12,7 +12,7 @@ export const assets = {
 
   /** Frame 6 hero typography (exported from Figma — CoFo Weather / vector outlines) */
   heroAvulus: assetUrl("/images/hero-avulus.webp"),
-  heroTitleComposite: assetUrl("/images/hero-title-composite.webp"),
+  heroTitleComposite: assetUrl("/images/hero-title-composite-v4.webp"),
 
   /** Figma Group 383 — chevron step bar background */
   featureBarBg: assetUrl("/images/feature-bar-bg.webp"),
@@ -42,11 +42,11 @@ export const assets = {
 
   rooms: {
     pattern: assetUrl("/images/rooms-section-pattern.webp"),
-    private: assetUrl("/images/room-private.webp"),
-    privatePlus: assetUrl("/images/room-private-plus.webp"),
-    vip: assetUrl("/images/room-vip.webp"),
-    stream: assetUrl("/images/room-stream.webp"),
-    superVip: assetUrl("/images/room-super-vip.webp"),
+    private: assetUrl("/images/room-private.svg"),
+    privatePlus: assetUrl("/images/room-private-plus.svg"),
+    vip: assetUrl("/images/room-vip.svg"),
+    stream: assetUrl("/images/room-stream.svg"),
+    superVip: assetUrl("/images/room-super-vip.svg"),
   },
 
   roomPrivate: assetUrl("/images/room-private.webp"),

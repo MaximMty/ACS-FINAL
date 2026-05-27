@@ -27,40 +27,19 @@ export function SiteHeader({
     >
       <Container className="flex h-[103px] items-center justify-between gap-6">
         <Link href="/" className="flex shrink-0 items-center gap-3">
+          <Image
+            src={assets.logo}
+            alt="AVULUS"
+            width={103}
+            height={103}
+            className="size-[72px] object-contain sm:size-[103px]"
+            priority
+          />
           {logoSuffix ? (
-            <>
-              <div className="relative hidden h-[34px] w-[180px] sm:block">
-                <Image
-                  src={assets.heroAvulus}
-                  alt="AVULUS"
-                  fill
-                  className="object-contain object-left"
-                  priority
-                />
-              </div>
-              {/* mobile: compact logo emblem */}
-              <Image
-                src={assets.logo}
-                alt="AVULUS"
-                width={48}
-                height={48}
-                className="size-12 object-contain sm:hidden"
-                priority
-              />
-              <span className="text-sm font-medium uppercase tracking-wide text-white/90">
-                {logoSuffix}
-              </span>
-            </>
-          ) : (
-            <Image
-              src={assets.logo}
-              alt="AVULUS"
-              width={103}
-              height={103}
-              className="size-[72px] object-contain sm:size-[103px]"
-              priority
-            />
-          )}
+            <span className="text-sm font-medium uppercase tracking-wide text-white/90">
+              {logoSuffix}
+            </span>
+          ) : null}
         </Link>
 
         <nav

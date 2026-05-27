@@ -29,8 +29,8 @@ export function HeroSection() {
       <Container className="relative z-10 flex flex-1 flex-col pt-[clamp(72px,7.15vw,103px)] pb-[var(--feature-height)]">
         <h1 className="sr-only">AVULUS 24/7 CYBER ОТЕЛЬ и ресторан</h1>
 
-        <div className="flex flex-1 items-center">
-          <HeroHeadline className="mx-auto w-full lg:mx-0 lg:mr-auto" />
+        <div className="flex flex-1 items-center justify-center">
+          <HeroHeadline />
         </div>
       </Container>
 

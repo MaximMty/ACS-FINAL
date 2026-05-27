@@ -4,7 +4,7 @@ import { assets } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
 const VIEW_W = 1195;
-const VIEW_H = 362;
+const VIEW_H = 378;
 
 type HeroHeadlineProps = {
   className?: string;
@@ -13,7 +13,7 @@ type HeroHeadlineProps = {
 export function HeroHeadline({ className }: HeroHeadlineProps) {
   return (
     <div
-      className={cn("relative w-full max-w-[1195px]", className)}
+      className={cn("relative w-[min(100%,1195px)]", className)}
       style={{ aspectRatio: `${VIEW_W} / ${VIEW_H}` }}
       aria-hidden
     >

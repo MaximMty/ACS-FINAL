@@ -175,7 +175,7 @@ export const CONTACTS = {
   hours: "Открыты 24/7",
   routeLabel: "построить маршрут",
   mapEmbedUrl:
-    "https://yandex.ru/map-widget/v1/?ll=37.648259%2C55.750145&z=17&pt=37.648259%2C55.750145%2Cpm2rdm",
+    "https://yandex.ru/map-widget/v1/?ll=37.648259%2C55.750145&z=17",
   mapRouteUrl:
     "https://yandex.com/maps/org/avulus_cyber_space/71331203438/?ll=37.648259%2C55.750145&z=17",
 };
