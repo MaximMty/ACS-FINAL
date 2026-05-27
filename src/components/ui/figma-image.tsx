@@ -1,10 +1,9 @@
 import Image, { type ImageProps } from "next/image";
 
-type FigmaImageProps = Omit<ImageProps, "src"> & {
-  src: string;
-};
-
-/** Static images from /public with cache-busting query params */
-export function FigmaImage({ src, alt = "", unoptimized = false, ...props }: FigmaImageProps) {
-  return <Image src={src} alt={alt} unoptimized={unoptimized} {...props} />;
+/**
+ * Assets exported from Figma are already WebP at target dimensions.
+ * Skipping the Next optimizer avoids slow hard refreshes (no /_next/image round-trip).
+ */
+export function FigmaImage(props: ImageProps) {
+  return <Image {...props} unoptimized />;
 }

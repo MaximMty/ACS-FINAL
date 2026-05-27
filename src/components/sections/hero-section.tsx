@@ -1,6 +1,5 @@
-import Image from "next/image";
-
 import { Container } from "@/components/avulus/container";
+import { FigmaImage } from "@/components/ui/figma-image";
 import { FeatureBar } from "@/components/sections/feature-bar";
 import { HeroHeadline } from "@/components/sections/hero-headline";
 import { assets } from "@/lib/assets";
@@ -16,13 +15,14 @@ export function HeroSection() {
         } as React.CSSProperties
       }
     >
-      <Image
+      <FigmaImage
         src={assets.heroBg}
         alt=""
         fill
         className="object-cover object-center"
         priority
         sizes="100vw"
+        fetchPriority="high"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/25" />
 

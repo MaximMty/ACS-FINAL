@@ -10,6 +10,19 @@ import { RoomsSection } from "@/components/sections/rooms-section";
 export default function HomePage() {
   return (
     <>
+      {/* Preload LCP assets directly (no /_next/image) for faster hard refresh */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/hero-bg.webp"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/images/hero-title-composite-v4.webp"
+        fetchPriority="high"
+      />
       <SiteHeader variant="hero" />
       <FloatingActions />
       <main>

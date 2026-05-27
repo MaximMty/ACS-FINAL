@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { FigmaImage } from "@/components/ui/figma-image";
 import { assets } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
@@ -17,13 +16,14 @@ export function HeroHeadline({ className }: HeroHeadlineProps) {
       style={{ aspectRatio: `${VIEW_W} / ${VIEW_H}` }}
       aria-hidden
     >
-      <Image
+      <FigmaImage
         src={assets.heroTitleComposite}
         alt=""
         fill
         className="object-contain object-left-top"
         sizes="(max-width: 768px) 92vw, (max-width: 1280px) 78vw, 1195px"
         priority
+        fetchPriority="high"
       />
     </div>
   );

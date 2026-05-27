@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { FigmaImage } from "@/components/ui/figma-image";
 import { assets } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
@@ -15,13 +14,13 @@ export function FeatureBar({ className }: FeatureBarProps) {
       style={{ height: "var(--feature-height, clamp(72px, 6.74vw, 97px))" }}
       aria-label="Шаги бронирования"
     >
-      <Image
+      <FigmaImage
         src={assets.featureBarBg}
         alt=""
         fill
-        priority
         className="object-cover object-center"
         sizes="100vw"
+        loading="lazy"
       />
     </section>
   );

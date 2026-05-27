@@ -40,7 +40,7 @@ export function RestaurantSection() {
             fill
             className="object-contain object-bottom"
             sizes="(max-width: 1024px) 100vw, 50vw"
-            priority
+            loading="lazy"
           />
 
           <div
