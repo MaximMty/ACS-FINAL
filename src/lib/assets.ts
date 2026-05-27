@@ -8,44 +8,40 @@ export function assetUrl(path: string): string {
 
 export const assets = {
   logo: assetUrl("/images/logo.png"),
-  heroBg: assetUrl("/images/hero-bg.jpg"),
+  heroBg: assetUrl("/images/hero-bg.webp"),
 
   /** Frame 6 hero typography (exported from Figma — CoFo Weather / vector outlines) */
-  heroAvulus: assetUrl("/images/hero-avulus.png"),
-  hero247: assetUrl("/images/hero-247.png"),
-  heroCyber: assetUrl("/images/hero-cyber.png"),
-  heroHotel: assetUrl("/images/hero-hotel.png"),
-  heroTagline: assetUrl("/images/hero-tagline.png"),
-  heroRestaurantBadge: assetUrl("/images/hero-restaurant-badge.png"),
+  heroAvulus: assetUrl("/images/hero-avulus.webp"),
+  heroTitleComposite: assetUrl("/images/hero-title-composite.webp"),
 
   /** Figma Group 383 — chevron step bar background */
-  featureBarBg: assetUrl("/images/feature-bar-bg.png"),
-  map: assetUrl("/images/map.jpg"),
-  hotelMap: assetUrl("/images/hotel-map.jpg"),
+  featureBarBg: assetUrl("/images/feature-bar-bg.webp"),
+  map: assetUrl("/images/hotel-map.webp"),
+  hotelMap: assetUrl("/images/hotel-map.webp"),
 
   restaurantFood: assetUrl("/images/burger.svg"),
   restaurantDrink: assetUrl("/images/drink.svg"),
 
-  promoHookah: assetUrl("/images/promo-hookah.jpg"),
+  promoHookah: assetUrl("/images/promo-hookah.webp"),
   promos: [
-    assetUrl("/images/promo-1.jpg"),
-    assetUrl("/images/promo-2.jpg"),
-    assetUrl("/images/promo-3.jpg"),
-    assetUrl("/images/promo-4.jpg"),
+    assetUrl("/images/promo-1.webp"),
+    assetUrl("/images/promo-2.webp"),
+    assetUrl("/images/promo-3.webp"),
+    assetUrl("/images/promo-4.webp"),
   ],
 
   hotelGallery: {
-    main: assetUrl("/images/hotel-gallery-main.jpg"),
+    main: assetUrl("/images/hotel-gallery-main.webp"),
     thumbs: [
-      assetUrl("/images/hotel-gallery-1.jpg"),
-      assetUrl("/images/hotel-gallery-2.jpg"),
-      assetUrl("/images/hotel-gallery-3.jpg"),
-      assetUrl("/images/hotel-gallery-4.jpg"),
+      assetUrl("/images/hotel-gallery-1.webp"),
+      assetUrl("/images/hotel-gallery-2.webp"),
+      assetUrl("/images/hotel-gallery-3.webp"),
+      assetUrl("/images/hotel-gallery-4.webp"),
     ],
   },
 
   rooms: {
-    pattern: assetUrl("/images/rooms-section-pattern.png"),
+    pattern: assetUrl("/images/rooms-section-pattern.webp"),
     private: assetUrl("/images/room-private.svg"),
     privatePlus: assetUrl("/images/room-private-plus.svg"),
     vip: assetUrl("/images/room-vip.svg"),
@@ -53,8 +49,8 @@ export const assets = {
     superVip: assetUrl("/images/room-super-vip.svg"),
   },
 
-  roomPrivate: assetUrl("/images/room-private.svg"),
-  hotelPrivate: assetUrl("/images/privat%20hotel.svg"),
+  roomPrivate: assetUrl("/images/room-private.jpg"),
+  hotelPrivate: assetUrl("/images/room-private-plus.jpg"),
 
   stepIcons: {
     format: assetUrl("/images/icon-step-format.png"),
@@ -63,14 +59,14 @@ export const assets = {
     play: assetUrl("/images/icon-step-play.png"),
   },
 
-  iconUser: assetUrl("/images/icon-user.png"),
-  iconPhone: assetUrl("/images/icon-phone.png"),
-  iconTelegram: assetUrl("/images/icon-telegram.png"),
+  iconUser: assetUrl("/images/logo.png"),
+  iconPhone: assetUrl("/images/icon-phone.webp"),
+  iconTelegram: assetUrl("/images/icon-telegram.webp"),
   iconParking: assetUrl("/images/icon-parking.svg"),
-  iconCheck: assetUrl("/images/icon-check.png"),
-  iconMonitor: assetUrl("/images/icon-monitor.png"),
-  iconGpu: assetUrl("/images/icon-gpu.png"),
-  iconCpu: assetUrl("/images/icon-cpu.png"),
+  iconCheck: assetUrl("/images/icon-check.webp"),
+  iconMonitor: assetUrl("/images/icon-monitor.webp"),
+  iconGpu: assetUrl("/images/icon-gpu.webp"),
+  iconCpu: assetUrl("/images/icon-cpu.webp"),
 
-  formatsSectionPattern: assetUrl("/images/formats-section-pattern.png"),
+  formatsSectionPattern: assetUrl("/images/formats-section-pattern.webp"),
 } as const;
