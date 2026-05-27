@@ -1,10 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import dynamic from "next/dynamic";
+import { useCallback, useState } from "react";
 
-import { DigitalMenuModal } from "@/components/menu/digital-menu-modal";
 import { menuImages, type MenuImageSet } from "@/lib/menu-images";
 import { cn } from "@/lib/utils";
+
+const DigitalMenuModal = dynamic(
+  () =>
+    import("@/components/menu/digital-menu-modal").then((m) => ({
+      default: m.DigitalMenuModal,
+    })),
+  { ssr: false },
+);
 
 const MENU_BUTTONS = [
   {
@@ -25,8 +33,19 @@ type RestaurantMenuActionsProps = {
   className?: string;
 };
 
+function preloadMenuImages(id: MenuImageSet) {
+  for (const url of menuImages[id]) {
+    const img = new Image();
+    img.src = url;
+  }
+}
+
 export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps) {
   const [activeMenu, setActiveMenu] = useState<MenuImageSet | null>(null);
+
+  const warmMenu = useCallback((id: MenuImageSet) => {
+    preloadMenuImages(id);
+  }, []);
 
   return (
     <>
@@ -36,6 +55,8 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
             key={button.id}
             type="button"
             onClick={() => setActiveMenu(button.id)}
+            onMouseEnter={() => warmMenu(button.id)}
+            onFocus={() => warmMenu(button.id)}
             aria-label={`${button.labelEn} — ${button.labelRu}`}
             className={cn(
               "flex min-h-[52px] min-w-[140px] flex-1 flex-col items-center justify-center gap-0.5",

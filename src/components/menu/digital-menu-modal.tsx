@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
+import { usePreloadImages } from "@/hooks/use-preload-images";
 import { cn } from "@/lib/utils";
 
 const oswald = Oswald({
@@ -12,7 +13,7 @@ const oswald = Oswald({
   weight: ["400", "500", "600"],
 });
 
-const ZOOM_SCALE = 2.5;
+const ZOOM_SCALE = 2;
 const SWIPE_THRESHOLD = 48;
 const DRAG_THRESHOLD = 6;
 
@@ -36,6 +37,9 @@ export function DigitalMenuModal({
   const [isDragging, setIsDragging] = useState(false);
   const [slideDirection, setSlideDirection] = useState<1 | -1>(1);
   const [slideEnabled, setSlideEnabled] = useState(false);
+  const [firstPageReady, setFirstPageReady] = useState(false);
+
+  usePreloadImages(images, isOpen);
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const panRef = useRef({ x: 0, y: 0 });
@@ -63,6 +67,7 @@ export function DigitalMenuModal({
   useEffect(() => {
     if (!isOpen) return;
     setPage(0);
+    setFirstPageReady(false);
     resetView();
     setShowZoomHint(true);
     setSlideEnabled(false);
@@ -255,20 +260,6 @@ export function DigitalMenuModal({
         onClick={onClose}
       />
 
-      <button
-        type="button"
-        onClick={onClose}
-        aria-label="Close menu"
-        className={cn(
-          "absolute right-3 top-3 z-30 flex size-11 items-center justify-center rounded-full",
-          "border border-white/20 bg-black/65 text-white shadow-lg backdrop-blur-md",
-          "transition-colors hover:bg-black/80",
-          "sm:right-6 sm:top-6",
-        )}
-      >
-        <X className="size-5" strokeWidth={1.9} />
-      </button>
-
       <div
         className={cn(
           "relative z-10 mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col overflow-hidden",
@@ -331,20 +322,23 @@ export function DigitalMenuModal({
             )}
 
             <div
-              className={cn(
-                "flex w-full p-3 sm:p-5 md:p-6",
-                isZoomed
-                  ? "h-full min-h-full items-center justify-center"
-                  : "min-h-full items-start justify-center",
-              )}
+              className="relative flex h-full min-h-0 w-full items-center justify-center p-3 sm:p-5 md:p-6"
               style={{ backgroundColor: imageBackgroundColor }}
             >
+              {!firstPageReady && (
+                <div
+                  className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
+                  aria-hidden
+                >
+                  <div className="size-8 animate-spin rounded-full border-2 border-white/20 border-t-white/80" />
+                </div>
+              )}
               <div
                 key={page}
                 className={cn(
-                  "relative w-full max-w-full",
+                  "relative h-full w-full max-h-full max-w-full",
                   isZoomed
-                    ? "h-full max-h-full touch-none cursor-grab active:cursor-grabbing"
+                    ? "touch-none cursor-grab active:cursor-grabbing"
                     : "cursor-zoom-in",
                   slideEnabled &&
                     !isZoomed &&
@@ -367,16 +361,14 @@ export function DigitalMenuModal({
                 <Image
                   src={images[page]}
                   alt={`Menu page ${page + 1} of ${total}`}
-                  width={720}
-                  height={903}
-                  className={cn(
-                    "h-auto w-full max-w-full select-none object-contain",
-                    isZoomed && "h-full",
-                  )}
+                  fill
+                  className="object-contain select-none"
                   sizes="(max-width: 768px) 100vw, 80vw"
-                  unoptimized
                   draggable={false}
                   priority={page === 0}
+                  onLoad={() => {
+                    if (page === 0) setFirstPageReady(true);
+                  }}
                 />
               </div>
             </div>
@@ -389,20 +381,10 @@ export function DigitalMenuModal({
           />
         </div>
 
-        <footer className="flex shrink-0 items-center justify-between border-t border-white/10 px-4 py-3 md:hidden">
+        <footer className="flex shrink-0 items-center border-t border-white/10 px-4 py-3 md:hidden">
           <p className="text-sm text-white/70">
             Page {page + 1} of {total}
           </p>
-          <button
-            type="button"
-            onClick={onClose}
-            className={cn(
-              "text-sm font-medium uppercase tracking-wider text-white transition-opacity hover:opacity-80",
-              oswald.className,
-            )}
-          >
-            Close
-          </button>
         </footer>
       </div>
     </div>

@@ -89,6 +89,8 @@ function RoomCardItem({ room }: { room: RoomCard }) {
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 433px"
+          loading="lazy"
+          fetchPriority="low"
         />
         {images.length > 1 && (
           <div className="absolute bottom-3 right-3 flex gap-1">

@@ -14,8 +14,8 @@ export const assets = {
   /** Figma Group 383 — chevron step bar background */
   featureBarBg: assetUrl("/images/feature-bar-bg.webp"),
 
-  restaurantFood: assetUrl("/images/burger.svg"),
-  restaurantDrink: assetUrl("/images/drink.svg"),
+  restaurantFood: assetUrl("/images/burger.webp"),
+  restaurantDrink: assetUrl("/images/drink.webp"),
 
   promoHookah: assetUrl("/images/promo-hookah.webp"),
 
@@ -31,11 +31,11 @@ export const assets = {
 
   rooms: {
     pattern: assetUrl("/images/rooms-section-pattern.webp"),
-    private: assetUrl("/images/room-private.svg"),
-    privatePlus: assetUrl("/images/room-private-plus.svg"),
-    vip: assetUrl("/images/room-vip.svg"),
-    stream: assetUrl("/images/room-stream.svg"),
-    superVip: assetUrl("/images/room-super-vip.svg"),
+    private: assetUrl("/images/room-private-card.webp"),
+    privatePlus: assetUrl("/images/room-private-plus-card.webp"),
+    vip: assetUrl("/images/room-vip-card.webp"),
+    stream: assetUrl("/images/room-stream-card.webp"),
+    superVip: assetUrl("/images/room-super-vip-card.webp"),
   },
 
   roomPrivate: assetUrl("/images/room-private.webp"),
