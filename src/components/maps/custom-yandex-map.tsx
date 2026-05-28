@@ -1,157 +1,131 @@
 "use client";
 
-import Script from "next/script";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { assets } from "@/lib/assets";
-import { CONTACTS } from "@/lib/data";
+import { loadYandexMaps } from "@/lib/load-yandex-maps";
 import { parseYandexMapWidgetUrl } from "@/lib/parse-yandex-map-url";
 import { cn } from "@/lib/utils";
 
-const GROUND_FILTER =
-  "invert(100%) hue-rotate(180deg) brightness(85%) contrast(90%)";
+const LOGO_SIZE: [number, number] = [60, 60];
+const LOGO_OFFSET: [number, number] = [-30, -30];
+
+/** Dark basemap via ground-pane tile inversion (keeps markers/controls normal). */
+const GROUND_PANE_FILTER =
+  "invert(100%) hue-rotate(180deg) brightness(90%) contrast(110%)";
 
 type CustomYandexMapProps = {
-  embedUrl?: string;
+  embedUrl: string;
   className?: string;
-  logoSrc?: string;
+  logoHref?: string;
 };
 
-function buildBalloonHtml() {
-  return [
-    '<div style="font-family:system-ui,sans-serif;line-height:1.4;max-width:240px">',
-    '<strong style="display:block;margin-bottom:6px;font-size:15px">AVULUS</strong>',
-    `<p style="margin:0 0 12px;font-size:13px;color:#333">${CONTACTS.address}</p>`,
-    `<a href="${CONTACTS.mapRouteUrl}" target="_blank" rel="noopener noreferrer" style="color:#c00;font-size:13px;text-decoration:underline">Построить маршрут</a>`,
-    ' · ',
-    `<a href="${CONTACTS.mapRouteUrl}" target="_blank" rel="noopener noreferrer" style="color:#c00;font-size:13px;text-decoration:underline">Открыть в Яндекс Картах</a>`,
-    "</div>",
-  ].join("");
+function toAbsoluteAssetUrl(href: string): string {
+  if (/^https?:\/\//i.test(href)) {
+    return href;
+  }
+  return new URL(href, window.location.origin).href;
 }
 
-function YandexMapFallback({
-  zoom,
-  lon,
-  lat,
-  className,
-}: {
-  zoom: number;
-  lon: number;
-  lat: number;
-  className?: string;
-}) {
-  const oid = CONTACTS.mapOrgOid;
-  const src = `https://yandex.ru/map-widget/v1/?oid=${oid}&ll=${lon}%2C${lat}&z=${zoom}`;
-
-  return (
-    <div
-      className={cn(
-        "relative h-[278px] w-full max-w-[433px] overflow-hidden rounded-none bg-[#1a1a1a]",
-        className,
-      )}
-    >
-      <iframe
-        src={src}
-        title="Карта Avulus"
-        className="h-full w-full border-0"
-        style={{ filter: GROUND_FILTER }}
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      />
-    </div>
-  );
+function applyDarkGroundPane(map: ymaps.Map): void {
+  const ground = map.panes.get("ground").getElement();
+  if (ground) {
+    ground.style.filter = GROUND_PANE_FILTER;
+  }
 }
 
 export function CustomYandexMap({
-  embedUrl = CONTACTS.mapEmbedUrl,
+  embedUrl,
   className,
-  logoSrc = assets.logo,
+  logoHref = assets.logo,
 }: CustomYandexMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<ymaps.Map | null>(null);
-  const [apiLoaded, setApiLoaded] = useState(false);
-
-  const apiKey = process.env.NEXT_PUBLIC_YANDEX_MAPS_API_KEY;
-  const { lon, lat, zoom } = parseYandexMapWidgetUrl(embedUrl);
-  const balloonBody = useMemo(() => buildBalloonHtml(), []);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!apiKey || !apiLoaded || !containerRef.current || !window.ymaps) {
+    const container = containerRef.current;
+    if (!container) {
       return;
     }
 
     let cancelled = false;
 
-    window.ymaps.ready(() => {
-      if (cancelled || !containerRef.current) return;
+    void (async () => {
+      try {
+        setError(null);
+        const { lon, lat, zoom } = parseYandexMapWidgetUrl(embedUrl);
+        const ymapsApi = await loadYandexMaps();
 
-      mapRef.current?.destroy();
+        if (cancelled) {
+          return;
+        }
 
-      const map = new window.ymaps.Map(
-        containerRef.current,
-        {
-          center: [lat, lon],
-          zoom,
-          controls: ["zoomControl"],
-        },
-        { suppressMapOpenBlock: true },
-      );
+        mapRef.current?.destroy();
+        mapRef.current = null;
 
-      map.behaviors.disable("scrollZoom");
+        const map = new ymapsApi.Map(
+          container,
+          {
+            center: [lat, lon],
+            zoom,
+            controls: ["zoomControl"],
+          },
+          {
+            suppressMapOpenBlock: true,
+          },
+        );
 
-      const iconHref = logoSrc.startsWith("http")
-        ? logoSrc
-        : `${window.location.origin}${logoSrc}`;
+        applyDarkGroundPane(map);
 
-      const placemark = new window.ymaps.Placemark(
-        [lat, lon],
-        {
-          balloonContentBody: balloonBody,
-          hintContent: "AVULUS CYBER HOTEL",
-        },
-        {
-          iconLayout: "default#image",
-          iconImageHref: iconHref,
-          iconImageSize: [56, 56],
-          iconImageOffset: [-28, -56],
-          openBalloonOnClick: true,
-        },
-      );
+        const placemark = new ymapsApi.Placemark(
+          [lat, lon],
+          {},
+          {
+            iconLayout: "default#image",
+            iconImageHref: toAbsoluteAssetUrl(logoHref),
+            iconImageSize: LOGO_SIZE,
+            iconImageOffset: LOGO_OFFSET,
+            openBalloonOnClick: false,
+          },
+        );
 
-      map.geoObjects.add(placemark);
-      mapRef.current = map;
-    });
+        map.geoObjects.add(placemark);
+        mapRef.current = map;
+      } catch (cause) {
+        if (!cancelled) {
+          setError(
+            cause instanceof Error ? cause.message : "Не удалось загрузить карту",
+          );
+        }
+      }
+    })();
 
     return () => {
       cancelled = true;
       mapRef.current?.destroy();
       mapRef.current = null;
     };
-  }, [apiKey, apiLoaded, lat, lon, zoom, logoSrc, balloonBody]);
-
-  if (!apiKey) {
-    return (
-      <YandexMapFallback zoom={zoom} lon={lon} lat={lat} className={className} />
-    );
-  }
+  }, [embedUrl, logoHref]);
 
   return (
-    <>
-      <Script
-        src={`https://api-maps.yandex.ru/2.1/?apikey=${apiKey}&lang=ru_RU`}
-        strategy="lazyOnload"
-        onLoad={() => setApiLoaded(true)}
-      />
+    <div
+      className={cn(
+        "relative h-[min(100%,320px)] min-h-[240px] w-full max-w-[518px] overflow-hidden bg-[#1a1a1a]",
+        className,
+      )}
+    >
       <div
         ref={containerRef}
-        className={cn(
-          "h-[278px] w-full max-w-[433px] overflow-hidden rounded-none bg-[#1a1a1a]",
-          className,
-        )}
-        style={{ filter: GROUND_FILTER }}
+        className="absolute inset-0"
         role="application"
-        aria-label="Интерактивная карта Avulus"
+        aria-label="Карта расположения Avulus Cyber Space"
       />
-    </>
+      {error ? (
+        <p className="absolute inset-0 flex items-center justify-center bg-black/80 px-4 text-center text-sm text-white/80">
+          {error}
+        </p>
+      ) : null}
+    </div>
   );
 }

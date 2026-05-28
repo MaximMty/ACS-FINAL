@@ -1,32 +1,60 @@
 declare namespace ymaps {
-  interface IMap {
-    destroy(): void;
-    behaviors: { disable(behavior: string): void };
-    geoObjects: { add(object: Placemark): void };
-    panes: {
-      get(name: string): { getElement(): HTMLElement | null } | null;
-    };
+  interface IMapState {
+    center?: number[];
+    zoom?: number;
+    controls?: string[];
   }
 
-  class Map implements IMap {
+  interface IMapOptions {
+    suppressMapOpenBlock?: boolean;
+  }
+
+  interface IPlacemarkProperties {
+    balloonContentBody?: string;
+    hintContent?: string;
+  }
+
+  interface IPlacemarkOptions {
+    iconLayout?: string;
+    iconImageHref?: string;
+    iconImageSize?: number[];
+    iconImageOffset?: number[];
+    openBalloonOnClick?: boolean;
+  }
+
+  interface IBehavior {
+    disable(behavior: string): void;
+  }
+
+  interface IGeoObjectCollection {
+    add(geoObject: Placemark): void;
+  }
+
+  interface IPane {
+    getElement(): HTMLElement | null;
+  }
+
+  interface IPaneManager {
+    get(name: string): IPane;
+  }
+
+  class Map {
     constructor(
       parentElement: HTMLElement | string,
-      state: { center: number[]; zoom: number; controls?: string[] },
-      options?: Record<string, unknown>,
+      state: IMapState,
+      options?: IMapOptions,
     );
+    behaviors: IBehavior;
+    geoObjects: IGeoObjectCollection;
+    panes: IPaneManager;
     destroy(): void;
-    behaviors: { disable(behavior: string): void };
-    geoObjects: { add(object: Placemark): void };
-    panes: {
-      get(name: string): { getElement(): HTMLElement | null } | null;
-    };
   }
 
   class Placemark {
     constructor(
       geometry: number[],
-      properties?: Record<string, unknown>,
-      options?: Record<string, unknown>,
+      properties?: IPlacemarkProperties,
+      options?: IPlacemarkOptions,
     );
   }
 
@@ -34,5 +62,5 @@ declare namespace ymaps {
 }
 
 interface Window {
-  ymaps: typeof ymaps;
+  ymaps?: typeof ymaps;
 }
