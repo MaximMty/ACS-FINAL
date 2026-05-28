@@ -125,12 +125,12 @@ export default function HotelPage() {
             <div className="grid gap-6 lg:grid-cols-2">
               {[
                 {
-                  image: assets.roomPrivate,
+                  image: assets.hotelGallery.main,
                   description:
                     "PRIVATE в AVULUS CYBER HOTEL — это приватное пространство для отдыха после игры: мягкий свет, тишина и продуманная атмосфера premium-уровня. В номере есть все необходимое для комфортного stay, чтобы переключиться, восстановиться и продолжить ночь в своем ритме.",
                 },
                 {
-                  image: assets.hotelPrivate,
+                  image: assets.hotelGallery.thumbs[1],
                   description:
                     "Вторая категория PRIVATE создана для более длительного размещения: больше уюта, больше личного пространства и тот же фирменный AVULUS стиль. Идеальный вариант, если нужен спокойный номер с cyberpunk-настроением в центре Москвы.",
                 },

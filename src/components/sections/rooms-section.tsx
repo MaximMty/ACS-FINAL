@@ -2,17 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 import { Container } from "@/components/avulus/container";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { assets } from "@/lib/assets";
 import { ROOM_CARDS, ROOM_PROMO, type RoomCard } from "@/lib/data";
 import { bookButtonFullClass } from "@/lib/cta-styles";
@@ -34,21 +27,6 @@ export function RoomsSection() {
         <h2 className="mb-8 text-3xl font-black uppercase tracking-tight text-white sm:mb-10 sm:text-4xl lg:text-[51px] lg:leading-none">
           Выбирай свою комнату
         </h2>
-
-        <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:flex-wrap sm:items-end">
-          <FilterSelect label="Формат" defaultValue="any" placeholder="Любой" />
-          <FilterSelect
-            label="Вместимость"
-            defaultValue="any"
-            placeholder="Любая"
-          />
-          <button
-            type="button"
-            className="flex h-[50px] min-w-[206px] items-center justify-center border border-white bg-black px-5 text-sm font-normal uppercase text-white transition-opacity hover:opacity-80"
-          >
-            × Сбросить
-          </button>
-        </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {ROOM_CARDS.map((room) => (
@@ -199,36 +177,5 @@ function CarouselButton({
     >
       {children}
     </button>
-  );
-}
-
-function FilterSelect({
-  label,
-  defaultValue,
-  placeholder,
-}: {
-  label: string;
-  defaultValue: string;
-  placeholder: string;
-}) {
-  return (
-    <label className="flex flex-col gap-2">
-      <span className="text-xs font-normal uppercase tracking-wide text-white">
-        {label}
-      </span>
-      <Select defaultValue={defaultValue}>
-        <SelectTrigger className="h-[50px] w-full min-w-[239px] rounded-none border border-white bg-black px-4 text-sm font-normal uppercase text-white shadow-none data-[placeholder]:text-white [&_svg]:hidden">
-          <SelectValue placeholder={placeholder} />
-          <ChevronDown
-            className="pointer-events-none ml-auto size-4 shrink-0 text-white"
-            strokeWidth={1.5}
-            aria-hidden
-          />
-        </SelectTrigger>
-        <SelectContent className="rounded-none border-white/30 bg-black text-white">
-          <SelectItem value="any">{placeholder}</SelectItem>
-        </SelectContent>
-      </Select>
-    </label>
   );
 }
