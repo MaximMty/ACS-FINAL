@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+
+import { ExternalCta } from "@/components/ui/external-cta";
+import { CTAS } from "@/lib/ctas";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
@@ -115,9 +118,12 @@ function RoomCardItem({ room }: { room: RoomCard }) {
             </span>
           </p>
 
-          <Link href="#book" className={cn(bookButtonFullClass, "mt-4")}>
-            Забронировать
-          </Link>
+          <ExternalCta
+            href={CTAS.langame.url}
+            className={cn(bookButtonFullClass, "mt-4")}
+          >
+            {CTAS.langame.label}
+          </ExternalCta>
         </div>
       </div>
     </article>

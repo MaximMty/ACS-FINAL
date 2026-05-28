@@ -5,12 +5,14 @@ import { Container } from "@/components/avulus/container";
 import { figmaCtaCorners } from "@/lib/cta-styles";
 import { CustomYandexMap } from "@/components/maps/custom-yandex-map";
 import { assets } from "@/lib/assets";
+import { ExternalCta } from "@/components/ui/external-cta";
+import { CTAS } from "@/lib/ctas";
 import { CONTACTS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 export function ContactsSection() {
   const routeHref = CONTACTS.mapRouteUrl;
-  const phoneHref = `tel:${CONTACTS.phone.replace(/\s/g, "")}`;
+  const phoneHref = CONTACTS.phoneHref;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -56,17 +58,37 @@ export function ContactsSection() {
               {CONTACTS.hours}
             </p>
 
-            <Link
-              href={routeHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                figmaCtaCorners,
-                "mt-8 inline-flex h-[52px] min-w-[240px] items-center justify-center border border-white px-6 text-xs font-medium uppercase tracking-wider text-white transition-colors hover:bg-white hover:text-black sm:text-sm",
-              )}
-            >
-              {CONTACTS.routeLabel}
-            </Link>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ExternalCta
+                href={CONTACTS.telegramUrl}
+                className={cn(
+                  figmaCtaCorners,
+                  "inline-flex h-[52px] min-w-[200px] items-center justify-center bg-avulus-red px-6 text-xs font-medium uppercase tracking-wider text-white transition-colors hover:bg-avulus-red-dark sm:text-sm",
+                )}
+              >
+                {CTAS.telegram.label}
+              </ExternalCta>
+              <ExternalCta
+                href={phoneHref}
+                className={cn(
+                  figmaCtaCorners,
+                  "inline-flex h-[52px] min-w-[160px] items-center justify-center border border-white px-6 text-xs font-medium uppercase tracking-wider text-white transition-colors hover:bg-white hover:text-black sm:text-sm",
+                )}
+              >
+                {CTAS.phone.label}
+              </ExternalCta>
+              <Link
+                href={routeHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  figmaCtaCorners,
+                  "inline-flex h-[52px] min-w-[200px] items-center justify-center border border-white/50 px-6 text-xs font-medium uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white/10 sm:text-sm",
+                )}
+              >
+                {CONTACTS.routeLabel}
+              </Link>
+            </div>
           </div>
         </div>
 

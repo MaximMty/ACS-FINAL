@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { assets } from "@/lib/assets";
+import { CTAS } from "@/lib/ctas";
 import { CONTACTS } from "@/lib/data";
 
 function FloatingIcon({ src, alt }: { src: string; alt: string }) {
@@ -29,9 +30,9 @@ export function FloatingActions() {
       aria-label="Быстрые действия"
     >
       <Link
-        href={`tel:${CONTACTS.phone.replace(/\s/g, "")}`}
+        href={CONTACTS.phoneHref}
         className="flex size-[clamp(56px,4.86vw,70px)] items-center justify-center rounded-full bg-white transition-transform hover:scale-105"
-        aria-label="Позвонить"
+        aria-label={CTAS.phone.label}
       >
         <FloatingIcon src={assets.iconPhone} alt="" />
       </Link>
@@ -40,7 +41,7 @@ export function FloatingActions() {
         target="_blank"
         rel="noopener noreferrer"
         className="flex size-[clamp(56px,4.86vw,70px)] items-center justify-center rounded-full bg-white transition-transform hover:scale-105"
-        aria-label="Telegram"
+        aria-label={CTAS.telegram.labelShort}
       >
         <FloatingIcon src={assets.iconTelegram} alt="" />
       </Link>

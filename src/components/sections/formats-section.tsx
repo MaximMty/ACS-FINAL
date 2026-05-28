@@ -127,7 +127,7 @@ function FormatCardItem({ card }: { card: FormatCard }) {
       <div className="relative mt-auto flex flex-col gap-3 px-6 pb-6 pt-4 sm:px-8">
         {card.ctaPrimary && (
           <Link
-            href={isHotel ? "/hotel" : "#rooms"}
+            href={isHotel ? "/hotel#book" : "#rooms"}
             className={cn(
               figmaCtaCorners,
               "flex h-[60px] items-center justify-center text-sm font-medium uppercase transition-opacity hover:opacity-90",

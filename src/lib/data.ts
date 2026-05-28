@@ -1,4 +1,5 @@
 import { assets } from "@/lib/assets";
+import { CTAS } from "@/lib/ctas";
 
 export const NAV_LINKS = [
   { label: "Форматы", href: "/#formats" },
@@ -168,8 +169,11 @@ export const HOTEL_LOCATION = [
 ] as const;
 
 export const CONTACTS = {
-  phone: "+7 (495) 157-39-92",
-  telegramUrl: "https://t.me/avulus",
+  phone: CTAS.phone.display,
+  phoneHref: CTAS.phone.href,
+  telegramUrl: CTAS.telegram.url,
+  vkUrl: CTAS.vk.url,
+  langameBookingUrl: CTAS.langame.url,
   address: "Москва, Серебрянический переулок, 12с1",
   parking: "Бесплатная парковка",
   hours: "Открыты 24/7",

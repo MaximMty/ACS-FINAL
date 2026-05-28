@@ -5,6 +5,8 @@ import { Container } from "@/components/avulus/container";
 import { NavSectionLink } from "@/components/layout/nav-section-link";
 import { assets } from "@/lib/assets";
 import { figmaCtaCorners } from "@/lib/cta-styles";
+import { ExternalCta } from "@/components/ui/external-cta";
+import { CTAS } from "@/lib/ctas";
 import { NAV_LINKS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -57,8 +59,8 @@ export function SiteHeader({
           ))}
         </nav>
 
-        <NavSectionLink
-          href="/#book"
+        <ExternalCta
+          href={CTAS.langame.url}
           className={cn(
             figmaCtaCorners,
             "inline-flex shrink-0 items-center justify-center uppercase leading-none transition-opacity hover:opacity-90",
@@ -67,8 +69,8 @@ export function SiteHeader({
               : "h-[60px] w-[268px] bg-avulus-red text-[21px] font-medium text-white transition-colors hover:bg-avulus-red-dark max-lg:h-[48px] max-lg:w-[140px] max-lg:text-xs",
           )}
         >
-          Забронировать
-        </NavSectionLink>
+          {CTAS.langame.label}
+        </ExternalCta>
       </Container>
     </header>
   );

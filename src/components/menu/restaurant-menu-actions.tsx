@@ -3,6 +3,8 @@
 import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
+import { ExternalCta } from "@/components/ui/external-cta";
+import { CTAS } from "@/lib/ctas";
 import { menuImages, type MenuImageSet } from "@/lib/menu-images";
 import { cn } from "@/lib/utils";
 
@@ -49,7 +51,8 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
 
   return (
     <>
-      <div className={cn("flex flex-wrap gap-3 sm:max-w-lg", className)}>
+      <div className={cn("flex flex-col gap-3 sm:max-w-lg", className)}>
+        <div className="flex flex-wrap gap-3">
         {MENU_BUTTONS.map((button) => (
           <button
             key={button.id}
@@ -74,6 +77,18 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
             </span>
           </button>
         ))}
+        </div>
+        <ExternalCta
+          href={CTAS.vk.url}
+          className={cn(
+            "inline-flex min-h-[48px] items-center justify-center self-start",
+            "rounded-full border border-white/25 px-6 py-2.5",
+            "text-xs font-semibold uppercase tracking-wide text-white/90",
+            "transition-colors hover:border-white hover:bg-white hover:text-black sm:text-sm",
+          )}
+        >
+          {CTAS.vk.label}
+        </ExternalCta>
       </div>
 
       {MENU_BUTTONS.map((button) => (

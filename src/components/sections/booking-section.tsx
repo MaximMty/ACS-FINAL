@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { ChangeEvent, FormEvent, ReactNode, useMemo, useState } from "react";
 
 import { Container } from "@/components/avulus/container";
+import { CTAS, telegramBookingUrl } from "@/lib/ctas";
 import { bookButtonFullClass } from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
 
@@ -136,7 +137,18 @@ export function BookingSection({
     setIsSubmitting(true);
     setIsSuccess(false);
 
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    const roomName =
+      rooms.find((room) => room.id === values.room)?.name ?? values.room;
+
+    const telegramUrl = telegramBookingUrl({
+      room: roomName,
+      date: values.date,
+      time: values.time,
+      name: values.name,
+      contact: values.contact,
+    });
+
+    window.open(telegramUrl, "_blank", "noopener,noreferrer");
 
     setIsSubmitting(false);
     setIsSuccess(true);
@@ -252,7 +264,7 @@ export function BookingSection({
                     Отправляем...
                   </span>
                 ) : (
-                  "Забронировать"
+                  CTAS.telegram.label
                 )}
               </button>
 
@@ -261,7 +273,7 @@ export function BookingSection({
                   className="border border-avulus-green/35 bg-avulus-green/10 px-4 py-3 text-sm text-avulus-green"
                   role="status"
                 >
-                  Заявка отправлена. Мы скоро свяжемся с вами для подтверждения.
+                  Открыли Telegram — отправьте сообщение, чтобы подтвердить бронь.
                 </p>
               )}
             </div>
