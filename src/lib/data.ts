@@ -38,7 +38,7 @@ export const FORMAT_CARDS: FormatCard[] = [
     title: "СОЛО",
     subtitle: "1 ИГРОК",
     description: "Для одиночной игры, фокуса или отдыха",
-    price: { prefix: "от", amount: "299₽", suffix: "/час" },
+    price: { prefix: "от", amount: "299", suffix: "/час" },
     variant: "light",
     buttonVariant: "filled",
     ctaPrimary: "Выбрать комнату",
@@ -48,7 +48,7 @@ export const FORMAT_CARDS: FormatCard[] = [
     title: "ТИМ",
     subtitle: "2–5 ИГРОКОВ",
     description: "Для игры с друзьями и буткемпов",
-    price: { prefix: "от", amount: "299₽", suffix: "/час" },
+    price: { prefix: "от", amount: "299", suffix: "/час" },
     variant: "light",
     buttonVariant: "outline",
     ctaPrimary: "Выбрать комнату",
@@ -56,9 +56,9 @@ export const FORMAT_CARDS: FormatCard[] = [
   {
     id: "stream",
     title: "СТРИМ",
-    subtitle: "1–2 ИГРОКА",
+    subtitle: "1 ИГРОК",
     description: "Для стрима и записи контента",
-    price: { prefix: "от", amount: "299₽", suffix: "/час" },
+    price: { prefix: "от", amount: "299", suffix: "/час" },
     variant: "light",
     buttonVariant: "outline",
     ctaPrimary: "Выбрать комнату",
@@ -92,7 +92,7 @@ export const ROOM_CARDS: RoomCard[] = [
       gpu: "RTX 4060",
       cpu: "i5-12400F",
     },
-    price: { prefix: "от", amount: "3000₽", suffix: "/ час" },
+    price: { prefix: "от", amount: "290", suffix: "/ час" },
   },
   {
     id: "private-plus",
@@ -103,18 +103,7 @@ export const ROOM_CARDS: RoomCard[] = [
       gpu: "RTX 5070",
       cpu: "i5-12400F",
     },
-    price: { prefix: "от", amount: "3000₽", suffix: "/ час" },
-  },
-  {
-    id: "vip",
-    name: "VIP",
-    images: [assets.rooms.vip],
-    specs: {
-      monitor: 'Alienware 24" 360Hz',
-      gpu: "RTX 4080 Super",
-      cpu: "AMD Ryzen 7 9800x3d",
-    },
-    price: { prefix: "от", amount: "3000₽", suffix: "/ час" },
+    price: { prefix: "от", amount: "410", suffix: "/ час" },
   },
   {
     id: "stream",
@@ -125,7 +114,18 @@ export const ROOM_CARDS: RoomCard[] = [
       gpu: "RTX 5070 - 4070 Super",
       cpu: "i5-13500",
     },
-    price: { prefix: "от", amount: "3000₽", suffix: "/ час" },
+    price: { prefix: "от", amount: "525", suffix: "/ час" },
+  },
+  {
+    id: "vip",
+    name: "VIP",
+    images: [assets.rooms.vip],
+    specs: {
+      monitor: 'Alienware 24" 360Hz',
+      gpu: "RTX 4080 Super",
+      cpu: "AMD Ryzen 7 9800x3d",
+    },
+    price: { prefix: "от", amount: "680", suffix: "/ час" },
   },
   {
     id: "super-vip",
@@ -136,7 +136,7 @@ export const ROOM_CARDS: RoomCard[] = [
       gpu: "RTX 5080",
       cpu: "i9-14900KF",
     },
-    price: { prefix: "от", amount: "3000₽", suffix: "/ час" },
+    price: { prefix: "от", amount: "12500", suffix: "/ час" },
   },
 ];
 
@@ -185,7 +185,7 @@ export const CONTACTS = {
 };
 
 export const HOTEL_DESCRIPTION = [
-  "AVULUS HOTEL — это cyber hotel в центре Москвы с круглосуточным форматом размещения и современной digital atmosphere. Гости могут остановиться на несколько часов, остаться на ночь или провести полноценный stay с доступом ко всей инфраструктуре комплекса.",
+  "AVULUS HOTEL — это cyber hotel в центре Москвы с круглосуточным форматом размещения и современной цифровой атмосферой. Гости могут остановиться на несколько часов, остаться на ночь или провести полноценный отдых с доступом ко всей инфраструктуре комплекса.",
   "На территории работает ресторан с возможностью доставки еды и напитков прямо в номер, а также доступен бесплатный Wi-Fi на всей территории отеля. Для гостей предусмотрена бесплатная парковка и круглосуточная стойка регистрации.",
   "Отель расположен рядом с НИУ ВШЭ и подходит как для отдыха, так и для комфортного размещения после работы, учебы, игр или ночных встреч.",
 ];

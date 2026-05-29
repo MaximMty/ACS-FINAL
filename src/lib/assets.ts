@@ -11,6 +11,10 @@ export const assets = {
   heroBg: assetUrl("/images/hero-bg.webp"),
   heroTitleComposite: assetUrl("/images/hero-title-composite-v4.webp"),
 
+  /** Hotel page nav — AVULUS + ОТЕЛЬ (exported from Figma) */
+  hotelNavAvulus: assetUrl("/images/hotel-nav-avulus.png"),
+  hotelNavOtel: assetUrl("/images/hotel-nav-otel.png"),
+
   /** Figma Group 383 — chevron step bar background */
   featureBarBg: assetUrl("/images/feature-bar-bg.webp"),
 

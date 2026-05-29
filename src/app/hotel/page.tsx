@@ -1,16 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Check, ChevronLeft } from "lucide-react";
+import { Check } from "lucide-react";
 
 import { Container } from "@/components/avulus/container";
 import { FloatingActions } from "@/components/layout/floating-actions";
-import { SiteHeader } from "@/components/layout/site-header";
+import { HotelHeader, HotelPageIntro } from "@/components/layout/hotel-header";
 import { BookingSection } from "@/components/sections/booking-section";
 import { ContactsSection } from "@/components/sections/contacts-section";
 import { assets } from "@/lib/assets";
 import { bookButtonFullClass } from "@/lib/cta-styles";
 import {
-  CONTACTS,
   HOTEL_DESCRIPTION,
   HOTEL_LOCATION,
   HOTEL_SERVICES,
@@ -21,28 +20,12 @@ import { cn } from "@/lib/utils";
 export default function HotelPage() {
   return (
     <>
-      <SiteHeader variant="solid" logoSuffix="ОТЕЛЬ" />
+      <HotelHeader />
       <FloatingActions />
 
-      <main className="bg-avulus-black pt-8">
-        <Container>
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-sm uppercase text-white/80 hover:text-white"
-            >
-              <ChevronLeft className="size-4" />
-              Назад
-            </Link>
-            <p className="flex items-baseline gap-2 text-white">
-              <span className="text-sm font-medium uppercase">от</span>
-              <span className="text-[clamp(1.75rem,3vw,2.5rem)] font-black text-avulus-red">299₽</span>
-              <span className="text-sm font-medium uppercase text-white/70">/ час</span>
-            </p>
-          </div>
-
-          <p className="mb-8 text-sm text-white/70">{CONTACTS.address}</p>
-
+      <main className="bg-black">
+        <HotelPageIntro />
+        <Container className="bg-black">
           {/* Gallery */}
           <div className="grid gap-4 lg:grid-cols-12">
             <div className="relative aspect-[668/533] overflow-hidden lg:col-span-7">
@@ -91,7 +74,10 @@ export default function HotelPage() {
               </h3>
               <ul className="space-y-3">
                 {HOTEL_SERVICES.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-white/80">
+                  <li
+                    key={item}
+                    className="flex items-start gap-2 text-sm text-white/80"
+                  >
                     <Check className="mt-0.5 size-4 shrink-0 text-avulus-red" />
                     {item}
                   </li>
@@ -105,7 +91,10 @@ export default function HotelPage() {
               </h3>
               <ul className="space-y-3">
                 {HOTEL_LOCATION.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-white/80">
+                  <li
+                    key={item}
+                    className="flex items-start gap-2 text-sm text-white/80"
+                  >
                     <Check className="mt-0.5 size-4 shrink-0 text-avulus-red" />
                     {item}
                   </li>
@@ -127,7 +116,7 @@ export default function HotelPage() {
                 {
                   image: assets.hotelGallery.main,
                   description:
-                    "PRIVATE в AVULUS CYBER HOTEL — это приватное пространство для отдыха после игры: мягкий свет, тишина и продуманная атмосфера premium-уровня. В номере есть все необходимое для комфортного stay, чтобы переключиться, восстановиться и продолжить ночь в своем ритме.",
+                    "PRIVATE в AVULUS CYBER HOTEL — это приватное пространство для отдыха после игры: мягкий свет, тишина и продуманная атмосфера premium-уровня. В номере есть все необходимое для комфортного проживания, чтобы переключиться, восстановиться и продолжить ночь в своем ритме.",
                 },
                 {
                   image: assets.hotelGallery.thumbs[1],
@@ -154,9 +143,15 @@ export default function HotelPage() {
                       {description}
                     </p>
                     <p className="mt-4 flex items-baseline gap-2">
-                      <span className="text-sm font-medium uppercase text-black/60">от</span>
-                      <span className="text-[clamp(1.75rem,3vw,2.5rem)] font-black text-avulus-red">8500₽</span>
-                      <span className="text-sm font-medium uppercase text-black/60">/ сутки</span>
+                      <span className="text-sm font-medium uppercase text-black/60">
+                        от
+                      </span>
+                      <span className="text-[clamp(1.75rem,3vw,2.5rem)] font-black text-avulus-red">
+                        8500₽
+                      </span>
+                      <span className="text-sm font-medium uppercase text-black/60">
+                        / сутки
+                      </span>
                     </p>
                     <Link
                       href="#book"
