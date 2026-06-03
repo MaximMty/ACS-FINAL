@@ -63,9 +63,10 @@ export function ContactsSection() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "mt-8 flex h-[52px] w-full items-center justify-center",
-                "rounded-lg border border-white bg-transparent",
-                "text-sm font-bold uppercase tracking-wider text-white",
+                figmaCtaCorners,
+                "mt-8 flex h-[60px] w-full items-center justify-center",
+                "border border-white bg-transparent",
+                "text-[21px] font-medium uppercase leading-none text-white",
                 "transition-colors hover:bg-white/10",
                 "lg:hidden",
               )}
