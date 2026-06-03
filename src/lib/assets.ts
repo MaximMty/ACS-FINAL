@@ -10,6 +10,8 @@ export const assets = {
   logo: assetUrl("/images/logo.png"),
   heroBg: assetUrl("/images/hero-bg.webp"),
   heroTitleComposite: assetUrl("/images/hero-title-composite-v4.webp"),
+  /** Figma Group 449 — mobile hero title (iPhone / narrow viewports) */
+  heroTitleMobile: assetUrl("/images/hero-title-mobile.webp"),
 
   /** Hotel page nav — AVULUS + ОТЕЛЬ (exported from Figma) */
   hotelNavAvulus: assetUrl("/images/hotel-nav-avulus.png"),

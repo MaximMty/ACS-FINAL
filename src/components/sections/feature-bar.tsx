@@ -2,6 +2,9 @@ import { FigmaImage } from "@/components/ui/figma-image";
 import { assets } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
+const FEATURE_BAR_W = 1524;
+const FEATURE_BAR_H = 98;
+
 type FeatureBarProps = {
   className?: string;
 };
@@ -18,10 +21,31 @@ export function FeatureBar({ className }: FeatureBarProps) {
         src={assets.featureBarBg}
         alt=""
         fill
-        className="object-cover object-center"
+        className="hidden object-cover object-center lg:block"
         sizes="100vw"
         loading="lazy"
       />
+
+      <div
+        className={cn(
+          "h-full w-full overflow-x-auto overflow-y-hidden overscroll-x-contain lg:hidden",
+          "[scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden",
+        )}
+      >
+        <div
+          className="relative h-full shrink-0"
+          style={{ aspectRatio: `${FEATURE_BAR_W} / ${FEATURE_BAR_H}` }}
+        >
+          <FigmaImage
+            src={assets.featureBarBg}
+            alt=""
+            fill
+            className="object-contain object-left"
+            sizes="1524px"
+            loading="lazy"
+          />
+        </div>
+      </div>
     </section>
   );
 }

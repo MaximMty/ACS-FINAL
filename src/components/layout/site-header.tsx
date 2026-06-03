@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/avulus/container";
+import { HeroMobileMenu } from "@/components/layout/hero-mobile-menu";
 import { NavSectionLink } from "@/components/layout/nav-section-link";
 import { assets } from "@/lib/assets";
 import { figmaCtaCorners } from "@/lib/cta-styles";
@@ -27,7 +28,7 @@ export function SiteHeader({
           : "sticky top-0 z-50 border-b border-white/10 bg-avulus-black"
       }
     >
-      <Container className="flex h-[103px] items-center justify-between gap-6">
+      <Container className="flex h-[clamp(72px,7.15vw,103px)] items-center justify-between gap-4 lg:gap-6">
         <Link href="/" className="flex shrink-0 items-center gap-3">
           <Image
             src={assets.logo}
@@ -59,13 +60,15 @@ export function SiteHeader({
           ))}
         </nav>
 
+        {variant === "hero" ? <HeroMobileMenu /> : null}
+
         <ExternalCta
           href={CTAS.langame.url}
           className={cn(
             figmaCtaCorners,
             "inline-flex shrink-0 items-center justify-center uppercase leading-none transition-opacity hover:opacity-90",
             variant === "hero"
-              ? "h-[clamp(48px,4.17vw,60px)] w-[clamp(140px,18.6vw,268px)] bg-white px-4 text-[clamp(12px,1.46vw,21px)] font-bold tracking-normal text-[#db0032]"
+              ? "hidden h-[clamp(48px,4.17vw,60px)] w-[clamp(140px,18.6vw,268px)] bg-white px-4 text-[clamp(12px,1.46vw,21px)] font-bold tracking-normal text-[#db0032] lg:inline-flex"
               : "h-[60px] w-[268px] bg-avulus-red text-[21px] font-medium text-white transition-colors hover:bg-avulus-red-dark max-lg:h-[48px] max-lg:w-[140px] max-lg:text-xs",
           )}
         >

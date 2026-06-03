@@ -20,6 +20,9 @@ const CARD_LAYOUT = {
 
 const GAP_AFTER_ICON = CARD_LAYOUT.titleTop - CARD_LAYOUT.iconZone;
 
+const GAME_FORMAT_CARDS = FORMAT_CARDS.filter((card) => card.variant !== "hotel");
+const HOTEL_FORMAT_CARD = FORMAT_CARDS.find((card) => card.variant === "hotel");
+
 export function FormatsSection() {
   return (
     <section id="formats" className="relative overflow-hidden bg-avulus-red py-14 lg:py-20">
@@ -34,17 +37,41 @@ export function FormatsSection() {
           Выбирай свой формат
         </h2>
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {FORMAT_CARDS.map((card) => (
-            <FormatCardItem key={card.id} card={card} />
-          ))}
+        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-4 xl:grid-cols-4">
+          <div
+            className={cn(
+              "max-lg:flex max-lg:w-full max-lg:gap-4",
+              "max-lg:overflow-x-auto max-lg:overscroll-x-contain max-lg:snap-x max-lg:snap-mandatory",
+              "max-lg:scroll-smooth [-webkit-overflow-scrolling:touch]",
+              "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+              "lg:contents",
+            )}
+          >
+            {GAME_FORMAT_CARDS.map((card) => (
+              <FormatCardItem
+                key={card.id}
+                card={card}
+                className="max-lg:w-[calc(100%-2.75rem)] max-lg:min-w-[calc(100%-2.75rem)] max-lg:shrink-0 max-lg:snap-start lg:w-auto"
+              />
+            ))}
+          </div>
+
+          {HOTEL_FORMAT_CARD ? (
+            <FormatCardItem card={HOTEL_FORMAT_CARD} className="w-full" />
+          ) : null}
         </div>
       </Container>
     </section>
   );
 }
 
-function FormatCardItem({ card }: { card: FormatCard }) {
+function FormatCardItem({
+  card,
+  className,
+}: {
+  card: FormatCard;
+  className?: string;
+}) {
   const isHotel = card.variant === "hotel";
   const buttonVariant = card.buttonVariant ?? "outline";
 
@@ -53,6 +80,7 @@ function FormatCardItem({ card }: { card: FormatCard }) {
       className={cn(
         "relative flex min-h-[548px] flex-col overflow-hidden rounded-sm text-center",
         isHotel ? "bg-avulus-hotel text-white" : "bg-white text-black",
+        className,
       )}
     >
       <div

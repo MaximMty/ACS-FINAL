@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
+import { figmaCtaCorners } from "@/lib/cta-styles";
 import { menuImages, type MenuImageSet } from "@/lib/menu-images";
 import { cn } from "@/lib/utils";
 
@@ -50,7 +51,7 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
   return (
     <>
       <div className={cn("flex flex-col gap-3 sm:max-w-lg", className)}>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         {MENU_BUTTONS.map((button) => (
           <button
             key={button.id}
@@ -60,11 +61,12 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
             onFocus={() => warmMenu(button.id)}
             aria-label={`${button.labelEn} — ${button.labelRu}`}
             className={cn(
-              "flex min-h-[52px] min-w-[140px] flex-1 flex-col items-center justify-center gap-0.5",
-              "rounded-full border border-white/25 bg-white/5 px-5 py-2.5",
+              figmaCtaCorners,
+              "flex min-h-[52px] w-full flex-col items-center justify-center gap-0.5",
+              "border border-white/25 bg-white/5 px-5 py-2.5",
               "text-white backdrop-blur-sm transition-all",
-              "hover:border-white hover:bg-white hover:text-black",
-              "sm:min-h-[56px] sm:min-w-[160px]",
+              "hover:border-white hover:bg-white/15 hover:text-white",
+              "sm:min-h-[56px] sm:min-w-[160px] sm:flex-1",
             )}
           >
             <span className="text-[11px] font-medium uppercase tracking-[0.12em] opacity-80 sm:text-xs">

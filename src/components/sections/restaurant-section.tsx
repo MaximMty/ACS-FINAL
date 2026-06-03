@@ -61,7 +61,7 @@ export function RestaurantSection() {
           </div>
         </div>
 
-        <div className="relative aspect-[2/3] w-full overflow-hidden">
+        <div className="relative hidden aspect-[2/3] w-full overflow-hidden lg:block">
           <Image
             src={assets.restaurantDrink}
             alt=""

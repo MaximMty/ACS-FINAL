@@ -20,8 +20,16 @@ export default function HomePage() {
       <link
         rel="preload"
         as="image"
+        href="/images/hero-title-mobile.webp"
+        fetchPriority="high"
+        media="(max-width: 1023px)"
+      />
+      <link
+        rel="preload"
+        as="image"
         href="/images/hero-title-composite-v4.webp"
         fetchPriority="high"
+        media="(min-width: 1024px)"
       />
       <SiteHeader variant="hero" />
       <FloatingActions />

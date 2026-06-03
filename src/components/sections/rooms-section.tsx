@@ -31,11 +31,26 @@ export function RoomsSection() {
           Выбирай свою комнату
         </h2>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {ROOM_CARDS.map((room) => (
-            <RoomCardItem key={room.id} room={room} />
-          ))}
-          <PromoCard />
+        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-4 xl:grid-cols-3">
+          <div
+            className={cn(
+              "max-lg:flex max-lg:w-full max-lg:gap-4",
+              "max-lg:overflow-x-auto max-lg:overscroll-x-contain max-lg:snap-x max-lg:snap-mandatory",
+              "max-lg:scroll-smooth [-webkit-overflow-scrolling:touch]",
+              "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+              "lg:contents",
+            )}
+          >
+            {ROOM_CARDS.map((room) => (
+              <RoomCardItem
+                key={room.id}
+                room={room}
+                className="max-lg:w-[calc(100%-2.75rem)] max-lg:min-w-[calc(100%-2.75rem)] max-lg:shrink-0 max-lg:snap-start"
+              />
+            ))}
+          </div>
+
+          <PromoCard className="w-full" />
         </div>
       </Container>
     </section>
@@ -52,7 +67,13 @@ function SectionPattern() {
   );
 }
 
-function RoomCardItem({ room }: { room: RoomCard }) {
+function RoomCardItem({
+  room,
+  className,
+}: {
+  room: RoomCard;
+  className?: string;
+}) {
   const [index, setIndex] = useState(0);
   const images = room.images.length > 0 ? room.images : [assets.rooms.private];
   const activeImage = images[index % images.length]!;
@@ -62,7 +83,12 @@ function RoomCardItem({ room }: { room: RoomCard }) {
   const goNext = () => setIndex((current) => (current + 1) % images.length);
 
   return (
-    <article className="flex flex-col border border-white/80 bg-black">
+    <article
+      className={cn(
+        "flex flex-col border border-white/80 bg-black",
+        className,
+      )}
+    >
       <div className="relative aspect-[433/278] w-full shrink-0 overflow-hidden bg-black">
         <Image
           src={activeImage}
@@ -130,9 +156,14 @@ function RoomCardItem({ room }: { room: RoomCard }) {
   );
 }
 
-function PromoCard() {
+function PromoCard({ className }: { className?: string }) {
   return (
-    <article className="relative flex min-h-[585px] flex-col overflow-hidden border border-white/80 bg-black">
+    <article
+      className={cn(
+        "relative flex min-h-[585px] flex-col overflow-hidden border border-white/80 bg-black",
+        className,
+      )}
+    >
       <Image
         src={assets.promoHookah}
         alt=""
