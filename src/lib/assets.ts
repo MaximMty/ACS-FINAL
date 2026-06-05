@@ -11,14 +11,14 @@ export const assets = {
   heroBg: assetUrl("/images/hero-bg.webp"),
   heroTitleComposite: assetUrl("/images/hero-title-composite-v4.webp"),
   /** Figma Group 449 — mobile hero title (iPhone / narrow viewports) */
-  heroTitleMobile: assetUrl("/images/hero-title-mobile.webp"),
+  heroTitleMobile: assetUrl("/images/hero-title-mobile.svg"),
 
   /** Hotel page nav — AVULUS + ОТЕЛЬ (exported from Figma) */
   hotelNavAvulus: assetUrl("/images/hotel-nav-avulus.png"),
   hotelNavOtel: assetUrl("/images/hotel-nav-otel.png"),
 
   /** Figma Group 383 — chevron step bar background */
-  featureBarBg: assetUrl("/images/feature-bar-bg.webp"),
+  featureBarBg: assetUrl("/images/bottombarhero.svg"),
 
   restaurantFood: assetUrl("/images/burger.webp"),
   restaurantDrink: assetUrl("/images/drink.webp"),
@@ -48,8 +48,8 @@ export const assets = {
   hotelPrivate: assetUrl("/images/room-private-plus.webp"),
 
   iconUser: assetUrl("/images/logo.png"),
-  iconPhone: assetUrl("/images/icon-phone.webp"),
-  iconTelegram: assetUrl("/images/icon-telegram.webp"),
+  iconPhone: assetUrl("/images/calllicon.svg"),
+  iconTelegram: assetUrl("/images/telegramicon.svg"),
   iconParking: assetUrl("/images/icon-parking.svg"),
   iconMonitor: assetUrl("/images/icon-monitor.webp"),
   iconGpu: assetUrl("/images/icon-gpu.webp"),

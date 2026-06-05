@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { NavSectionLink } from "@/components/layout/nav-section-link";
 import { ExternalCta } from "@/components/ui/external-cta";
-import { figmaCtaCorners } from "@/lib/cta-styles";
+import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
 import { CTAS } from "@/lib/ctas";
 import { NAV_LINKS } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -58,7 +58,7 @@ export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
         <nav
           id="hero-mobile-nav"
           aria-label="Мобильная навигация"
-          className="absolute right-0 top-full z-50 mt-2 min-w-[min(100vw-2.5rem,280px)] rounded-sm border border-white/15 bg-black/95 p-4 shadow-xl backdrop-blur-md"
+          className="absolute right-0 top-full z-50 mt-2 min-w-[min(100vw-2.5rem,280px)] rounded-sm border border-white/15 bg-black/95 p-4 shadow-avulus-float backdrop-blur-md"
         >
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
@@ -77,6 +77,7 @@ export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
             href={CTAS.langame.url}
             className={cn(
               figmaCtaCorners,
+              avulusButtonShadow,
               "mt-4 inline-flex h-12 w-full items-center justify-center bg-white text-sm font-bold uppercase tracking-normal text-[#db0032] transition-opacity hover:opacity-90",
             )}
           >

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { avulusCardShadow } from "@/lib/cta-styles";
 import { assets } from "@/lib/assets";
 import { loadYandexMaps } from "@/lib/load-yandex-maps";
 import { parseYandexMapWidgetUrl } from "@/lib/parse-yandex-map-url";
@@ -112,6 +113,7 @@ export function CustomYandexMap({
     <div
       className={cn(
         "relative h-[min(100%,320px)] min-h-[240px] w-full max-w-[518px] overflow-hidden bg-[#1a1a1a]",
+        avulusCardShadow,
         className,
       )}
     >

@@ -5,7 +5,7 @@ import { ChangeEvent, FormEvent, ReactNode, useMemo, useState } from "react";
 
 import { Container } from "@/components/avulus/container";
 import { CTAS, telegramBookingUrl } from "@/lib/ctas";
-import { bookButtonFullClass } from "@/lib/cta-styles";
+import { avulusCardShadow, bookButtonFullClass } from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
 
 type BookingRoom = {
@@ -162,7 +162,12 @@ export function BookingSection({
       aria-label="Форма бронирования"
     >
       <Container>
-        <div className="mx-auto w-full max-w-4xl border border-white/20 bg-white/[0.03] p-5 sm:p-8 lg:p-10">
+        <div
+          className={cn(
+            "mx-auto w-full max-w-4xl border border-white/20 bg-white/[0.03] p-5 sm:p-8 lg:p-10",
+            avulusCardShadow,
+          )}
+        >
           <h2 className="text-3xl font-black uppercase tracking-tight text-white sm:text-4xl">
             {title}
           </h2>

@@ -2,15 +2,15 @@ import { assets } from "@/lib/assets";
 import { CTAS } from "@/lib/ctas";
 
 export const NAV_LINKS = [
-  { label: "Форматы", href: "/#formats" },
-  { label: "Комнаты", href: "/#rooms" },
+  { label: "Отель", href: "/hotel" },
+  { label: "Киберклуб", href: "/#rooms" },
   { label: "Ресторан", href: "/#restaurant" },
   { label: "Акции", href: "/#promotions" },
   { label: "Контакты", href: "/#contacts" },
 ] as const;
 
 export const FEATURE_STEPS = [
-  { label: "Выбирай\nформат", icon: "grid" as const },
+  { label: "Выбирай\nсценарий", icon: "grid" as const },
   { label: "Выбирай\nкомнату", icon: "box" as const },
   { label: "Выбирай\nвремя", icon: "clock" as const },
   { label: "Приезжай\nи играй", icon: "gamepad" as const },
@@ -21,47 +21,43 @@ export type FormatCard = {
   title: string;
   subtitle: string;
   description: string;
+  status?: string;
   price?: {
     prefix: string;
     amount: string;
     suffix: string;
   };
-  variant: "light" | "hotel";
+  variant: "light" | "hotel" | "restaurant";
   buttonVariant?: "filled" | "outline";
   ctaPrimary?: string;
+  ctaPrimaryHref?: string;
+  ctaExternal?: boolean;
   ctaSecondary?: string;
+  ctaSecondaryHref?: string;
 };
 
 export const FORMAT_CARDS: FormatCard[] = [
   {
-    id: "solo",
-    title: "СОЛО",
-    subtitle: "1 ИГРОК",
-    description: "Для одиночной игры, фокуса или отдыха",
+    id: "cyberclub",
+    title: "КИБЕРКЛУБ",
+    subtitle: "1–5 ИГРОКОВ",
+    description: "Для игры соло, с друзьями или стрима",
     price: { prefix: "от", amount: "299", suffix: "/час" },
     variant: "light",
     buttonVariant: "filled",
     ctaPrimary: "Выбрать комнату",
+    ctaPrimaryHref: "/#rooms",
   },
   {
-    id: "team",
-    title: "ТИМ",
-    subtitle: "2–5 ИГРОКОВ",
-    description: "Для игры с друзьями и буткемпов",
-    price: { prefix: "от", amount: "299", suffix: "/час" },
-    variant: "light",
-    buttonVariant: "outline",
-    ctaPrimary: "Выбрать комнату",
-  },
-  {
-    id: "stream",
-    title: "СТРИМ",
-    subtitle: "1 ИГРОК",
-    description: "Для стрима и записи контента",
-    price: { prefix: "от", amount: "299", suffix: "/час" },
-    variant: "light",
-    buttonVariant: "outline",
-    ctaPrimary: "Выбрать комнату",
+    id: "restaurant",
+    title: "РЕСТОРАН",
+    subtitle: "1-10 гостей",
+    description: "Для завтрака, обеда, ужина или встречи",
+    status: "ОТКРЫТО СЕЙЧАС",
+    variant: "restaurant",
+    ctaPrimary: CTAS.menu.label,
+    ctaPrimaryHref: CTAS.menu.url,
+    ctaExternal: true,
   },
   {
     id: "hotel",
@@ -70,7 +66,9 @@ export const FORMAT_CARDS: FormatCard[] = [
     description: "Без игрового тарифа — как обычный отель",
     variant: "hotel",
     ctaPrimary: "Забронировать",
+    ctaPrimaryHref: "/hotel#book",
     ctaSecondary: "Подробнее",
+    ctaSecondaryHref: "/hotel",
   },
 ];
 
@@ -185,7 +183,7 @@ export const CONTACTS = {
 };
 
 export const HOTEL_DESCRIPTION = [
-  "AVULUS HOTEL — это cyber hotel в центре Москвы с круглосуточным форматом размещения и современной цифровой атмосферой. Гости могут остановиться на несколько часов, остаться на ночь или провести полноценный отдых с доступом ко всей инфраструктуре комплекса.",
+  "AVULUS HOTEL — это cyber hotel в центре Москвы с круглосуточными вариантами размещения и современной цифровой атмосферой. Гости могут остановиться на несколько часов, остаться на ночь или провести полноценный отдых с доступом ко всей инфраструктуре комплекса.",
   "На территории работает ресторан с возможностью доставки еды и напитков прямо в номер, а также доступен бесплатный Wi-Fi на всей территории отеля. Для гостей предусмотрена бесплатная парковка и круглосуточная стойка регистрации.",
   "Отель расположен рядом с НИУ ВШЭ и подходит как для отдыха, так и для комфортного размещения после работы, учебы, игр или ночных встреч.",
 ];

@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef } from "react";
 
 import { Container } from "@/components/avulus/container";
+import { avulusButtonShadow, avulusCardShadow } from "@/lib/cta-styles";
 import { assets } from "@/lib/assets";
 import { ROOM_PROMO } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -46,7 +47,10 @@ export function PromotionsSection() {
   };
 
   return (
-    <section id="promotions" className="bg-avulus-black py-14 lg:py-20">
+    <section
+      id="promotions"
+      className="scroll-mt-[clamp(72px,7.15vw,103px)] bg-avulus-black py-14 lg:py-20"
+    >
       <Container>
         <div className="mb-6 flex items-center justify-between gap-4 lg:mb-10">
           <h2 className="text-3xl font-black uppercase tracking-tight text-white sm:text-4xl">
@@ -109,6 +113,7 @@ function PromoCard({
       data-promo-card={isMobile ? true : undefined}
       className={cn(
         "group relative overflow-hidden bg-black",
+        avulusCardShadow,
         isMobile
           ? "min-h-[420px] w-full min-w-full shrink-0 snap-start border border-white/80"
           : "min-h-[632px] bg-[#111]",
@@ -172,7 +177,7 @@ function PromoNavButton({
     <button
       type="button"
       className={cn(
-        "flex size-[50px] items-center justify-center border border-white/80 bg-black text-white transition-colors hover:bg-white/10",
+        "flex size-[50px] items-center justify-center border border-white/80 bg-black text-white shadow-avulus-button transition-colors hover:bg-white/10",
         className,
       )}
       {...props}

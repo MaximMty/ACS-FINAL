@@ -31,7 +31,10 @@ function RestaurantTicker() {
 
 export function RestaurantSection() {
   return (
-    <section id="restaurant" className="bg-black">
+    <section
+      id="restaurant"
+      className="scroll-mt-[clamp(72px,7.15vw,103px)] bg-black"
+    >
       <div className="grid lg:grid-cols-2">
         <div className="relative aspect-[2/3] w-full overflow-hidden">
           <Image

@@ -1,8 +1,10 @@
 import Link from "next/link";
 
+import { avulusFloatShadow } from "@/lib/cta-styles";
 import { assets } from "@/lib/assets";
 import { CTAS } from "@/lib/ctas";
 import { CONTACTS } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 function FloatingIcon({ src, alt }: { src: string; alt: string }) {
   return (
@@ -31,7 +33,10 @@ export function FloatingActions() {
     >
       <Link
         href={CONTACTS.phoneHref}
-        className="flex size-[clamp(56px,4.86vw,70px)] items-center justify-center rounded-full bg-white transition-transform hover:scale-105"
+        className={cn(
+          "flex size-[clamp(56px,4.86vw,70px)] items-center justify-center rounded-full bg-white transition-transform hover:scale-105",
+          avulusFloatShadow,
+        )}
         aria-label={CTAS.phone.label}
       >
         <FloatingIcon src={assets.iconPhone} alt="" />
@@ -40,7 +45,10 @@ export function FloatingActions() {
         href={CONTACTS.telegramUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex size-[clamp(56px,4.86vw,70px)] items-center justify-center rounded-full bg-white transition-transform hover:scale-105"
+        className={cn(
+          "flex size-[clamp(56px,4.86vw,70px)] items-center justify-center rounded-full bg-white transition-transform hover:scale-105",
+          avulusFloatShadow,
+        )}
         aria-label={CTAS.telegram.labelShort}
       >
         <FloatingIcon src={assets.iconTelegram} alt="" />

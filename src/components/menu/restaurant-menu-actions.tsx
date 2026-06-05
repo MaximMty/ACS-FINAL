@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
-import { figmaCtaCorners } from "@/lib/cta-styles";
+import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
 import { menuImages, type MenuImageSet } from "@/lib/menu-images";
 import { cn } from "@/lib/utils";
 
@@ -62,6 +62,7 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
             aria-label={`${button.labelEn} — ${button.labelRu}`}
             className={cn(
               figmaCtaCorners,
+              avulusButtonShadow,
               "flex min-h-[52px] w-full flex-col items-center justify-center gap-0.5",
               "border border-white/25 bg-white/5 px-5 py-2.5",
               "text-white backdrop-blur-sm transition-all",

@@ -2,7 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/avulus/container";
-import { figmaCtaCorners } from "@/lib/cta-styles";
+import {
+  avulusButtonShadow,
+  avulusCardShadow,
+  figmaCtaCorners,
+} from "@/lib/cta-styles";
 import { CustomYandexMap } from "@/components/maps/custom-yandex-map";
 import { assets } from "@/lib/assets";
 import { ExternalCta } from "@/components/ui/external-cta";
@@ -16,7 +20,10 @@ export function ContactsSection() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <section id="contacts" className="bg-black py-14 lg:py-20">
+    <section
+      id="contacts"
+      className="scroll-mt-[clamp(72px,7.15vw,103px)] bg-black py-14 lg:py-20"
+    >
       <Container>
         <h2 className="mb-8 text-3xl font-black uppercase tracking-tight text-white sm:mb-10 sm:text-4xl lg:mb-10">
           контакты
@@ -64,6 +71,7 @@ export function ContactsSection() {
               rel="noopener noreferrer"
               className={cn(
                 figmaCtaCorners,
+                avulusButtonShadow,
                 "mt-8 flex h-[60px] w-full items-center justify-center",
                 "border border-white bg-transparent",
                 "text-[21px] font-medium uppercase leading-none text-white",
@@ -79,6 +87,7 @@ export function ContactsSection() {
                 href={CONTACTS.telegramUrl}
                 className={cn(
                   figmaCtaCorners,
+                  avulusButtonShadow,
                   "inline-flex h-[52px] min-w-[200px] items-center justify-center bg-avulus-red px-6 text-xs font-medium uppercase tracking-wider text-white transition-colors hover:bg-avulus-red-dark sm:text-sm",
                 )}
               >
@@ -88,6 +97,7 @@ export function ContactsSection() {
                 href={phoneHref}
                 className={cn(
                   figmaCtaCorners,
+                  avulusButtonShadow,
                   "inline-flex h-[52px] min-w-[160px] items-center justify-center border border-white px-6 text-xs font-medium uppercase tracking-wider text-white transition-colors hover:bg-white hover:text-black sm:text-sm",
                 )}
               >
@@ -99,6 +109,7 @@ export function ContactsSection() {
                 rel="noopener noreferrer"
                 className={cn(
                   figmaCtaCorners,
+                  avulusButtonShadow,
                   "inline-flex h-[52px] min-w-[200px] items-center justify-center border border-white/50 px-6 text-xs font-medium uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white/10 sm:text-sm",
                 )}
               >
@@ -110,6 +121,7 @@ export function ContactsSection() {
           <CustomYandexMap
             embedUrl={CONTACTS.mapEmbedUrl}
             className={cn(
+              avulusCardShadow,
               "order-2 mx-auto w-full lg:order-1 lg:mx-0",
               "max-lg:-mx-5 max-lg:max-w-none max-lg:w-[calc(100%+2.5rem)]",
               "sm:max-lg:-mx-8 sm:max-lg:w-[calc(100%+4rem)]",

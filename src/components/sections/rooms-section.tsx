@@ -11,7 +11,11 @@ import { useState } from "react";
 import { Container } from "@/components/avulus/container";
 import { assets } from "@/lib/assets";
 import { ROOM_CARDS, ROOM_PROMO, type RoomCard } from "@/lib/data";
-import { bookButtonFullClass } from "@/lib/cta-styles";
+import {
+  avulusButtonShadow,
+  avulusCardShadow,
+  bookButtonFullClass,
+} from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
 
 const patternStyle = {
@@ -22,7 +26,7 @@ export function RoomsSection() {
   return (
     <section
       id="rooms"
-      className="relative overflow-hidden bg-black py-14 lg:py-20"
+      className="relative scroll-mt-[clamp(72px,7.15vw,103px)] overflow-hidden bg-black py-14 lg:py-20"
     >
       <SectionPattern />
 
@@ -86,6 +90,7 @@ function RoomCardItem({
     <article
       className={cn(
         "flex flex-col border border-white/80 bg-black",
+        avulusCardShadow,
         className,
       )}
     >
@@ -161,6 +166,7 @@ function PromoCard({ className }: { className?: string }) {
     <article
       className={cn(
         "relative flex min-h-[585px] flex-col overflow-hidden border border-white/80 bg-black",
+        avulusCardShadow,
         className,
       )}
     >
@@ -207,7 +213,7 @@ function CarouselButton({
     <button
       type="button"
       className={cn(
-        "flex size-[50px] items-center justify-center border border-white/80 bg-black/60 text-white backdrop-blur-[2px] transition-colors hover:bg-black/80",
+        "flex size-[50px] items-center justify-center border border-white/80 bg-black/60 text-white shadow-avulus-button backdrop-blur-[2px] transition-colors hover:bg-black/80",
         className,
       )}
       {...props}

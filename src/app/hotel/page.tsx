@@ -8,7 +8,7 @@ import { HotelHeader, HotelPageIntro } from "@/components/layout/hotel-header";
 import { BookingSection } from "@/components/sections/booking-section";
 import { ContactsSection } from "@/components/sections/contacts-section";
 import { assets } from "@/lib/assets";
-import { bookButtonFullClass } from "@/lib/cta-styles";
+import { avulusCardShadow, bookButtonFullClass } from "@/lib/cta-styles";
 import {
   HOTEL_DESCRIPTION,
   HOTEL_LOCATION,
@@ -68,7 +68,12 @@ export default function HotelPage() {
               ))}
             </div>
 
-            <div className="rounded-sm border border-white/10 bg-white/5 p-6 lg:col-span-3">
+            <div
+              className={cn(
+                "rounded-sm border border-white/10 bg-white/5 p-6 lg:col-span-3",
+                avulusCardShadow,
+              )}
+            >
               <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white">
                 услуги
               </h3>
@@ -85,7 +90,12 @@ export default function HotelPage() {
               </ul>
             </div>
 
-            <div className="rounded-sm border border-white/10 bg-white/5 p-6 lg:col-span-4">
+            <div
+              className={cn(
+                "rounded-sm border border-white/10 bg-white/5 p-6 lg:col-span-4",
+                avulusCardShadow,
+              )}
+            >
               <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white">
                 локация
               </h3>
@@ -126,7 +136,10 @@ export default function HotelPage() {
               ].map(({ image, description }, n) => (
                 <article
                   key={n}
-                  className="overflow-hidden bg-white text-black"
+                  className={cn(
+                    "overflow-hidden bg-white text-black",
+                    avulusCardShadow,
+                  )}
                 >
                   <div className="relative aspect-[670/400]">
                     <Image

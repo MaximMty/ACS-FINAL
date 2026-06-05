@@ -5,7 +5,7 @@ import { Container } from "@/components/avulus/container";
 import { FigmaImage } from "@/components/ui/figma-image";
 import { assets } from "@/lib/assets";
 import { CTAS } from "@/lib/ctas";
-import { figmaCtaCorners } from "@/lib/cta-styles";
+import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
 import { CONTACTS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -41,6 +41,7 @@ export function HotelHeader() {
           href="#book"
           className={cn(
             figmaCtaCorners,
+            avulusButtonShadow,
             "inline-flex shrink-0 items-center justify-center uppercase leading-none transition-opacity hover:opacity-90",
             "h-[clamp(48px,4.17vw,60px)] w-[clamp(140px,18.6vw,268px)] bg-white px-4",
             "text-[clamp(12px,1.46vw,21px)] font-bold tracking-normal text-[#db0032]",

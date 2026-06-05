@@ -22,14 +22,15 @@ export function HeroHeadline({ className }: HeroHeadlineProps) {
         style={{ aspectRatio: `${MOBILE_W} / ${MOBILE_H}` }}
         aria-hidden
       >
-        <FigmaImage
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={assets.heroTitleMobile}
           alt=""
-          fill
-          className="object-contain object-center"
-          sizes="(max-width: 430px) 355px, 92vw"
-          priority
+          width={MOBILE_W}
+          height={MOBILE_H}
+          className="size-full object-contain object-center"
           fetchPriority="high"
+          decoding="async"
         />
       </div>
 

@@ -20,7 +20,7 @@ export default function HomePage() {
       <link
         rel="preload"
         as="image"
-        href="/images/hero-title-mobile.webp"
+        href="/images/hero-title-mobile.svg"
         fetchPriority="high"
         media="(max-width: 1023px)"
       />

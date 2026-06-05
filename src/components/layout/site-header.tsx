@@ -1,14 +1,17 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
 
 import { Container } from "@/components/avulus/container";
 import { HeroMobileMenu } from "@/components/layout/hero-mobile-menu";
+import { LogoHomeLink } from "@/components/layout/logo-home-link";
 import { NavSectionLink } from "@/components/layout/nav-section-link";
 import { assets } from "@/lib/assets";
-import { figmaCtaCorners } from "@/lib/cta-styles";
+import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
 import { ExternalCta } from "@/components/ui/external-cta";
 import { CTAS } from "@/lib/ctas";
 import { NAV_LINKS } from "@/lib/data";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { cn } from "@/lib/utils";
 
 type SiteHeaderProps = {
@@ -20,16 +23,29 @@ export function SiteHeader({
   variant = "hero",
   logoSuffix,
 }: SiteHeaderProps) {
+  const { isPastThreshold, isVisible } = useScrollDirection();
+
+  const isHero = variant === "hero";
+  const isSolid = variant === "solid";
+  const showBackground = isSolid || (isHero && isPastThreshold);
+
+  const backgroundClass = isSolid
+    ? "border-b border-white/10 bg-avulus-black"
+    : showBackground
+      ? "bg-avulus-black/95 backdrop-blur-sm"
+      : "bg-transparent";
+
   return (
     <header
-      className={
-        variant === "hero"
-          ? "absolute inset-x-0 top-0 z-50"
-          : "sticky top-0 z-50 border-b border-white/10 bg-avulus-black"
-      }
+      className={cn(
+        "inset-x-0 top-0 z-50 transition-transform duration-300 ease-in-out",
+        isHero ? "fixed" : "sticky",
+        !isVisible && isPastThreshold && "-translate-y-full",
+        backgroundClass,
+      )}
     >
       <Container className="flex h-[clamp(72px,7.15vw,103px)] items-center justify-between gap-4 lg:gap-6">
-        <Link href="/" className="flex shrink-0 items-center gap-3">
+        <LogoHomeLink className="flex shrink-0 items-center gap-3">
           <Image
             src={assets.logo}
             alt="AVULUS"
@@ -43,7 +59,7 @@ export function SiteHeader({
               {logoSuffix}
             </span>
           ) : null}
-        </Link>
+        </LogoHomeLink>
 
         <nav
           aria-label="Основная навигация"
@@ -66,6 +82,7 @@ export function SiteHeader({
           href={CTAS.langame.url}
           className={cn(
             figmaCtaCorners,
+            avulusButtonShadow,
             "inline-flex shrink-0 items-center justify-center uppercase leading-none transition-opacity hover:opacity-90",
             variant === "hero"
               ? "hidden h-[clamp(48px,4.17vw,60px)] w-[clamp(140px,18.6vw,268px)] bg-white px-4 text-[clamp(12px,1.46vw,21px)] font-bold tracking-normal text-[#db0032] lg:inline-flex"

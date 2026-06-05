@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { figmaCtaCorners } from "@/lib/cta-styles";
+import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
 
 type PrimaryButtonProps = {
@@ -20,6 +20,7 @@ export function PrimaryButton({
     <Button
       className={cn(
         figmaCtaCorners,
+        avulusButtonShadow,
         "h-[67px] px-6 text-[21px] font-normal",
         fullWidth && "w-full",
         appearance === "filled" && "bg-black text-white hover:bg-black/90",

@@ -2,17 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/avulus/container";
+import { ExternalCta } from "@/components/ui/external-cta";
 import { assets } from "@/lib/assets";
 import type { FormatCard } from "@/lib/data";
 import { FORMAT_CARDS } from "@/lib/data";
-import { figmaCtaCorners } from "@/lib/cta-styles";
+import {
+  avulusButtonShadow,
+  avulusCardShadow,
+  figmaCtaCorners,
+} from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
 
 const patternStyle = {
   backgroundImage: `url(${assets.formatsSectionPattern})`,
 } as const;
 
-/** Shared title baseline on all four cards (318×548 Figma) */
+/** Shared title baseline on all three cards (318×548 Figma) */
 const CARD_LAYOUT = {
   iconZone: 60,
   titleTop: 136,
@@ -20,12 +25,12 @@ const CARD_LAYOUT = {
 
 const GAP_AFTER_ICON = CARD_LAYOUT.titleTop - CARD_LAYOUT.iconZone;
 
-const GAME_FORMAT_CARDS = FORMAT_CARDS.filter((card) => card.variant !== "hotel");
-const HOTEL_FORMAT_CARD = FORMAT_CARDS.find((card) => card.variant === "hotel");
-
 export function FormatsSection() {
   return (
-    <section id="formats" className="relative overflow-hidden bg-avulus-red py-14 lg:py-20">
+    <section
+      id="formats"
+      className="relative scroll-mt-[clamp(72px,7.15vw,103px)] overflow-hidden bg-avulus-red py-14 lg:py-20"
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-cover bg-center mix-blend-screen opacity-40"
@@ -34,31 +39,25 @@ export function FormatsSection() {
 
       <Container className="relative">
         <h2 className="mb-10 text-3xl font-black uppercase tracking-tight text-white sm:text-4xl lg:text-5xl">
-          Выбирай свой формат
+          ВЫБЕРИ КАК ПРОВЕСТИ ВРЕМЯ
         </h2>
 
-        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-4 xl:grid-cols-4">
-          <div
-            className={cn(
-              "max-lg:flex max-lg:w-full max-lg:gap-4",
-              "max-lg:overflow-x-auto max-lg:overscroll-x-contain max-lg:snap-x max-lg:snap-mandatory",
-              "max-lg:scroll-smooth [-webkit-overflow-scrolling:touch]",
-              "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-              "lg:contents",
-            )}
-          >
-            {GAME_FORMAT_CARDS.map((card) => (
-              <FormatCardItem
-                key={card.id}
-                card={card}
-                className="max-lg:w-[calc(100%-2.75rem)] max-lg:min-w-[calc(100%-2.75rem)] max-lg:shrink-0 max-lg:snap-start lg:w-auto"
-              />
-            ))}
-          </div>
-
-          {HOTEL_FORMAT_CARD ? (
-            <FormatCardItem card={HOTEL_FORMAT_CARD} className="w-full" />
-          ) : null}
+        <div
+          className={cn(
+            "flex gap-4",
+            "max-lg:overflow-x-auto max-lg:overscroll-x-contain max-lg:snap-x max-lg:snap-mandatory",
+            "max-lg:scroll-smooth [-webkit-overflow-scrolling:touch]",
+            "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+            "lg:grid lg:grid-cols-3",
+          )}
+        >
+          {FORMAT_CARDS.map((card) => (
+            <FormatCardItem
+              key={card.id}
+              card={card}
+              className="max-lg:w-[calc(100%-2.75rem)] max-lg:min-w-[calc(100%-2.75rem)] max-lg:shrink-0 max-lg:snap-start"
+            />
+          ))}
         </div>
       </Container>
     </section>
@@ -73,13 +72,34 @@ function FormatCardItem({
   className?: string;
 }) {
   const isHotel = card.variant === "hotel";
+  const isRestaurant = card.variant === "restaurant";
+  const isDark = isHotel || isRestaurant;
   const buttonVariant = card.buttonVariant ?? "outline";
+
+  const primaryHref =
+    card.ctaPrimaryHref ?? (isHotel ? "/hotel#book" : "/#rooms");
+
+  const ctaClassName = cn(
+    figmaCtaCorners,
+    avulusButtonShadow,
+    "flex h-[60px] items-center justify-center text-sm font-medium uppercase transition-opacity hover:opacity-90",
+    isDark && "bg-white text-avulus-red",
+    !isDark &&
+      buttonVariant === "filled" &&
+      "bg-black text-white",
+    !isDark &&
+      buttonVariant === "outline" &&
+      "border-2 border-black bg-white text-black",
+  );
 
   return (
     <article
       className={cn(
         "relative flex min-h-[548px] flex-col overflow-hidden rounded-sm text-center",
-        isHotel ? "bg-avulus-hotel text-white" : "bg-white text-black",
+        avulusCardShadow,
+        isHotel && "bg-avulus-hotel text-white",
+        isRestaurant && "bg-avulus-restaurant text-white",
+        !isDark && "bg-white text-black",
         className,
       )}
     >
@@ -87,17 +107,16 @@ function FormatCardItem({
         aria-hidden
         className={cn(
           "pointer-events-none absolute inset-0 bg-[length:140%] bg-center",
-          isHotel ? "mix-blend-soft-light opacity-50" : "opacity-[0.07]",
+          isDark ? "mix-blend-soft-light opacity-50" : "opacity-[0.07]",
         )}
         style={patternStyle}
       />
 
-      {/* Same top band on every card so titles line up */}
       <div
         className="relative flex shrink-0 items-center justify-center"
         style={{ height: CARD_LAYOUT.iconZone }}
       >
-        {!isHotel && (
+        {!isDark && (
           <Image
             src={assets.iconUser}
             alt=""
@@ -115,7 +134,7 @@ function FormatCardItem({
         <h3
           className={cn(
             "text-[clamp(2.25rem,4.5vw,3.25rem)] font-black uppercase leading-none tracking-tight",
-            isHotel
+            isDark
               ? "text-stroke-white"
               : "[-webkit-text-stroke:2px_#e31e24] text-white",
           )}
@@ -126,7 +145,7 @@ function FormatCardItem({
         <p
           className={cn(
             "mt-3 text-xs font-bold uppercase tracking-wider",
-            isHotel ? "text-white" : "text-black",
+            isDark ? "text-white" : "text-black",
           )}
         >
           {card.subtitle}
@@ -135,11 +154,17 @@ function FormatCardItem({
         <p
           className={cn(
             "mt-4 max-w-[240px] text-sm leading-relaxed",
-            isHotel ? "text-white/90" : "text-black/90",
+            isDark ? "text-white/90" : "text-black/90",
           )}
         >
           {card.description}
         </p>
+
+        {card.status && (
+          <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-avulus-red sm:mt-8">
+            {card.status}
+          </p>
+        )}
 
         {card.price && (
           <p className="mt-6 flex items-baseline justify-center gap-1 text-avulus-red sm:mt-8">
@@ -153,27 +178,19 @@ function FormatCardItem({
       </div>
 
       <div className="relative mt-auto flex flex-col gap-3 px-6 pb-6 pt-4 sm:px-8">
-        {card.ctaPrimary && (
-          <Link
-            href={isHotel ? "/hotel#book" : "#rooms"}
-            className={cn(
-              figmaCtaCorners,
-              "flex h-[60px] items-center justify-center text-sm font-medium uppercase transition-opacity hover:opacity-90",
-              isHotel && "bg-white text-avulus-red",
-              !isHotel &&
-                buttonVariant === "filled" &&
-                "bg-black text-white",
-              !isHotel &&
-                buttonVariant === "outline" &&
-                "border-2 border-black bg-white text-black",
-            )}
-          >
-            {card.ctaPrimary}
-          </Link>
-        )}
+        {card.ctaPrimary &&
+          (card.ctaExternal ? (
+            <ExternalCta href={primaryHref} className={ctaClassName}>
+              {card.ctaPrimary}
+            </ExternalCta>
+          ) : (
+            <Link href={primaryHref} className={ctaClassName}>
+              {card.ctaPrimary}
+            </Link>
+          ))}
         {card.ctaSecondary && (
           <Link
-            href="/hotel"
+            href={card.ctaSecondaryHref ?? "/hotel"}
             className={cn(
               figmaCtaCorners,
               "flex h-[60px] items-center justify-center border-2 border-white bg-transparent text-sm font-medium uppercase text-white transition-opacity hover:bg-white/10",

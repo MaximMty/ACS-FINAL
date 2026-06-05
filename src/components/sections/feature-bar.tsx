@@ -2,8 +2,8 @@ import { FigmaImage } from "@/components/ui/figma-image";
 import { assets } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
-const FEATURE_BAR_W = 1524;
-const FEATURE_BAR_H = 98;
+const FEATURE_BAR_W = 1440;
+const FEATURE_BAR_H = 99;
 
 type FeatureBarProps = {
   className?: string;
@@ -41,7 +41,7 @@ export function FeatureBar({ className }: FeatureBarProps) {
             alt=""
             fill
             className="object-contain object-left"
-            sizes="1524px"
+            sizes="1440px"
             loading="lazy"
           />
         </div>

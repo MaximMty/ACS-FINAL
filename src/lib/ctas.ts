@@ -15,6 +15,10 @@ export const CTAS = {
     url: "https://vk.me/avuluscyberspace",
     label: "Посмотреть меню",
   },
+  menu: {
+    url: "https://telegra.ph/Menyu-02-27-15",
+    label: "Посмотреть меню",
+  },
   langame: {
     url: "https://langame.ru/799454394_computerniy_club_avulus-cyber-space_moskva",
     label: "Забронировать",
