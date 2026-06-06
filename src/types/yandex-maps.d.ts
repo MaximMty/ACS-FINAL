@@ -60,6 +60,10 @@ declare namespace ymaps {
     ): IEventManager;
   }
 
+  interface IMapContainer {
+    fitToViewport(): void;
+  }
+
   class Map {
     constructor(
       parentElement: HTMLElement | string,
@@ -67,6 +71,7 @@ declare namespace ymaps {
       options?: IMapOptions,
     );
     behaviors: IBehavior;
+    container: IMapContainer;
     geoObjects: IGeoObjectCollection;
     panes: IPaneManager;
     destroy(): void;
