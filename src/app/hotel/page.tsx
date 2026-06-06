@@ -3,16 +3,20 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 
 import { Container } from "@/components/avulus/container";
+import { ExternalCta } from "@/components/ui/external-cta";
 import { FloatingActions } from "@/components/layout/floating-actions";
 import { HotelHeader, HotelPageIntro } from "@/components/layout/hotel-header";
 import { BookingSection } from "@/components/sections/booking-section";
 import { ContactsSection } from "@/components/sections/contacts-section";
 import { assets } from "@/lib/assets";
+import { CTAS } from "@/lib/ctas";
 import { avulusCardShadow, bookButtonFullClass } from "@/lib/cta-styles";
 import {
   HOTEL_DESCRIPTION,
   HOTEL_LOCATION,
-  HOTEL_SERVICES,
+  HOTEL_PRICE_DISCLAIMER,
+  HOTEL_ROOM_CARDS,
+  HOTEL_SPACE,
   ROOM_CARDS,
 } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -75,10 +79,10 @@ export default function HotelPage() {
               )}
             >
               <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white">
-                услуги
+                пространство
               </h3>
               <ul className="space-y-3">
-                {HOTEL_SERVICES.map((item) => (
+                {HOTEL_SPACE.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-2 text-sm text-white/80"
@@ -97,7 +101,7 @@ export default function HotelPage() {
               )}
             >
               <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white">
-                локация
+                расположение
               </h3>
               <ul className="space-y-3">
                 {HOTEL_LOCATION.map((item) => (
@@ -122,60 +126,65 @@ export default function HotelPage() {
             </h2>
 
             <div className="grid gap-6 lg:grid-cols-2">
-              {[
-                {
-                  image: assets.hotelGallery.main,
-                  description:
-                    "PRIVATE в AVULUS CYBER HOTEL — это приватное пространство для отдыха после игры: мягкий свет, тишина и продуманная атмосфера premium-уровня. В номере есть все необходимое для комфортного проживания, чтобы переключиться, восстановиться и продолжить ночь в своем ритме.",
-                },
-                {
-                  image: assets.hotelGallery.thumbs[1],
-                  description:
-                    "Вторая категория PRIVATE создана для более длительного размещения: больше уюта, больше личного пространства и тот же фирменный AVULUS стиль. Идеальный вариант, если нужен спокойный номер с cyberpunk-настроением в центре Москвы.",
-                },
-              ].map(({ image, description }, n) => (
-                <article
-                  key={n}
-                  className={cn(
-                    "overflow-hidden bg-white text-black",
-                    avulusCardShadow,
-                  )}
-                >
-                  <div className="relative aspect-[670/400]">
-                    <Image
-                      src={image}
-                      alt="PRIVATE"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                  </div>
-                  <div className="p-8">
-                    <h3 className="text-4xl font-black uppercase">PRIVATE</h3>
-                    <p className="mt-4 max-w-xl text-sm leading-relaxed text-black/70">
-                      {description}
-                    </p>
-                    <p className="mt-4 flex items-baseline gap-2">
-                      <span className="text-sm font-medium uppercase text-black/60">
-                        от
-                      </span>
-                      <span className="text-[clamp(1.75rem,3vw,2.5rem)] font-black text-avulus-red">
-                        8500₽
-                      </span>
-                      <span className="text-sm font-medium uppercase text-black/60">
-                        / сутки
-                      </span>
-                    </p>
-                    <Link
-                      href="#book"
-                      className={cn(bookButtonFullClass, "mt-6 text-sm")}
-                    >
-                      Забронировать
-                    </Link>
-                  </div>
-                </article>
-              ))}
+              {HOTEL_ROOM_CARDS.map((room, index) => {
+                const image =
+                  index === 0
+                    ? assets.hotelGallery.main
+                    : assets.hotelGallery.thumbs[1];
+
+                return (
+                  <article
+                    key={room.id}
+                    className={cn(
+                      "overflow-hidden bg-white text-black",
+                      avulusCardShadow,
+                    )}
+                  >
+                    <div className="relative aspect-[670/400]">
+                      <Image
+                        src={image}
+                        alt={room.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
+                    </div>
+                    <div className="p-8">
+                      <h3 className="text-4xl font-black uppercase">
+                        {room.name}
+                      </h3>
+                      <p className="mt-4 max-w-xl text-sm leading-relaxed text-black/70">
+                        {room.description}
+                      </p>
+                      <p className="mt-4 flex items-baseline gap-2">
+                        <span className="text-sm font-medium uppercase text-black/60">
+                          от
+                        </span>
+                        <span className="relative inline-block text-[clamp(1.75rem,3vw,2.5rem)] font-black leading-none text-avulus-red">
+                          {room.priceAmount}
+                          {room.priceFootnote ? (
+                            <sup className="absolute -right-3 -top-0.5 text-[0.5em] font-bold leading-none">
+                              *
+                            </sup>
+                          ) : null}
+                        </span>
+                        <span className="text-sm font-medium uppercase text-black/60">
+                          / сутки
+                        </span>
+                      </p>
+                      <ExternalCta
+                        href={CTAS.book.url}
+                        className={cn(bookButtonFullClass, "mt-6 text-sm")}
+                      >
+                        {CTAS.book.label}
+                      </ExternalCta>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
+
+            <p className="mt-6 text-sm text-white/70">{HOTEL_PRICE_DISCLAIMER}</p>
           </Container>
         </section>
 

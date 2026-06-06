@@ -4,6 +4,7 @@ export const CTAS = {
     url: "https://t.me/AVULUSbot",
     label: "Написать в Telegram",
     labelShort: "Telegram",
+    botLabel: "Написать в Telegram-бот для бронирования",
   },
   phone: {
     href: "tel:+74959212221",
@@ -19,8 +20,8 @@ export const CTAS = {
     url: "https://telegra.ph/Menyu-02-27-15",
     label: "Посмотреть меню",
   },
-  langame: {
-    url: "https://langame.ru/799454394_computerniy_club_avulus-cyber-space_moskva",
+  book: {
+    url: "https://t.me/AVULUSbot",
     label: "Забронировать",
   },
 } as const;

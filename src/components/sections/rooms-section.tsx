@@ -10,11 +10,17 @@ import { useState } from "react";
 
 import { Container } from "@/components/avulus/container";
 import { assets } from "@/lib/assets";
-import { ROOM_CARDS, ROOM_PROMO, type RoomCard } from "@/lib/data";
+import {
+  ROOM_CARDS,
+  ROOM_PROMO,
+  ROOMS_PRICE_NOTE,
+  type RoomCard,
+} from "@/lib/data";
 import {
   avulusButtonShadow,
   avulusCardShadow,
   bookButtonFullClass,
+  btnOutlineLightInteractive,
 } from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
 
@@ -31,9 +37,12 @@ export function RoomsSection() {
       <SectionPattern />
 
       <Container className="relative">
-        <h2 className="mb-8 text-3xl font-black uppercase tracking-tight text-white sm:mb-10 sm:text-4xl lg:text-[51px] lg:leading-none">
+        <h2 className="text-3xl font-black uppercase tracking-tight text-white sm:text-4xl lg:text-[51px] lg:leading-none">
           Выбирай свою комнату
         </h2>
+        <p className="mt-3 mb-8 max-w-2xl text-sm text-white/70 sm:mb-10">
+          {ROOMS_PRICE_NOTE}
+        </p>
 
         <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-4 xl:grid-cols-3">
           <div
@@ -150,10 +159,10 @@ function RoomCardItem({
           </p>
 
           <ExternalCta
-            href={CTAS.langame.url}
+            href={CTAS.book.url}
             className={cn(bookButtonFullClass, "mt-4")}
           >
-            {CTAS.langame.label}
+            {CTAS.book.label}
           </ExternalCta>
         </div>
       </div>
@@ -213,7 +222,8 @@ function CarouselButton({
     <button
       type="button"
       className={cn(
-        "flex size-[50px] items-center justify-center border border-white/80 bg-black/60 text-white shadow-avulus-button backdrop-blur-[2px] transition-colors hover:bg-black/80",
+        btnOutlineLightInteractive,
+        "flex size-[50px] items-center justify-center border border-white/80 bg-black/60 text-white shadow-avulus-button backdrop-blur-[2px] active:bg-black/80",
         className,
       )}
       {...props}

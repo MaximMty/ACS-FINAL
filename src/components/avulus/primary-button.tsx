@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
+import {
+  avulusButtonShadow,
+  btnFilledDarkInteractive,
+  btnOpacityInteractive,
+  figmaCtaCorners,
+  tapInteractive,
+} from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
 
 type PrimaryButtonProps = {
@@ -23,10 +29,10 @@ export function PrimaryButton({
         avulusButtonShadow,
         "h-[67px] px-6 text-[21px] font-normal",
         fullWidth && "w-full",
-        appearance === "filled" && "bg-black text-white hover:bg-black/90",
+        appearance === "filled" && cn(btnFilledDarkInteractive, "bg-black text-white"),
         appearance === "outline" &&
-          "border border-black bg-transparent text-black hover:bg-black/5",
-        appearance === "inverted" && "bg-white text-black hover:bg-white/90",
+          cn(tapInteractive, "border border-black bg-transparent text-black active:bg-black/10"),
+        appearance === "inverted" && cn(btnOpacityInteractive, "bg-white text-black"),
         className,
       )}
       {...props}

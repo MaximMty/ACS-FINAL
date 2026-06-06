@@ -57,8 +57,8 @@ export function RestaurantSection() {
               Ресторан и бар
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/95 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)] sm:text-[15px]">
-              Открыт всегда. Можно просто зайти и вкусно провести время. Или
-              можно заказать любое блюдо или напиток прямо в комнату.
+              Ресторан внутри AVULUS CYBER HOTEL. Можно зайти на завтрак, обед
+              или ужин, провести встречу или заказать еду и напитки в комнату.
             </p>
             <RestaurantMenuActions className="mt-8" />
           </div>

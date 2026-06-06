@@ -3,9 +3,12 @@
 import { Oswald } from "next/font/google";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
+import { useDigitalMenuOpen } from "@/contexts/digital-menu-context";
 import { usePreloadImages } from "@/hooks/use-preload-images";
+import { lockBodyScroll } from "@/lib/body-scroll-lock";
 import { cn } from "@/lib/utils";
 
 const oswald = Oswald({
@@ -30,6 +33,8 @@ export function DigitalMenuModal({
   images,
   imageBackgroundColor,
 }: DigitalMenuModalProps) {
+  const { setOpen: setDigitalMenuOpen } = useDigitalMenuOpen();
+  const [mounted, setMounted] = useState(false);
   const [page, setPage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -57,6 +62,26 @@ export function DigitalMenuModal({
   const isFirst = page === 0;
   const isLast = page === total - 1;
 
+  const handleClose = useCallback(() => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    onClose();
+  }, [onClose]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setDigitalMenuOpen(true);
+    return () => {
+      setDigitalMenuOpen(false);
+    };
+  }, [isOpen, setDigitalMenuOpen]);
+
   const resetView = useCallback(() => {
     setIsZoomed(false);
     setPan({ x: 0, y: 0 });
@@ -74,26 +99,12 @@ export function DigitalMenuModal({
     requestAnimationFrame(() => {
       viewportRef.current?.scrollTo({ top: 0, behavior: "auto" });
     });
-  }, [isOpen, resetView]);
+  }, [isOpen, images, resetView]);
 
   useEffect(() => {
     if (!isOpen) return;
 
-    const scrollY = window.scrollY;
-    const { body, documentElement } = document;
-    const prevBodyOverflow = body.style.overflow;
-    const prevBodyPosition = body.style.position;
-    const prevBodyTop = body.style.top;
-    const prevBodyWidth = body.style.width;
-    const prevBodyTouchAction = body.style.touchAction;
-    const prevHtmlOverflow = documentElement.style.overflow;
-
-    body.style.overflow = "hidden";
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.width = "100%";
-    body.style.touchAction = "none";
-    documentElement.style.overflow = "hidden";
+    const unlockScroll = lockBodyScroll();
 
     const allowScrollInModal = (target: EventTarget | null) =>
       target instanceof Node && viewportRef.current?.contains(target);
@@ -108,13 +119,7 @@ export function DigitalMenuModal({
 
     return () => {
       document.removeEventListener("touchmove", onTouchMove);
-      body.style.overflow = prevBodyOverflow;
-      body.style.position = prevBodyPosition;
-      body.style.top = prevBodyTop;
-      body.style.width = prevBodyWidth;
-      body.style.touchAction = prevBodyTouchAction;
-      documentElement.style.overflow = prevHtmlOverflow;
-      window.scrollTo(0, scrollY);
+      unlockScroll();
     };
   }, [isOpen]);
 
@@ -134,7 +139,7 @@ export function DigitalMenuModal({
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
+        handleClose();
         return;
       }
       if (isZoomed) return;
@@ -150,7 +155,7 @@ export function DigitalMenuModal({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [goToPage, isOpen, isZoomed, onClose, page, total]);
+  }, [goToPage, handleClose, isOpen, isZoomed, page, total]);
 
   const clampPan = useCallback((x: number, y: number) => {
     const el = viewportRef.current;
@@ -244,11 +249,11 @@ export function DigitalMenuModal({
     [goToPage, isFirst, isLast, isZoomed, page],
   );
 
-  if (!isOpen || total === 0) return null;
+  if (!mounted || !isOpen || total === 0) return null;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex flex-col p-0 sm:p-3 md:p-5"
+      className="fixed inset-0 z-[100] flex h-dvh max-h-dvh flex-col p-0 sm:p-3 md:p-5"
       role="dialog"
       aria-modal={true}
       aria-label="Digital menu"
@@ -257,14 +262,15 @@ export function DigitalMenuModal({
         type="button"
         className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity"
         aria-label="Close menu"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       <div
         className={cn(
           "relative z-10 mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col overflow-hidden",
-          "rounded-2xl border border-white/10 bg-[#0c0c0c]/95 shadow-2xl",
+          "rounded-none border border-white/10 bg-[#0c0c0c]/95 shadow-2xl sm:rounded-2xl",
           "animate-in fade-in zoom-in-95 duration-300",
+          "pt-[env(safe-area-inset-top)]",
         )}
         onClick={(event) => event.stopPropagation()}
       >
@@ -279,11 +285,11 @@ export function DigitalMenuModal({
           </p>
           <button
             type="button"
-            onClick={onClose}
-            className="flex size-10 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+            onClick={handleClose}
+            className="relative z-[110] flex size-11 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-white/10"
             aria-label="Close"
           >
-            <X className="size-5" strokeWidth={1.75} />
+            <X className="size-6" strokeWidth={1.75} />
           </button>
         </header>
 
@@ -381,13 +387,14 @@ export function DigitalMenuModal({
           />
         </div>
 
-        <footer className="flex shrink-0 items-center border-t border-white/10 px-4 py-3 md:hidden">
+        <footer className="flex shrink-0 items-center border-t border-white/10 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
           <p className="text-sm text-white/70">
             Page {page + 1} of {total}
           </p>
         </footer>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

@@ -2,10 +2,16 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 import { Container } from "@/components/avulus/container";
+import { ExternalCta } from "@/components/ui/external-cta";
 import { FigmaImage } from "@/components/ui/figma-image";
 import { assets } from "@/lib/assets";
 import { CTAS } from "@/lib/ctas";
-import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
+import {
+  avulusButtonShadow,
+  btnOpacityInteractive,
+  figmaCtaCorners,
+  linkInteractive,
+} from "@/lib/cta-styles";
 import { CONTACTS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -37,18 +43,19 @@ export function HotelHeader() {
           />
         </Link>
 
-        <Link
-          href="#book"
+        <ExternalCta
+          href={CTAS.book.url}
           className={cn(
             figmaCtaCorners,
             avulusButtonShadow,
-            "inline-flex shrink-0 items-center justify-center uppercase leading-none transition-opacity hover:opacity-90",
+            btnOpacityInteractive,
+            "inline-flex shrink-0 items-center justify-center uppercase leading-none",
             "h-[clamp(48px,4.17vw,60px)] w-[clamp(140px,18.6vw,268px)] bg-white px-4",
             "text-[clamp(12px,1.46vw,21px)] font-bold tracking-normal text-[#db0032]",
           )}
         >
-          {CTAS.langame.label}
-        </Link>
+          {CTAS.book.label}
+        </ExternalCta>
       </Container>
     </header>
   );
@@ -59,7 +66,10 @@ export function HotelPageIntro() {
     <Container className="bg-black pb-6 pt-4">
       <Link
         href="/"
-        className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-white transition-opacity hover:opacity-70"
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-white",
+          linkInteractive,
+        )}
       >
         <ChevronLeft className="size-4 shrink-0" aria-hidden />
         НАЗАД

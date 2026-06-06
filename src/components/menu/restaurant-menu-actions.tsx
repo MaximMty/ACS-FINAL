@@ -3,8 +3,13 @@
 import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
-import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
-import { menuImages, type MenuImageSet } from "@/lib/menu-images";
+import { useIsDesktopMenu } from "@/hooks/use-media-query";
+import {
+  avulusButtonShadow,
+  btnOutlineLightInteractive,
+  figmaCtaCorners,
+} from "@/lib/cta-styles";
+import { getMenuImages, type MenuImageSet } from "@/lib/menu-images";
 import { cn } from "@/lib/utils";
 
 const DigitalMenuModal = dynamic(
@@ -34,8 +39,8 @@ type RestaurantMenuActionsProps = {
   className?: string;
 };
 
-function preloadMenuImages(id: MenuImageSet) {
-  for (const url of menuImages[id]) {
+function preloadMenuImages(id: MenuImageSet, isDesktop: boolean) {
+  for (const url of getMenuImages(id, isDesktop)) {
     const img = new Image();
     img.src = url;
   }
@@ -43,10 +48,14 @@ function preloadMenuImages(id: MenuImageSet) {
 
 export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps) {
   const [activeMenu, setActiveMenu] = useState<MenuImageSet | null>(null);
+  const isDesktopMenu = useIsDesktopMenu();
 
-  const warmMenu = useCallback((id: MenuImageSet) => {
-    preloadMenuImages(id);
-  }, []);
+  const warmMenu = useCallback(
+    (id: MenuImageSet) => {
+      preloadMenuImages(id, isDesktopMenu);
+    },
+    [isDesktopMenu],
+  );
 
   return (
     <>
@@ -65,8 +74,8 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
               avulusButtonShadow,
               "flex min-h-[52px] w-full flex-col items-center justify-center gap-0.5",
               "border border-white/25 bg-white/5 px-5 py-2.5",
-              "text-white backdrop-blur-sm transition-all",
-              "hover:border-white hover:bg-white/15 hover:text-white",
+              btnOutlineLightInteractive,
+              "text-white backdrop-blur-sm",
               "sm:min-h-[56px] sm:min-w-[160px] sm:flex-1",
             )}
           >
@@ -86,7 +95,7 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
           key={button.id}
           isOpen={activeMenu === button.id}
           onClose={() => setActiveMenu(null)}
-          images={menuImages[button.id]}
+          images={getMenuImages(button.id, isDesktopMenu)}
           imageBackgroundColor={button.imageBackgroundColor}
         />
       ))}

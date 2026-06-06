@@ -5,10 +5,15 @@ import { Container } from "@/components/avulus/container";
 import { ExternalCta } from "@/components/ui/external-cta";
 import { assets } from "@/lib/assets";
 import type { FormatCard } from "@/lib/data";
+import { CTAS } from "@/lib/ctas";
 import { FORMAT_CARDS } from "@/lib/data";
 import {
   avulusButtonShadow,
   avulusCardShadow,
+  btnFilledDarkInteractive,
+  btnOpacityInteractive,
+  btnOutlineLightInteractive,
+  tapInteractive,
   figmaCtaCorners,
 } from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
@@ -48,7 +53,7 @@ export function FormatsSection() {
             "max-lg:overflow-x-auto max-lg:overscroll-x-contain max-lg:snap-x max-lg:snap-mandatory",
             "max-lg:scroll-smooth [-webkit-overflow-scrolling:touch]",
             "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-            "lg:grid lg:grid-cols-3",
+            "lg:grid lg:grid-cols-2 xl:grid-cols-4",
           )}
         >
           {FORMAT_CARDS.map((card) => (
@@ -77,19 +82,20 @@ function FormatCardItem({
   const buttonVariant = card.buttonVariant ?? "outline";
 
   const primaryHref =
-    card.ctaPrimaryHref ?? (isHotel ? "/hotel#book" : "/#rooms");
+    card.ctaPrimaryHref ?? (isHotel ? CTAS.book.url : "/#rooms");
+  const isExternalLink = card.ctaExternal ?? isHotel;
 
   const ctaClassName = cn(
     figmaCtaCorners,
     avulusButtonShadow,
-    "flex h-[60px] items-center justify-center text-sm font-medium uppercase transition-opacity hover:opacity-90",
-    isDark && "bg-white text-avulus-red",
+    "flex h-[60px] items-center justify-center text-sm font-medium uppercase",
+    isDark && cn(btnOpacityInteractive, "bg-white text-avulus-red"),
     !isDark &&
       buttonVariant === "filled" &&
-      "bg-black text-white",
+      cn(btnFilledDarkInteractive, "bg-black text-white"),
     !isDark &&
       buttonVariant === "outline" &&
-      "border-2 border-black bg-white text-black",
+      cn(tapInteractive, "border-2 border-black bg-white text-black active:bg-black/5"),
   );
 
   return (
@@ -128,7 +134,7 @@ function FormatCardItem({
       </div>
 
       <div
-        className="relative flex flex-col items-center px-6 sm:px-8"
+        className="relative flex flex-1 flex-col items-center px-6 sm:px-8"
         style={{ marginTop: GAP_AFTER_ICON }}
       >
         <h3
@@ -153,33 +159,36 @@ function FormatCardItem({
 
         <p
           className={cn(
-            "mt-4 max-w-[240px] text-sm leading-relaxed",
+            "mt-4 max-w-[240px] flex-1 text-sm leading-relaxed",
             isDark ? "text-white/90" : "text-black/90",
           )}
         >
           {card.description}
         </p>
 
-        {card.status && (
-          <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-avulus-red sm:mt-8">
-            {card.status}
-          </p>
-        )}
-
-        {card.price && (
-          <p className="mt-6 flex items-baseline justify-center gap-1 text-avulus-red sm:mt-8">
-            <span className="text-sm font-semibold">{card.price.prefix}</span>
-            <span className="text-4xl font-black leading-none sm:text-5xl">
-              {card.price.amount}
-            </span>
-            <span className="text-sm font-semibold">{card.price.suffix}</span>
-          </p>
+        {(card.status || card.price) && (
+          <div className="flex w-full min-h-[5.5rem] shrink-0 flex-col justify-end pt-4 sm:min-h-[6rem] sm:pt-6">
+            {card.status && (
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-avulus-red">
+                {card.status}
+              </p>
+            )}
+            {card.price && (
+              <p className="flex items-baseline justify-center gap-1 text-avulus-red">
+                <span className="text-sm font-semibold">{card.price.prefix}</span>
+                <span className="text-4xl font-black leading-none sm:text-5xl">
+                  {card.price.amount}
+                </span>
+                <span className="text-sm font-semibold">{card.price.suffix}</span>
+              </p>
+            )}
+          </div>
         )}
       </div>
 
       <div className="relative mt-auto flex flex-col gap-3 px-6 pb-6 pt-4 sm:px-8">
         {card.ctaPrimary &&
-          (card.ctaExternal ? (
+          (isExternalLink ? (
             <ExternalCta href={primaryHref} className={ctaClassName}>
               {card.ctaPrimary}
             </ExternalCta>
@@ -193,7 +202,8 @@ function FormatCardItem({
             href={card.ctaSecondaryHref ?? "/hotel"}
             className={cn(
               figmaCtaCorners,
-              "flex h-[60px] items-center justify-center border-2 border-white bg-transparent text-sm font-medium uppercase text-white transition-opacity hover:bg-white/10",
+              btnOutlineLightInteractive,
+              "flex h-[60px] items-center justify-center border-2 border-white bg-transparent text-sm font-medium uppercase text-white",
             )}
           >
             {card.ctaSecondary}

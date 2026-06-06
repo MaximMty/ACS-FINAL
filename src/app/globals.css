@@ -96,6 +96,51 @@
   .animate-menu-slide-prev {
     animation: menu-slide-prev 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+
+  /** Hide Yandex Maps default «В Карты» promo — we render our own org link */
+  .avulus-yandex-map [class*="copyrights-promo"],
+  .avulus-yandex-map [class*="open-block"],
+  .avulus-yandex-map [class*="open-map"] {
+    display: none !important;
+  }
+
+  /** Mobile tap + desktop hover feedback (tasks 20–21) */
+  .avulus-tap,
+  .avulus-link,
+  .avulus-btn-opacity,
+  .avulus-btn-filled,
+  .avulus-btn-filled-dark,
+  .avulus-btn-outline-light,
+  .avulus-float-btn {
+    @apply transition-[transform,opacity,background-color,color,box-shadow] duration-150 ease-out;
+    @apply active:scale-[0.97] active:opacity-80;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .avulus-link:hover {
+      opacity: 0.7;
+    }
+
+    .avulus-btn-opacity:hover {
+      opacity: 0.9;
+    }
+
+    .avulus-btn-filled:hover {
+      background-color: var(--color-avulus-red-dark);
+    }
+
+    .avulus-btn-filled-dark:hover {
+      background-color: rgb(0 0 0 / 0.88);
+    }
+
+    .avulus-btn-outline-light:hover {
+      background-color: rgb(255 255 255 / 0.1);
+    }
+
+    .avulus-float-btn:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 @keyframes restaurant-marquee {

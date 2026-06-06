@@ -10,6 +10,7 @@ declare namespace ymaps {
   }
 
   interface IPlacemarkProperties {
+    balloonContentHeader?: string;
     balloonContentBody?: string;
     hintContent?: string;
   }
@@ -26,8 +27,22 @@ declare namespace ymaps {
     disable(behavior: string): void;
   }
 
+  interface IGeometry {
+    getCoordinates(): number[];
+  }
+
+  interface IGeoObject {
+    geometry: IGeometry;
+  }
+
   interface IGeoObjectCollection {
     add(geoObject: Placemark): void;
+    get(index: number): IGeoObject;
+    getLength(): number;
+  }
+
+  interface IGeocodeResult {
+    geoObjects: IGeoObjectCollection;
   }
 
   interface IPane {
@@ -36,6 +51,13 @@ declare namespace ymaps {
 
   interface IPaneManager {
     get(name: string): IPane;
+  }
+
+  interface IEventManager {
+    add(
+      types: string | string[],
+      callback: (event: object) => void,
+    ): IEventManager;
   }
 
   class Map {
@@ -56,9 +78,11 @@ declare namespace ymaps {
       properties?: IPlacemarkProperties,
       options?: IPlacemarkOptions,
     );
+    events: IEventManager;
   }
 
   function ready(callback: () => void): void;
+  function geocode(query: string): Promise<IGeocodeResult>;
 }
 
 interface Window {

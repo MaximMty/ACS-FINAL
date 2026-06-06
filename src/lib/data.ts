@@ -38,13 +38,24 @@ export type FormatCard = {
 
 export const FORMAT_CARDS: FormatCard[] = [
   {
-    id: "cyberclub",
-    title: "КИБЕРКЛУБ",
-    subtitle: "1–5 ИГРОКОВ",
-    description: "Для игры соло, с друзьями или стрима",
-    price: { prefix: "от", amount: "299", suffix: "/час" },
+    id: "solo",
+    title: "СОЛО",
+    subtitle: "1 ИГРОК",
+    description: "Для одиночной игры, фокуса или отдыха",
+    price: { prefix: "от", amount: "290", suffix: "/ час" },
     variant: "light",
     buttonVariant: "filled",
+    ctaPrimary: "Выбрать комнату",
+    ctaPrimaryHref: "/#rooms",
+  },
+  {
+    id: "team",
+    title: "ТИМ",
+    subtitle: "2–5 ИГРОКОВ",
+    description: "Для игры с друзьями и буткемпов",
+    price: { prefix: "от", amount: "680", suffix: "/ час" },
+    variant: "light",
+    buttonVariant: "outline",
     ctaPrimary: "Выбрать комнату",
     ctaPrimaryHref: "/#rooms",
   },
@@ -66,7 +77,8 @@ export const FORMAT_CARDS: FormatCard[] = [
     description: "Без игрового тарифа — как обычный отель",
     variant: "hotel",
     ctaPrimary: "Забронировать",
-    ctaPrimaryHref: "/hotel#book",
+    ctaPrimaryHref: CTAS.book.url,
+    ctaExternal: true,
     ctaSecondary: "Подробнее",
     ctaSecondaryHref: "/hotel",
   },
@@ -109,8 +121,8 @@ export const ROOM_CARDS: RoomCard[] = [
     images: [assets.rooms.stream],
     specs: {
       monitor: '2x LG 27" 165Hz, 1x Samsung 24" 240Hz',
-      gpu: "RTX 5070 - 4070 Super",
-      cpu: "i5-13500",
+      gpu: "RTX 4080 SUPER / RTX 5080",
+      cpu: "Intel Core i7-14700KF",
     },
     price: { prefix: "от", amount: "525", suffix: "/ час" },
   },
@@ -138,6 +150,9 @@ export const ROOM_CARDS: RoomCard[] = [
   },
 ];
 
+export const ROOMS_PRICE_NOTE =
+  "Цены игровых комнат заполнить отдельно по актуальному прайсу" as const;
+
 export const ROOM_PROMO = {
   tag: "ПРОМО",
   title: "КАЛЬЯН БЕСПЛАТНО",
@@ -145,38 +160,76 @@ export const ROOM_PROMO = {
 } as const;
 
 export const MENU_ITEMS = [
-  { name: "Острая мясная пицца", price: "890 ₽" },
-  { name: "Бургер AVULUS", price: "690 ₽" },
-  { name: "Крылья BBQ", price: "590 ₽" },
-  { name: "Лимонад домашний", price: "290 ₽" },
-  { name: "Эспрессо", price: "190 ₽" },
+  { name: "Острая мясная пицца", price: "890" },
+  { name: "Бургер AVULUS", price: "690" },
+  { name: "Крылья BBQ", price: "590" },
+  { name: "Лимонад домашний", price: "290" },
+  { name: "Эспрессо", price: "190" },
 ] as const;
 
-export const HOTEL_SERVICES = [
-  "Бесплатный Wi-Fi",
-  "Круглосуточная стойка регистрации",
-  "Доставка еды в номер",
-  "Бесплатная парковка",
+export const HOTEL_SPACE = [
+  "Отель внутри AVULUS CYBER SPACE",
+  "Ресторан в здании комплекса с доставкой в номер",
+  "Размещение от нескольких часов",
+  "Бесплатная парковка для гостей",
 ] as const;
 
 export const HOTEL_LOCATION = [
+  "Центр Москвы",
   "Рядом с НИУ ВШЭ",
-  "Удобный выезд в центр города",
-  "Магазины и сервисы поблизости",
-  "Транспортная доступность",
+  "Удобный доступ к метро",
+  "Круглосуточное заселение",
 ] as const;
+
+export const HOTEL_PRICE_DISCLAIMER = "*Детали уточняйте заранее" as const;
+
+export type HotelRoomCard = {
+  id: string;
+  name: string;
+  description: string;
+  priceAmount: string;
+  priceFootnote?: boolean;
+};
+
+export const HOTEL_ROOM_CARDS: HotelRoomCard[] = [
+  {
+    id: "private",
+    name: "PRIVATE",
+    description:
+      "Уютный номер с полуторной кроватью, собственной ванной комнатой и всем необходимым для спокойного отдыха: косметика, халат, тапочки, Wi-Fi и круглосуточный доступ к инфраструктуре AVULUS CYBER HOTEL. Подойдет, если нужно переночевать после работы, встречи, учебы или ночи в городе.",
+    priceAmount: "8500",
+  },
+  {
+    id: "private-pc",
+    name: "PRIVATE + ПК",
+    description:
+      "Тот же комфортный соло номер, но с игровым компьютером внутри. Компьютер устанавливается по предварительному запросу, поэтому лучше уточнить доступность заранее при бронировании.",
+    priceAmount: "10500",
+    priceFootnote: true,
+  },
+];
 
 export const CONTACTS = {
   phone: CTAS.phone.display,
   phoneHref: CTAS.phone.href,
   telegramUrl: CTAS.telegram.url,
   vkUrl: CTAS.vk.url,
-  langameBookingUrl: CTAS.langame.url,
+  bookingUrl: CTAS.book.url,
   address: "Москва, Серебрянический переулок, 12с1",
+  locationHighlights: [
+    "Центр Москвы",
+    "Рядом с НИУ ВШЭ",
+    "Удобный доступ к метро",
+    "Парковка для гостей",
+  ],
   parking: "Бесплатная парковка",
   hours: "Открыты 24/7",
-  routeLabel: "построить маршрут",
-  mapEmbedUrl: "https://yandex.ru/map-widget/v1/?ll=37.648259%2C55.750145&z=17",
+  routeLabel: "Открыть в Яндекс Картах",
+  placeReviewsLabel: "Отзывы и карточка места",
+  placeName: "Avulus Cyber Space",
+  mapGeocodeQuery: "Москва, Серебрянический переулок, 12с1",
+  mapEmbedUrl:
+    "https://yandex.ru/map-widget/v1/?ll=37.648259%2C55.750145&z=17",
   mapOrgOid: "71331203438",
   mapRouteUrl:
     "https://yandex.com/maps/org/avulus_cyber_space/71331203438/?ll=37.648259%2C55.750145&z=17",

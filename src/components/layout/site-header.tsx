@@ -7,7 +7,12 @@ import { HeroMobileMenu } from "@/components/layout/hero-mobile-menu";
 import { LogoHomeLink } from "@/components/layout/logo-home-link";
 import { NavSectionLink } from "@/components/layout/nav-section-link";
 import { assets } from "@/lib/assets";
-import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
+import {
+  avulusButtonShadow,
+  btnFilledInteractive,
+  btnOpacityInteractive,
+  figmaCtaCorners,
+} from "@/lib/cta-styles";
 import { ExternalCta } from "@/components/ui/external-cta";
 import { CTAS } from "@/lib/ctas";
 import { NAV_LINKS } from "@/lib/data";
@@ -69,7 +74,7 @@ export function SiteHeader({
             <NavSectionLink
               key={link.href}
               href={link.href}
-              className="shrink-0 text-[clamp(13px,1.46vw,21px)] font-medium uppercase leading-6 tracking-normal text-white transition-opacity hover:opacity-70"
+              className="shrink-0 text-[clamp(13px,1.46vw,21px)] font-medium uppercase leading-6 tracking-normal text-white"
             >
               {link.label}
             </NavSectionLink>
@@ -79,17 +84,18 @@ export function SiteHeader({
         {variant === "hero" ? <HeroMobileMenu /> : null}
 
         <ExternalCta
-          href={CTAS.langame.url}
+          href={CTAS.book.url}
           className={cn(
             figmaCtaCorners,
             avulusButtonShadow,
-            "inline-flex shrink-0 items-center justify-center uppercase leading-none transition-opacity hover:opacity-90",
+            variant === "hero" ? btnOpacityInteractive : btnFilledInteractive,
+            "inline-flex shrink-0 items-center justify-center uppercase leading-none",
             variant === "hero"
               ? "hidden h-[clamp(48px,4.17vw,60px)] w-[clamp(140px,18.6vw,268px)] bg-white px-4 text-[clamp(12px,1.46vw,21px)] font-bold tracking-normal text-[#db0032] lg:inline-flex"
-              : "h-[60px] w-[268px] bg-avulus-red text-[21px] font-medium text-white transition-colors hover:bg-avulus-red-dark max-lg:h-[48px] max-lg:w-[140px] max-lg:text-xs",
+              : "h-[60px] w-[268px] bg-avulus-red text-[21px] font-medium text-white max-lg:h-[48px] max-lg:w-[140px] max-lg:text-xs",
           )}
         >
-          {CTAS.langame.label}
+          {CTAS.book.label}
         </ExternalCta>
       </Container>
     </header>

@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { linkInteractive } from "@/lib/cta-styles";
+import { cn } from "@/lib/utils";
+
 type NavSectionLinkProps = {
   href: string;
   className?: string;
@@ -14,7 +17,7 @@ export function NavSectionLink({
   onClick,
 }: NavSectionLinkProps) {
   return (
-    <Link href={href} className={className} onClick={onClick}>
+    <Link href={href} className={cn(linkInteractive, className)} onClick={onClick}>
       {children}
     </Link>
   );

@@ -5,7 +5,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef } from "react";
 
 import { Container } from "@/components/avulus/container";
-import { avulusButtonShadow, avulusCardShadow } from "@/lib/cta-styles";
+import {
+  avulusButtonShadow,
+  avulusCardShadow,
+  btnOutlineLightInteractive,
+} from "@/lib/cta-styles";
 import { assets } from "@/lib/assets";
 import { ROOM_PROMO } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -54,7 +58,7 @@ export function PromotionsSection() {
       <Container>
         <div className="mb-6 flex items-center justify-between gap-4 lg:mb-10">
           <h2 className="text-3xl font-black uppercase tracking-tight text-white sm:text-4xl">
-            Акции
+            АКЦИИ И ПРЕДЛОЖЕНИЯ
           </h2>
 
           <div className="flex shrink-0 gap-1 lg:hidden">
@@ -177,7 +181,8 @@ function PromoNavButton({
     <button
       type="button"
       className={cn(
-        "flex size-[50px] items-center justify-center border border-white/80 bg-black text-white shadow-avulus-button transition-colors hover:bg-white/10",
+        btnOutlineLightInteractive,
+        "flex size-[50px] items-center justify-center border border-white/80 bg-black text-white shadow-avulus-button",
         className,
       )}
       {...props}

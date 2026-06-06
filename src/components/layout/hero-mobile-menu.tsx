@@ -5,7 +5,13 @@ import { useCallback, useEffect, useState } from "react";
 
 import { NavSectionLink } from "@/components/layout/nav-section-link";
 import { ExternalCta } from "@/components/ui/external-cta";
-import { avulusButtonShadow, figmaCtaCorners } from "@/lib/cta-styles";
+import { useDigitalMenuOpen } from "@/contexts/digital-menu-context";
+import {
+  avulusButtonShadow,
+  btnOpacityInteractive,
+  figmaCtaCorners,
+  linkInteractive,
+} from "@/lib/cta-styles";
 import { CTAS } from "@/lib/ctas";
 import { NAV_LINKS } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -16,8 +22,15 @@ type HeroMobileMenuProps = {
 
 export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
   const [open, setOpen] = useState(false);
+  const { isOpen: isDigitalMenuOpen } = useDigitalMenuOpen();
 
   const close = useCallback(() => setOpen(false), []);
+
+  useEffect(() => {
+    if (isDigitalMenuOpen) {
+      setOpen(false);
+    }
+  }, [isDigitalMenuOpen]);
 
   useEffect(() => {
     if (!open) return;
@@ -37,6 +50,10 @@ export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, close]);
 
+  if (isDigitalMenuOpen) {
+    return null;
+  }
+
   return (
     <div className={cn("relative lg:hidden", className)}>
       <button
@@ -45,7 +62,7 @@ export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
         aria-expanded={open}
         aria-controls="hero-mobile-nav"
         aria-label={open ? "Закрыть меню" : "Открыть меню"}
-        className="flex size-11 items-center justify-center text-white transition-opacity hover:opacity-70"
+        className={cn("flex size-11 items-center justify-center text-white", linkInteractive)}
       >
         {open ? (
           <X className="size-7" strokeWidth={1.75} aria-hidden />
@@ -66,7 +83,7 @@ export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
                 <NavSectionLink
                   href={link.href}
                   onClick={close}
-                  className="block py-2.5 text-sm font-medium uppercase tracking-wide text-white transition-opacity hover:opacity-70"
+                  className="block py-2.5 text-sm font-medium uppercase tracking-wide text-white"
                 >
                   {link.label}
                 </NavSectionLink>
@@ -74,14 +91,15 @@ export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
             ))}
           </ul>
           <ExternalCta
-            href={CTAS.langame.url}
+            href={CTAS.book.url}
             className={cn(
               figmaCtaCorners,
               avulusButtonShadow,
-              "mt-4 inline-flex h-12 w-full items-center justify-center bg-white text-sm font-bold uppercase tracking-normal text-[#db0032] transition-opacity hover:opacity-90",
+              btnOpacityInteractive,
+              "mt-4 inline-flex h-12 w-full items-center justify-center bg-white text-sm font-bold uppercase tracking-normal text-[#db0032]",
             )}
           >
-            {CTAS.langame.label}
+            {CTAS.book.label}
           </ExternalCta>
         </nav>
       ) : null}
