@@ -33,9 +33,8 @@ export const assets = {
       assetUrl("/images/hotel-gallery-3.webp"),
       assetUrl("/images/hotel-gallery-4.webp"),
     ],
-    /** Shown in the +N фото lightbox (thumb 4 + uploaded hotel photos) */
+    /** Shown in the +N фото lightbox (thumb 4 is the trigger; these are the rest) */
     extra: [
-      "hotel-gallery-4.webp",
       "01_VER7420 копия.jpg",
       "02_VER7429 копия.jpg",
       "03_VER7450 копия.jpg",
