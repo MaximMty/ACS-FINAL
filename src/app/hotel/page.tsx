@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 
 import { Container } from "@/components/avulus/container";
 import { ExternalCta } from "@/components/ui/external-cta";
+import { HotelGallery } from "@/components/hotel/hotel-gallery";
 import { FloatingActions } from "@/components/layout/floating-actions";
 import { HotelHeader, HotelPageIntro } from "@/components/layout/hotel-header";
 import { BookingSection } from "@/components/sections/booking-section";
@@ -17,7 +18,6 @@ import {
   HOTEL_PRICE_DISCLAIMER,
   HOTEL_ROOM_CARDS,
   HOTEL_SPACE,
-  ROOM_CARDS,
 } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -30,40 +30,11 @@ export default function HotelPage() {
       <main className="bg-black">
         <HotelPageIntro />
         <Container className="bg-black">
-          {/* Gallery */}
-          <div className="grid gap-4 lg:grid-cols-12">
-            <div className="relative aspect-[668/533] overflow-hidden lg:col-span-7">
-              <Image
-                src={assets.hotelGallery.main}
-                alt="Номер AVULUS HOTEL"
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 60vw"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4 lg:col-span-5">
-              {assets.hotelGallery.thumbs.map((src, i) => (
-                <div
-                  key={src}
-                  className="relative aspect-[325/256] overflow-hidden"
-                >
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 50vw, 20vw"
-                  />
-                  {i === 3 && (
-                    <span className="absolute inset-0 flex items-center justify-center bg-black/50 text-lg font-medium text-white">
-                      +15 фото
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+          <HotelGallery
+            main={assets.hotelGallery.main}
+            thumbs={assets.hotelGallery.thumbs}
+            extra={assets.hotelGallery.extra}
+          />
 
           <div className="mt-12 grid gap-10 lg:grid-cols-12">
             <div className="space-y-4 text-sm leading-relaxed text-white/80 lg:col-span-5">
@@ -189,7 +160,10 @@ export default function HotelPage() {
         </section>
 
         <BookingSection
-          rooms={ROOM_CARDS.map((room) => ({ id: room.id, name: room.name }))}
+          rooms={HOTEL_ROOM_CARDS.map((room) => ({
+            id: room.id,
+            name: room.name,
+          }))}
           title="бронирование номера"
           subtitle="Выберите номер, дату и время. Мы подтвердим бронь по телефону или в Telegram."
         />

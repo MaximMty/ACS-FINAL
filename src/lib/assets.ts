@@ -33,6 +33,24 @@ export const assets = {
       assetUrl("/images/hotel-gallery-3.webp"),
       assetUrl("/images/hotel-gallery-4.webp"),
     ],
+    /** Shown in the +N фото lightbox (thumb 4 + uploaded hotel photos) */
+    extra: [
+      "hotel-gallery-4.webp",
+      "01_VER7420 копия.jpg",
+      "02_VER7429 копия.jpg",
+      "03_VER7450 копия.jpg",
+      "04_VER7456 копия.jpg",
+      "05_VER7552 копия.jpg",
+      "06_VER7567 копия.jpg",
+      "08_VER7597 копия.jpg",
+      "09_VER7600 копия.jpg",
+      "10_NV37766 копия.jpg",
+      "11_VER7386 копия.jpg",
+      "12_VER7532 копия.jpg",
+      "13_VER7465 копия.jpg",
+      "14_VER7466 копия.jpg",
+      "15_VER7594 копия.jpg",
+    ].map((file) => assetUrl(`/images/${encodeURI(file)}`)),
   },
 
   rooms: {
