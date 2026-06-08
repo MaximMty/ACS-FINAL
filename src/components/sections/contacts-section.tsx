@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Check } from "lucide-react";
 
 import { Container } from "@/components/avulus/container";
 import {
@@ -59,22 +58,6 @@ export function ContactsSection() {
               {CONTACTS.address}
             </p>
 
-            <ul className="mt-4 space-y-2">
-              {CONTACTS.locationHighlights.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2.5 text-sm font-medium uppercase tracking-wide text-white/90"
-                >
-                  <Check
-                    className="mt-0.5 size-4 shrink-0 text-avulus-red"
-                    strokeWidth={2.5}
-                    aria-hidden
-                  />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
             <div className="mt-5 flex items-center gap-2.5">
               <Image
                 src={assets.iconParking}
@@ -104,18 +87,6 @@ export function ContactsSection() {
               >
                 {CTAS.telegram.botLabel}
               </ExternalCta>
-              <Link
-                href={routeHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  contactButtonClass,
-                  btnFilledInteractive,
-                  "border border-white/20 bg-white/10 text-white",
-                )}
-              >
-                {CONTACTS.placeReviewsLabel}
-              </Link>
               <ExternalCta
                 href={phoneHref}
                 className={cn(
@@ -133,7 +104,7 @@ export function ContactsSection() {
                 className={cn(
                   contactButtonClass,
                   btnOutlineLightInteractive,
-                  "border border-white/50 bg-transparent text-white sm:col-span-2 lg:col-span-1",
+                  "border border-white/50 bg-transparent text-white sm:col-span-2 lg:col-span-2",
                 )}
               >
                 {CONTACTS.routeLabel}
@@ -144,7 +115,7 @@ export function ContactsSection() {
           <CustomYandexMap
             embedUrl={CONTACTS.mapEmbedUrl}
             placeUrl={CONTACTS.mapRouteUrl}
-            placeButtonLabel={CONTACTS.placeReviewsLabel}
+            placeButtonLabel={CONTACTS.routeLabel}
             placeName={CONTACTS.placeName}
             placeAddress={CONTACTS.address}
             placeHours={CONTACTS.hours}

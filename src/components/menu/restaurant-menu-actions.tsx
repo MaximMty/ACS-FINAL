@@ -23,14 +23,12 @@ const DigitalMenuModal = dynamic(
 const MENU_BUTTONS = [
   {
     id: "restaurant" as const,
-    labelEn: "Kitchen Menu",
-    labelRu: "Меню кухни",
+    label: "Меню кухни",
     imageBackgroundColor: "#ffffff",
   },
   {
     id: "bar" as const,
-    labelEn: "Bar Menu",
-    labelRu: "Барное меню",
+    label: "Барное меню",
     imageBackgroundColor: "transparent",
   },
 ] as const;
@@ -68,23 +66,17 @@ export function RestaurantMenuActions({ className }: RestaurantMenuActionsProps)
             onClick={() => setActiveMenu(button.id)}
             onMouseEnter={() => warmMenu(button.id)}
             onFocus={() => warmMenu(button.id)}
-            aria-label={`${button.labelEn} — ${button.labelRu}`}
+            aria-label={button.label}
             className={cn(
               figmaCtaCorners,
               avulusButtonShadow,
-              "flex min-h-[52px] w-full flex-col items-center justify-center gap-0.5",
+              "flex min-h-[52px] w-full items-center justify-center",
               "border border-white/25 bg-white/5 px-5 py-2.5",
               btnOutlineLightInteractive,
-              "text-white backdrop-blur-sm",
-              "sm:min-h-[56px] sm:min-w-[160px] sm:flex-1",
+              "text-xs font-semibold uppercase tracking-wide text-white backdrop-blur-sm sm:min-h-[56px] sm:min-w-[160px] sm:flex-1 sm:text-sm",
             )}
           >
-            <span className="text-[11px] font-medium uppercase tracking-[0.12em] opacity-80 sm:text-xs">
-              {button.labelEn}
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-wide sm:text-sm">
-              {button.labelRu}
-            </span>
+            {button.label}
           </button>
         ))}
         </div>
