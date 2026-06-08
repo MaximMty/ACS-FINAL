@@ -41,7 +41,7 @@ export const FORMAT_CARDS: FormatCard[] = [
     id: "solo",
     title: "СОЛО",
     subtitle: "1 ИГРОК",
-    description: "Для одиночной игры, фокуса или отдыха",
+    description: "Для одиночной игры, фулл-фокуса или отдыха",
     price: { prefix: "от", amount: "290", suffix: "/ час" },
     variant: "light",
     buttonVariant: "filled",
