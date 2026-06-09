@@ -107,11 +107,11 @@ export default function HotelPage() {
                   <article
                     key={room.id}
                     className={cn(
-                      "overflow-hidden bg-white text-black",
+                      "flex flex-col overflow-hidden bg-white text-black",
                       avulusCardShadow,
                     )}
                   >
-                    <div className="relative aspect-[670/400]">
+                    <div className="relative aspect-[670/400] shrink-0">
                       <Image
                         src={image}
                         alt={room.name}
@@ -120,35 +120,37 @@ export default function HotelPage() {
                         sizes="(max-width: 1024px) 100vw, 50vw"
                       />
                     </div>
-                    <div className="p-8">
+                    <div className="flex flex-1 flex-col p-8">
                       <h3 className="text-4xl font-black uppercase">
                         {room.name}
                       </h3>
                       <p className="mt-4 max-w-xl text-sm leading-relaxed text-black/70">
                         {room.description}
                       </p>
-                      <p className="mt-4 flex items-baseline gap-2">
-                        <span className="text-sm font-medium uppercase text-black/60">
-                          от
-                        </span>
-                        <span className="relative inline-block text-[clamp(1.75rem,3vw,2.5rem)] font-black leading-none text-avulus-red">
-                          {room.priceAmount}
-                          {room.priceFootnote ? (
-                            <sup className="absolute -right-3 -top-0.5 text-[0.5em] font-bold leading-none">
-                              *
-                            </sup>
-                          ) : null}
-                        </span>
-                        <span className="text-sm font-medium uppercase text-black/60">
-                          / сутки
-                        </span>
-                      </p>
-                      <ExternalCta
-                        href={CTAS.book.url}
-                        className={cn(bookButtonFullClass, "mt-6 text-sm")}
-                      >
-                        {CTAS.book.label}
-                      </ExternalCta>
+                      <div className="mt-auto pt-6">
+                        <p className="flex items-baseline gap-2">
+                          <span className="text-sm font-medium uppercase text-black/60">
+                            от
+                          </span>
+                          <span className="relative inline-block text-[clamp(1.75rem,3vw,2.5rem)] font-black leading-none text-avulus-red">
+                            {room.priceAmount}
+                            {room.priceFootnote ? (
+                              <sup className="absolute -right-3 -top-0.5 text-[0.5em] font-bold leading-none">
+                                *
+                              </sup>
+                            ) : null}
+                          </span>
+                          <span className="text-sm font-medium uppercase text-black/60">
+                            / сутки
+                          </span>
+                        </p>
+                        <ExternalCta
+                          href={CTAS.book.url}
+                          className={cn(bookButtonFullClass, "mt-6 text-sm")}
+                        >
+                          {CTAS.book.label}
+                        </ExternalCta>
+                      </div>
                     </div>
                   </article>
                 );
