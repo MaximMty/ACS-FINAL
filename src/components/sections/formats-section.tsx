@@ -113,7 +113,9 @@ function FormatCardItem({
         aria-hidden
         className={cn(
           "pointer-events-none absolute inset-0 bg-[length:140%] bg-center",
-          isDark ? "mix-blend-soft-light opacity-50" : "opacity-[0.07]",
+          isRestaurant && "mix-blend-screen opacity-65",
+          isHotel && "mix-blend-soft-light opacity-50",
+          !isDark && "opacity-[0.07]",
         )}
         style={patternStyle}
       />

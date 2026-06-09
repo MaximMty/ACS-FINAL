@@ -125,13 +125,10 @@ function RoomCardItem({
         )}
       </div>
 
-      <div
-        className="relative flex flex-1 flex-col px-6 pb-6 pt-5 sm:px-8 sm:pb-8 sm:pt-6"
-        style={patternStyle}
-      >
+      <div className="relative flex flex-1 flex-col px-6 pb-6 pt-5 sm:px-8 sm:pb-8 sm:pt-6">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[length:160%] bg-center opacity-40 mix-blend-screen"
+          className="pointer-events-none absolute inset-0 bg-[length:160%] bg-center opacity-[0.22] brightness-75 mix-blend-screen"
           style={patternStyle}
         />
 
