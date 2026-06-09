@@ -15,22 +15,45 @@ type HotelGalleryProps = {
   extra: readonly string[];
 };
 
+type LightboxState = {
+  images: readonly string[];
+  page: number;
+};
+
 export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [page, setPage] = useState(0);
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  const total = extra.length;
-  const extraLabel = `+${total} фото`;
+  const extraTotal = extra.length;
+  const extraLabel = `+${extraTotal} фото`;
+  const isCarousel = lightbox !== null && lightbox.images.length > 1;
+  const page = lightbox?.page ?? 0;
+  const total = lightbox?.images.length ?? 0;
 
   const close = useCallback(() => {
-    setIsOpen(false);
-    setPage(0);
+    setLightbox(null);
   }, []);
 
-  const open = useCallback(() => {
-    setPage(0);
-    setIsOpen(true);
+  const openSingle = useCallback((src: string) => {
+    setLightbox({ images: [src], page: 0 });
+  }, []);
+
+  const openCarousel = useCallback(() => {
+    setLightbox({ images: extra, page: 0 });
+  }, [extra]);
+
+  const setPage = useCallback((next: number | ((current: number) => number)) => {
+    setLightbox((current) => {
+      if (!current) return current;
+
+      const pageValue =
+        typeof next === "function" ? next(current.page) : next;
+
+      return {
+        ...current,
+        page: Math.max(0, Math.min(current.images.length - 1, pageValue)),
+      };
+    });
   }, []);
 
   useEffect(() => {
@@ -38,32 +61,53 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
   }, []);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!lightbox) return;
     return lockBodyScroll();
-  }, [isOpen]);
+  }, [lightbox]);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!lightbox || !isCarousel) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") close();
-      if (event.key === "ArrowLeft") setPage((p) => Math.max(0, p - 1));
-      if (event.key === "ArrowRight") setPage((p) => Math.min(total - 1, p + 1));
+      if (event.key === "ArrowLeft") setPage((p) => p - 1);
+      if (event.key === "ArrowRight") setPage((p) => p + 1);
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [close, isOpen, total]);
+  }, [close, isCarousel, lightbox, setPage]);
 
-  const goPrev = () => setPage((p) => Math.max(0, p - 1));
-  const goNext = () => setPage((p) => Math.min(total - 1, p + 1));
+  useEffect(() => {
+    if (!lightbox || isCarousel) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [close, isCarousel, lightbox]);
+
+  const goPrev = () => setPage((p) => p - 1);
+  const goNext = () => setPage((p) => p + 1);
 
   const thumbCellClass = "relative min-h-0 overflow-hidden";
+  const imageButtonClass = cn(
+    thumbCellClass,
+    btnOutlineLightInteractive,
+    "size-full",
+  );
 
   return (
     <>
       <div className="grid gap-2 lg:grid-cols-2 lg:gap-2">
-        <div className="relative aspect-[668/533] overflow-hidden">
+        <button
+          type="button"
+          onClick={() => openSingle(main)}
+          className={cn(imageButtonClass, "relative aspect-[668/533]")}
+          aria-label="Открыть фото номера"
+        >
           <Image
             src={main}
             alt="Номер AVULUS HOTEL"
@@ -72,7 +116,7 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-        </div>
+        </button>
 
         <div className="relative aspect-[668/533] overflow-hidden">
           <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-2">
@@ -84,13 +128,9 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
                   <button
                     key={src}
                     type="button"
-                    onClick={open}
-                    className={cn(
-                      thumbCellClass,
-                      btnOutlineLightInteractive,
-                      "size-full",
-                    )}
-                    aria-label={`Показать ещё ${total} фото`}
+                    onClick={openCarousel}
+                    className={imageButtonClass}
+                    aria-label={`Показать ещё ${extraTotal} фото`}
                   >
                     <Image
                       src={src}
@@ -107,7 +147,13 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
               }
 
               return (
-                <div key={src} className={thumbCellClass}>
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => openSingle(src)}
+                  className={imageButtonClass}
+                  aria-label="Открыть фото номера"
+                >
                   <Image
                     src={src}
                     alt=""
@@ -115,14 +161,14 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
                     className="object-cover"
                     sizes="(max-width: 1024px) 50vw, 25vw"
                   />
-                </div>
+                </button>
               );
             })}
           </div>
         </div>
       </div>
 
-      {mounted && isOpen
+      {mounted && lightbox
         ? createPortal(
             <div
               className="fixed inset-0 z-[100] flex flex-col bg-black/95"
@@ -131,9 +177,13 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
               aria-label="Галерея номеров AVULUS HOTEL"
             >
               <div className="flex shrink-0 items-center justify-between gap-4 px-4 py-4 sm:px-6">
-                <p className="text-sm font-medium uppercase tracking-wide text-white/80">
-                  {page + 1} / {total}
-                </p>
+                {isCarousel ? (
+                  <p className="text-sm font-medium uppercase tracking-wide text-white/80">
+                    {page + 1} / {total}
+                  </p>
+                ) : (
+                  <span aria-hidden="true" />
+                )}
                 <button
                   type="button"
                   onClick={close}
@@ -148,40 +198,44 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
               </div>
 
               <div className="relative flex min-h-0 flex-1 items-center justify-center px-4 pb-6 sm:px-16">
-                <button
-                  type="button"
-                  onClick={goPrev}
-                  disabled={page === 0}
-                  className={cn(
-                    btnOutlineLightInteractive,
-                    "absolute left-2 z-10 flex size-11 items-center justify-center rounded-full border border-white/40 bg-black/50 text-white disabled:pointer-events-none disabled:opacity-30 sm:left-4",
-                  )}
-                  aria-label="Предыдущее фото"
-                >
-                  <ChevronLeft className="size-5" strokeWidth={2} />
-                </button>
+                {isCarousel ? (
+                  <button
+                    type="button"
+                    onClick={goPrev}
+                    disabled={page === 0}
+                    className={cn(
+                      btnOutlineLightInteractive,
+                      "absolute left-2 z-10 flex size-11 items-center justify-center rounded-full border border-white/40 bg-black/50 text-white disabled:pointer-events-none disabled:opacity-30 sm:left-4",
+                    )}
+                    aria-label="Предыдущее фото"
+                  >
+                    <ChevronLeft className="size-5" strokeWidth={2} />
+                  </button>
+                ) : null}
 
                 <div className="relative h-full w-full max-h-[min(72vh,820px)] max-w-5xl">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- extra gallery includes JPG paths with encoded Cyrillic filenames */}
+                  {/* eslint-disable-next-line @next/next/no-img-element -- gallery includes JPG paths with encoded Cyrillic filenames */}
                   <img
-                    src={extra[page]}
-                    alt={`Фото номера ${page + 1}`}
+                    src={lightbox.images[page]}
+                    alt="Фото номера AVULUS HOTEL"
                     className="size-full object-contain"
                   />
                 </div>
 
-                <button
-                  type="button"
-                  onClick={goNext}
-                  disabled={page === total - 1}
-                  className={cn(
-                    btnOutlineLightInteractive,
-                    "absolute right-2 z-10 flex size-11 items-center justify-center rounded-full border border-white/40 bg-black/50 text-white disabled:pointer-events-none disabled:opacity-30 sm:right-4",
-                  )}
-                  aria-label="Следующее фото"
-                >
-                  <ChevronRight className="size-5" strokeWidth={2} />
-                </button>
+                {isCarousel ? (
+                  <button
+                    type="button"
+                    onClick={goNext}
+                    disabled={page === total - 1}
+                    className={cn(
+                      btnOutlineLightInteractive,
+                      "absolute right-2 z-10 flex size-11 items-center justify-center rounded-full border border-white/40 bg-black/50 text-white disabled:pointer-events-none disabled:opacity-30 sm:right-4",
+                    )}
+                    aria-label="Следующее фото"
+                  >
+                    <ChevronRight className="size-5" strokeWidth={2} />
+                  </button>
+                ) : null}
               </div>
             </div>,
             document.body,
