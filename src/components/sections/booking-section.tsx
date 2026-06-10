@@ -27,6 +27,7 @@ type BookingSectionProps = {
   rooms: BookingRoom[];
   title?: string;
   subtitle?: string;
+  telegramBotUrl?: string;
 };
 
 const TIME_OPTIONS = [
@@ -103,6 +104,7 @@ export function BookingSection({
   rooms,
   title = "бронирование",
   subtitle = "Оставьте заявку, и мы свяжемся с вами для подтверждения.",
+  telegramBotUrl = CTAS.telegram.url,
 }: BookingSectionProps) {
   const [values, setValues] = useState(DEFAULT_VALUES);
   const [errors, setErrors] = useState<BookingFormErrors>({});
@@ -140,13 +142,16 @@ export function BookingSection({
     const roomName =
       rooms.find((room) => room.id === values.room)?.name ?? values.room;
 
-    const telegramUrl = telegramBookingUrl({
-      room: roomName,
-      date: values.date,
-      time: values.time,
-      name: values.name,
-      contact: values.contact,
-    });
+    const telegramUrl = telegramBookingUrl(
+      {
+        room: roomName,
+        date: values.date,
+        time: values.time,
+        name: values.name,
+        contact: values.contact,
+      },
+      telegramBotUrl,
+    );
 
     window.open(telegramUrl, "_blank", "noopener,noreferrer");
 

@@ -40,7 +40,7 @@ export default function RootLayout({
         className="min-h-full"
         style={
           {
-            "--feature-height": "clamp(72px, 6.74vw, 97px)",
+            "--feature-height": "clamp(72px, calc(100vw * 99 / 1440), 99px)",
           } as React.CSSProperties
         }
       >

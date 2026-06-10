@@ -10,7 +10,7 @@ export function HeroSection() {
       className="relative flex h-svh min-h-svh w-full flex-col overflow-hidden"
       style={
         {
-          "--feature-height": "clamp(72px, 6.74vw, 97px)",
+          "--feature-height": "clamp(72px, calc(100vw * 99 / 1440), 99px)",
         } as React.CSSProperties
       }
     >
@@ -33,7 +33,7 @@ export function HeroSection() {
         </div>
       </Container>
 
-      <FeatureBar className="absolute inset-x-0 bottom-0 z-20" />
+      <FeatureBar className="absolute bottom-0 left-1/2 z-20 w-screen -translate-x-1/2" />
     </section>
   );
 }

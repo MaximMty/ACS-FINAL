@@ -44,7 +44,7 @@ export function HotelHeader() {
         </Link>
 
         <ExternalCta
-          href={CTAS.book.url}
+          href={CTAS.hotelBook.url}
           className={cn(
             figmaCtaCorners,
             avulusButtonShadow,
@@ -54,7 +54,7 @@ export function HotelHeader() {
             "text-[clamp(12px,1.46vw,21px)] font-bold tracking-normal text-[#db0032]",
           )}
         >
-          {CTAS.book.label}
+          {CTAS.hotelBook.label}
         </ExternalCta>
       </Container>
     </header>

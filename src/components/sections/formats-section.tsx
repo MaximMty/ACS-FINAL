@@ -13,7 +13,6 @@ import {
   btnFilledDarkInteractive,
   btnOpacityInteractive,
   btnOutlineLightInteractive,
-  tapInteractive,
   figmaCtaCorners,
 } from "@/lib/cta-styles";
 import { cn } from "@/lib/utils";
@@ -95,7 +94,7 @@ function FormatCardItem({
       cn(btnFilledDarkInteractive, "bg-black text-white"),
     !isDark &&
       buttonVariant === "outline" &&
-      cn(tapInteractive, "border-2 border-black bg-white text-black active:bg-black/5"),
+      cn(btnOpacityInteractive, "border-2 border-black bg-white text-black"),
   );
 
   return (

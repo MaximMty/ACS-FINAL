@@ -145,10 +145,10 @@ export default function HotelPage() {
                           </span>
                         </p>
                         <ExternalCta
-                          href={CTAS.book.url}
+                          href={CTAS.hotelBook.url}
                           className={cn(bookButtonFullClass, "mt-6 text-sm")}
                         >
-                          {CTAS.book.label}
+                          {CTAS.hotelBook.label}
                         </ExternalCta>
                       </div>
                     </div>
@@ -168,6 +168,7 @@ export default function HotelPage() {
           }))}
           title="бронирование номера"
           subtitle="Выберите номер, дату и время. Мы подтвердим бронь по телефону или в Telegram."
+          telegramBotUrl={CTAS.hotelBook.url}
         />
 
         <ContactsSection />

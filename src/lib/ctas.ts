@@ -24,6 +24,10 @@ export const CTAS = {
     url: "https://t.me/AVULUSbot",
     label: "Забронировать",
   },
+  hotelBook: {
+    url: "https://t.me/avulus_hotel_bot",
+    label: "Забронировать",
+  },
 } as const;
 
 export function externalLinkProps() {
@@ -51,7 +55,10 @@ export function buildTelegramBookingMessage(fields: TelegramBookingFields): stri
   return lines.join("\n");
 }
 
-export function telegramBookingUrl(fields: TelegramBookingFields): string {
+export function telegramBookingUrl(
+  fields: TelegramBookingFields,
+  botUrl: string = CTAS.telegram.url,
+): string {
   const text = buildTelegramBookingMessage(fields);
-  return `${CTAS.telegram.url}?text=${encodeURIComponent(text)}`;
+  return `${botUrl}?text=${encodeURIComponent(text)}`;
 }
