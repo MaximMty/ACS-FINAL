@@ -146,7 +146,7 @@ export const ROOM_CARDS: RoomCard[] = [
       gpu: "RTX 5080",
       cpu: "i9-14900KF",
     },
-    price: { prefix: "от", amount: "12500", suffix: "/ час" },
+    price: { prefix: "от", amount: "12 500", suffix: "/ час" },
   },
 ];
 
@@ -204,7 +204,7 @@ export const HOTEL_ROOM_CARDS: HotelRoomCard[] = [
     name: "PRIVATE + ПК",
     description:
       "Тот же комфортный соло номер, но с игровым компьютером внутри. Компьютер устанавливается по предварительному запросу, поэтому лучше уточнить доступность заранее при бронировании.",
-    priceAmount: "10500",
+    priceAmount: "10 500",
     priceFootnote: true,
   },
 ];
@@ -221,8 +221,7 @@ export const CONTACTS = {
   routeLabel: "Открыть в Яндекс Картах",
   placeName: "Avulus Cyber Space",
   mapGeocodeQuery: "Москва, Серебрянический переулок, 12с1",
-  mapEmbedUrl:
-    "https://yandex.ru/map-widget/v1/?ll=37.648259%2C55.750145&z=17",
+  mapEmbedUrl: "https://yandex.ru/map-widget/v1/?ll=37.648259%2C55.750145&z=17",
   mapOrgOid: "71331203438",
   mapRouteUrl:
     "https://yandex.com/maps/org/avulus_cyber_space/71331203438/?ll=37.648259%2C55.750145&z=17",

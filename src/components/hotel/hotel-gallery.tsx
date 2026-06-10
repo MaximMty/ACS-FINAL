@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { lockBodyScroll } from "@/lib/body-scroll-lock";
@@ -24,6 +24,13 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
   const [mounted, setMounted] = useState(false);
 
+  const carouselThumbs = useMemo(() => thumbs.slice(0, -1), [thumbs]);
+
+  const allImages = useMemo(
+    () => [main, ...carouselThumbs, ...extra],
+    [main, carouselThumbs, extra],
+  );
+
   const extraTotal = extra.length;
   const extraLabel = `+${extraTotal} фото`;
   const isCarousel = lightbox !== null && lightbox.images.length > 1;
@@ -34,13 +41,15 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
     setLightbox(null);
   }, []);
 
-  const openSingle = useCallback((src: string) => {
-    setLightbox({ images: [src], page: 0 });
-  }, []);
-
-  const openCarousel = useCallback(() => {
-    setLightbox({ images: extra, page: 0 });
-  }, [extra]);
+  const openAt = useCallback(
+    (index: number) => {
+      setLightbox({
+        images: allImages,
+        page: Math.max(0, Math.min(allImages.length - 1, index)),
+      });
+    },
+    [allImages],
+  );
 
   const setPage = useCallback((next: number | ((current: number) => number)) => {
     setLightbox((current) => {
@@ -66,10 +75,11 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
   }, [lightbox]);
 
   useEffect(() => {
-    if (!lightbox || !isCarousel) return;
+    if (!lightbox) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") close();
+      if (!isCarousel) return;
       if (event.key === "ArrowLeft") setPage((p) => p - 1);
       if (event.key === "ArrowRight") setPage((p) => p + 1);
     };
@@ -77,17 +87,6 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [close, isCarousel, lightbox, setPage]);
-
-  useEffect(() => {
-    if (!lightbox || isCarousel) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") close();
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [close, isCarousel, lightbox]);
 
   const goPrev = () => setPage((p) => p - 1);
   const goNext = () => setPage((p) => p + 1);
@@ -104,7 +103,7 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
       <div className="grid gap-2 lg:grid-cols-2 lg:gap-2">
         <button
           type="button"
-          onClick={() => openSingle(main)}
+          onClick={() => openAt(0)}
           className={cn(imageButtonClass, "relative aspect-[668/533]")}
           aria-label="Открыть фото номера"
         >
@@ -128,7 +127,7 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
                   <button
                     key={src}
                     type="button"
-                    onClick={openCarousel}
+                    onClick={() => openAt(1 + carouselThumbs.length)}
                     className={imageButtonClass}
                     aria-label={`Показать ещё ${extraTotal} фото`}
                   >
@@ -150,7 +149,7 @@ export function HotelGallery({ main, thumbs, extra }: HotelGalleryProps) {
                 <button
                   key={src}
                   type="button"
-                  onClick={() => openSingle(src)}
+                  onClick={() => openAt(1 + index)}
                   className={imageButtonClass}
                   aria-label="Открыть фото номера"
                 >

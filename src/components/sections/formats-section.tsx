@@ -113,7 +113,7 @@ function FormatCardItem({
         aria-hidden
         className={cn(
           "pointer-events-none absolute inset-0 bg-[length:140%] bg-center",
-          isRestaurant && "mix-blend-screen opacity-65",
+          isRestaurant && "mix-blend-screen opacity-[0.22] brightness-75",
           isHotel && "mix-blend-soft-light opacity-50",
           !isDark && "opacity-[0.07]",
         )}
@@ -171,7 +171,14 @@ function FormatCardItem({
         {(card.status || card.price) && (
           <div className="flex w-full min-h-[5.5rem] shrink-0 flex-col justify-end pt-4 sm:min-h-[6rem] sm:pt-6">
             {card.status && (
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-avulus-red">
+              <p
+                className={cn(
+                  "font-bold uppercase tracking-[0.2em]",
+                  isRestaurant
+                    ? "text-[10px] text-white sm:text-[11px]"
+                    : "text-xs text-avulus-red",
+                )}
+              >
                 {card.status}
               </p>
             )}
