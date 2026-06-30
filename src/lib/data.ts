@@ -20,7 +20,7 @@ export type FormatCard = {
   id: string;
   title: string;
   subtitle?: string;
-  description: string;
+  description?: string;
   status?: string;
   price?: {
     prefix: string;

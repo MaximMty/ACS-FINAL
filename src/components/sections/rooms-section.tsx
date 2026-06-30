@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import { ExternalCta } from "@/components/ui/external-cta";
 import { CTAS } from "@/lib/ctas";
@@ -17,7 +16,6 @@ import {
   type RoomCard,
 } from "@/lib/data";
 import {
-  avulusButtonShadow,
   avulusCardShadow,
   bookButtonFullClass,
   btnOutlineLightInteractive,

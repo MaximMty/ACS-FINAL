@@ -6,7 +6,6 @@ import { useRef } from "react";
 
 import { Container } from "@/components/avulus/container";
 import {
-  avulusButtonShadow,
   avulusCardShadow,
   btnOutlineLightInteractive,
 } from "@/lib/cta-styles";

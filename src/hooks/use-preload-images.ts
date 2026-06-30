@@ -6,6 +6,8 @@ import { useEffect } from "react";
  * Warm the browser cache for image URLs (e.g. all menu pages when modal opens).
  */
 export function usePreloadImages(urls: readonly string[], enabled: boolean) {
+  const urlsKey = urls.join("|");
+
   useEffect(() => {
     if (!enabled || urls.length === 0) return;
 
@@ -30,5 +32,5 @@ export function usePreloadImages(urls: readonly string[], enabled: boolean) {
     return () => {
       links.forEach((link) => link.remove());
     };
-  }, [enabled, urls.join("|")]);
+  }, [enabled, urls, urlsKey]);
 }
