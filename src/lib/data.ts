@@ -73,7 +73,7 @@ export const FORMAT_CARDS: FormatCard[] = [
   {
     id: "hotel",
     title: "ОТЕЛЬ",
-    subtitle: "Остановитесь на ночь или несколько дней",
+    description: "Остановитесь на ночь или несколько дней",
     variant: "hotel",
     ctaPrimary: "Забронировать",
     ctaPrimaryHref: CTAS.hotelBook.url,

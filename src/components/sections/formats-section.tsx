@@ -163,9 +163,8 @@ function FormatCardItem({
         <p
           className={cn(
             "max-w-[240px] text-sm leading-relaxed",
-            isRestaurant ? "mt-3 font-bold text-white" : "mt-4 flex-1",
-            isDark && !isRestaurant ? "text-white/90" : "",
-            !isDark ? "text-black/90" : "",
+            isRestaurant ? "mt-3" : "mt-4 flex-1",
+            isDark ? "font-bold text-white" : "text-black/90",
           )}
         >
           {card.description}
