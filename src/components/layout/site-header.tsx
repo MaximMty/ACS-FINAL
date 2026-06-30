@@ -34,11 +34,18 @@ export function SiteHeader({
   const isSolid = variant === "solid";
   const showBackground = isSolid || (isHero && isPastThreshold);
 
-  const backgroundClass = isSolid
-    ? "border-b border-white/10 bg-avulus-black"
-    : showBackground
-      ? "bg-avulus-black/95 backdrop-blur-sm"
-      : "bg-transparent";
+  const backgroundClass = cn(
+    isSolid && "border-b border-white/10 bg-avulus-black",
+    isHero &&
+      !isSolid &&
+      cn(
+        "max-lg:glass-header",
+        showBackground ? "max-lg:bg-black/25" : "max-lg:bg-black/10",
+        showBackground
+          ? "lg:bg-avulus-black/95 lg:backdrop-blur-sm"
+          : "lg:bg-transparent",
+      ),
+  );
 
   return (
     <header

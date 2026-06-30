@@ -149,26 +149,37 @@ function FormatCardItem({
           {card.title}
         </h3>
 
-        <p
-          className={cn(
-            "mt-3 text-xs font-bold uppercase tracking-wider",
-            isDark ? "text-white" : "text-black",
-          )}
-        >
-          {card.subtitle}
-        </p>
+        {card.subtitle ? (
+          <p
+            className={cn(
+              "mt-8 text-xs font-bold uppercase tracking-wider",
+              isDark ? "text-white" : "text-black",
+            )}
+          >
+            {card.subtitle}
+          </p>
+        ) : null}
 
         <p
           className={cn(
-            "mt-4 max-w-[240px] flex-1 text-sm leading-relaxed",
-            isDark ? "text-white/90" : "text-black/90",
+            "max-w-[240px] text-sm leading-relaxed",
+            isRestaurant ? "mt-3 font-bold text-white" : "mt-4 flex-1",
+            isDark && !isRestaurant ? "text-white/90" : "",
+            !isDark ? "text-black/90" : "",
           )}
         >
           {card.description}
         </p>
 
         {(card.status || card.price) && (
-          <div className="flex w-full min-h-[5.5rem] shrink-0 flex-col justify-end pt-4 sm:min-h-[6rem] sm:pt-6">
+          <div
+            className={cn(
+              "flex w-full shrink-0 flex-col justify-end pt-4",
+              isRestaurant
+                ? "mt-auto min-h-0"
+                : "min-h-[5.5rem] sm:min-h-[6rem] sm:pt-6",
+            )}
+          >
             {card.status && (
               <p
                 className={cn(
@@ -183,11 +194,15 @@ function FormatCardItem({
             )}
             {card.price && (
               <p className="flex items-baseline justify-center gap-1 text-avulus-red">
-                <span className="text-sm font-semibold">{card.price.prefix}</span>
+                <span className="text-sm font-semibold">
+                  {card.price.prefix}
+                </span>
                 <span className="text-4xl font-black leading-none sm:text-5xl">
                   {card.price.amount}
                 </span>
-                <span className="text-sm font-semibold">{card.price.suffix}</span>
+                <span className="text-sm font-semibold">
+                  {card.price.suffix}
+                </span>
               </p>
             )}
           </div>

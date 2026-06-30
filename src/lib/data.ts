@@ -19,7 +19,7 @@ export const FEATURE_STEPS = [
 export type FormatCard = {
   id: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   description: string;
   status?: string;
   price?: {
@@ -62,8 +62,8 @@ export const FORMAT_CARDS: FormatCard[] = [
   {
     id: "restaurant",
     title: "РЕСТОРАН",
-    subtitle: "1-10 гостей",
-    description: "Для завтрака, обеда, ужина или встречи",
+    description:
+      "Еда и напитки в любое время: перекусить, провести встречу или собраться большой компанией",
     status: "ОТКРЫТО СЕЙЧАС",
     variant: "restaurant",
     ctaPrimary: CTAS.menu.label,
@@ -73,8 +73,7 @@ export const FORMAT_CARDS: FormatCard[] = [
   {
     id: "hotel",
     title: "ОТЕЛЬ",
-    subtitle: "МОЖНО ПРОСТО ОСТАТЬСЯ",
-    description: "Остановитесь на ночь или несколько дней",
+    subtitle: "Остановитесь на ночь или несколько дней",
     variant: "hotel",
     ctaPrimary: "Забронировать",
     ctaPrimaryHref: CTAS.hotelBook.url,
