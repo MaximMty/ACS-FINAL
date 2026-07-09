@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
     // Dev: skip on-the-fly optimization so hard refresh stays fast.
     unoptimized: process.env.NODE_ENV === "development",
+    localPatterns: [
+      {
+        pathname: "/**",
+      },
+    ],
   },
   async headers() {
     return [

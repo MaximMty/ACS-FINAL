@@ -181,3 +181,20 @@
     transform: translateX(0);
   }
 }
+
+/* Fix date picker popup/indicator positioning and styling */
+input[type="date"] {
+  position: relative;
+  min-width: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}

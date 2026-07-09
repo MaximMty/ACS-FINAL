@@ -1,2 +1,1 @@
-/** Static cache-bust version for local /public assets */
-export const ASSET_VERSION = "1748016060000";
+export const ASSET_VERSION = "1783602632000";

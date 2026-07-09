@@ -20,8 +20,15 @@ function pcMenuPath(filename: string) {
 
 /** Full paginated menus for mobile */
 export const menuImagesMobile = {
-  restaurant: restaurantFrames.map(restaurantPath),
-  bar: barFrames.map(barPath),
+  restaurant: [
+    "/menu/Mobile menu/AVULUS меню 1.webp",
+    "/menu/Mobile menu/AVULUS меню 2.webp",
+  ],
+  bar: [
+    "/menu/Mobile menu/AVULUS меню 3.webp",
+    "/menu/Mobile menu/AVULUS меню 4.webp",
+    "/menu/Mobile menu/AVULUS меню 6.webp",
+  ],
 } as const;
 
 /** Desktop PC menu spreads */
@@ -34,6 +41,7 @@ export const menuImagesDesktop = {
     pcMenuPath("menu-page-3-600dpi.png"),
     pcMenuPath("menu-page-4-600dpi.png"),
     pcMenuPath("5.jpg"),
+    "/menu/Mobile menu/AVULUS меню 6.webp",
   ],
 } as const;
 

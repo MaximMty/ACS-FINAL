@@ -199,8 +199,8 @@ function PromoCard({ className }: { className?: string }) {
 
 function SpecRow({ icon, label }: { icon: string; label: string }) {
   return (
-    <li className="flex items-start gap-3">
-      <span className="relative mt-0.5 size-5 shrink-0">
+    <li className="flex items-center gap-3">
+      <span className="relative size-5 shrink-0">
         <Image src={icon} alt="" fill sizes="20px" className="object-contain" />
       </span>
       <span>{label}</span>

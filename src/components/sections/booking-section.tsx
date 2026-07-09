@@ -82,7 +82,7 @@ function validateBookingForm(values: BookingFormValues): BookingFormErrors {
     nextErrors.date = "Выберите дату.";
   }
   if (!values.time) {
-    nextErrors.time = "Выберите время.";
+    nextErrors.time = "Выберите время заселения.";
   }
   if (!values.name.trim()) {
     nextErrors.name = "Введите имя.";
@@ -169,7 +169,7 @@ export function BookingSection({
       <Container>
         <div
           className={cn(
-            "mx-auto w-full max-w-4xl border border-white/20 bg-white/[0.03] p-5 sm:p-8 lg:p-10",
+            "mx-auto w-full max-w-4xl border border-white/20 bg-white/[0.03] px-4 py-6 sm:p-8 lg:p-10",
             avulusCardShadow,
           )}
         >
@@ -179,7 +179,7 @@ export function BookingSection({
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/75 sm:text-base">
             {subtitle}
           </p>
-
+ 
           <form className="mt-8 space-y-5" onSubmit={handleSubmit} noValidate>
             <div className="grid gap-4 sm:grid-cols-2">
               <FormField label="Комната" error={errors.room}>
@@ -198,7 +198,7 @@ export function BookingSection({
                   ))}
                 </select>
               </FormField>
-
+ 
               <FormField label="Дата" error={errors.date}>
                 <input
                   name="date"
@@ -210,7 +210,7 @@ export function BookingSection({
                   aria-invalid={Boolean(errors.date)}
                 />
               </FormField>
-
+ 
               <FormField label="Время" error={errors.time}>
                 <select
                   name="time"
@@ -219,7 +219,7 @@ export function BookingSection({
                   className={inputClassName}
                   aria-invalid={Boolean(errors.time)}
                 >
-                  <option value="">Выберите время</option>
+                  <option value="">Выберите время заселения</option>
                   {TIME_OPTIONS.map((slot) => (
                     <option key={slot} value={slot}>
                       {slot}

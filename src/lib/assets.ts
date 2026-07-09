@@ -2,8 +2,7 @@ import { ASSET_VERSION } from "./asset-version";
 
 /** Normalized local /public asset URL */
 export function assetUrl(path: string): string {
-  void ASSET_VERSION;
-  return path;
+  return `${path}?v=${ASSET_VERSION}`;
 }
 
 export const assets = {
