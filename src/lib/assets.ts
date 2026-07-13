@@ -8,7 +8,7 @@ export function assetUrl(path: string): string {
 export const assets = {
   logo: assetUrl("/images/logo.png"),
   heroBg: assetUrl("/images/hero-bg.webp"),
-  heroTitleComposite: assetUrl("/images/hero-title-composite-v4.webp"),
+  heroTitleComposite: assetUrl("/images/Hero Title PC.svg"),
   /** Figma Group 449 — mobile hero title (iPhone / narrow viewports) */
   heroTitleMobile: assetUrl("/images/hero-title-mobile.svg"),
 

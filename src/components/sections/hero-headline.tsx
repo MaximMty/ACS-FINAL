@@ -2,8 +2,8 @@ import { FigmaImage } from "@/components/ui/figma-image";
 import { assets } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
-const DESKTOP_W = 1195;
-const DESKTOP_H = 378;
+const DESKTOP_W = 1190;
+const DESKTOP_H = 288;
 const MOBILE_W = 355;
 const MOBILE_H = 182;
 

@@ -29,7 +29,6 @@ export const menuImagesMobile = {
     "/menu/Restoraunt/06.webp",
     "/menu/Restoraunt/07.webp",
     "/menu/Restoraunt/9.webp",
-    "/menu/Bar/Frame 406.webp",
   ],
   bar: [
     "/menu/Bar/Frame 396.webp",
@@ -37,8 +36,9 @@ export const menuImagesMobile = {
     "/menu/Bar/Frame 398.webp",
     "/menu/Bar/Frame 399.webp",
     "/menu/Bar/Frame 400.webp",
-    "/menu/Bar/Frame 402.webp",
     "/menu/Bar/Frame 405.webp",
+    "/menu/Bar/Frame 406.webp",
+    "/menu/Bar/Frame 402.webp",
   ],
 } as const;
 
