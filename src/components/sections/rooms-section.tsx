@@ -35,12 +35,9 @@ export function RoomsSection() {
       <SectionPattern />
 
       <Container className="relative">
-        <h2 className="text-3xl font-black uppercase tracking-tight text-white sm:text-4xl lg:text-[51px] lg:leading-none">
-          Выбирай свою комнату
+        <h2 className="mb-8 text-3xl font-black uppercase tracking-tight text-white sm:text-4xl lg:text-[51px] lg:leading-none lg:mb-10">
+          Выбирай комнату
         </h2>
-        <p className="mt-3 mb-8 max-w-2xl text-sm text-white/70 sm:mb-10">
-          {ROOMS_PRICE_NOTE}
-        </p>
 
         <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-4 xl:grid-cols-3">
           <div
