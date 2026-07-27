@@ -153,7 +153,7 @@ function PromoCard({
             isMobile ? "via-black/50" : "via-black/40",
           )}
         />
-        <div className="absolute inset-x-0 bottom-0 p-6">
+        <div className="absolute inset-x-0 bottom-0 p-6 min-h-[180px] lg:min-h-[240px]">
           <p
             className={cn(
               "text-xs uppercase tracking-widest",
@@ -164,9 +164,11 @@ function PromoCard({
           >
             {promo.tag}
           </p>
-          <h3 className="mt-2 text-3xl font-black uppercase leading-tight text-white">
-            {promo.title}
-          </h3>
+          <div className="mt-2 min-h-[76px] lg:min-h-[96px]">
+            <h3 className="text-3xl font-black uppercase leading-tight text-white">
+              {promo.title}
+            </h3>
+          </div>
           {promo.note && (
             <p
               className={cn(
