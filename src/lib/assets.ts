@@ -23,6 +23,9 @@ export const assets = {
   restaurantDrink: assetUrl("/images/drink.webp"),
 
   promoHookah: assetUrl("/images/promo-hookah.webp"),
+  promoX2: assetUrl("/images/x2.webp"),
+  promoKal: assetUrl("/images/kal.webp"),
+  promoDr: assetUrl("/images/dr.webp"),
 
   hotelGallery: {
     main: assetUrl("/images/hotel-gallery-main.webp"),

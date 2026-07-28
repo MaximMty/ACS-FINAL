@@ -11,8 +11,6 @@ import { Container } from "@/components/avulus/container";
 import { assets } from "@/lib/assets";
 import {
   ROOM_CARDS,
-  ROOM_PROMO,
-  ROOMS_PRICE_NOTE,
   type RoomCard,
 } from "@/lib/data";
 import {
@@ -172,7 +170,7 @@ function PromoCard({ className }: { className?: string }) {
       )}
     >
       <Image
-        src={assets.promoHookah}
+        src={assets.promoX2}
         alt=""
         fill
         className="object-cover"
@@ -181,13 +179,13 @@ function PromoCard({ className }: { className?: string }) {
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
       <div className="relative mt-auto p-6 sm:p-8">
         <p className="text-xs font-bold uppercase tracking-widest text-avulus-red">
-          {ROOM_PROMO.tag}
+          АКЦИЯ
         </p>
         <h3 className="mt-2 text-3xl font-black uppercase leading-tight text-white sm:text-4xl">
-          {ROOM_PROMO.title}
+          Первое пополнение ×2
         </h3>
         <p className="mt-3 max-w-[360px] text-sm leading-relaxed text-white/80">
-          {ROOM_PROMO.note}
+          Впервые в ACS? Пополни баланс, и мы удвоим сумму.
         </p>
       </div>
     </article>

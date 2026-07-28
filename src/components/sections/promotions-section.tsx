@@ -17,21 +17,21 @@ import { cn } from "@/lib/utils";
 
 const PROMOS = [
   {
-    image: assets.promoHookah,
+    image: assets.promoX2,
     tag: "АКЦИЯ",
     title: "Первое пополнение ×2",
     note: "Впервые в ACS? Пополни баланс, и мы удвоим сумму.",
     hasDetails: false,
   },
   {
-    image: assets.promoHookah,
+    image: assets.promoKal,
     tag: "АКЦИЯ",
     title: "Кальян + коктейль за 4 500 ₽",
     note: "Готовый сет для вечера в ACS.",
     hasDetails: false,
   },
   {
-    image: assets.promoHookah,
+    image: assets.promoDr,
     tag: "ПАКЕТ",
     title: "ГОТОВЫЙ ДЕНЬ РОЖДЕНИЯ В SUPER VIP",
     note: "Закрытая премиум VIP с топовыми ПК, едой, напитками и обслуживанием.",
