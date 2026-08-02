@@ -1,109 +1,53 @@
 import { FigmaImage } from "@/components/ui/figma-image";
-
 import { assets } from "@/lib/assets";
-
 import { cn } from "@/lib/utils";
 
-
-
-const FEATURE_BAR_W = 1440;
-
-const FEATURE_BAR_H = 99;
-
-
-
 type FeatureBarProps = {
-
   className?: string;
-
 };
 
-
-
-/** Figma Group 383 — full chevron step bar exported as one asset */
-
 export function FeatureBar({ className }: FeatureBarProps) {
-
   return (
-
     <section
-
-      className={cn("relative shrink-0 bg-black", className)}
-
+      className={cn("relative shrink-0 bg-black w-full", className)}
       style={{ height: "var(--feature-height)" }}
-
       aria-label="Шаги бронирования"
-
     >
-
-      {/* SVG sets preserveAspectRatio="none" so this fills the full bar width */}
-
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-
-      <img
-
-        src={assets.featureBarBg}
-
-        alt=""
-
-        width={FEATURE_BAR_W}
-
-        height={FEATURE_BAR_H}
-
-        className="absolute inset-0 hidden h-full w-full lg:block"
-
-        loading="lazy"
-
-        decoding="async"
-
-      />
-
-
-
-      <div
-
-        className={cn(
-
-          "h-full w-full overflow-x-auto overflow-y-hidden overscroll-x-contain lg:hidden",
-
-          "[scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden",
-
-        )}
-
-      >
-
-        <div
-
-          className="relative h-full shrink-0"
-
-          style={{ aspectRatio: `${FEATURE_BAR_W} / ${FEATURE_BAR_H}` }}
-
-        >
-
-          <FigmaImage
-
-            src={assets.featureBarBg}
-
-            alt=""
-
-            fill
-
-            className="object-contain object-left"
-
-            sizes="1440px"
-
-            loading="lazy"
-
-          />
-
-        </div>
-
+      {/* PC Version: Centered and responsive */}
+      <div className="hidden lg:flex h-full w-full items-center justify-center px-4 max-w-[1234px] mx-auto">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={assets.featureBarBg}
+          alt=""
+          width={1234}
+          height={101}
+          className="max-h-full max-w-full object-contain"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
+      {/* Mobile Version: Horizontal scrolling */}
+      <div
+        className={cn(
+          "h-full w-full overflow-x-auto overflow-y-hidden overscroll-x-contain lg:hidden px-4 sm:px-6",
+          "[scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden",
+        )}
+      >
+        <div
+          className="relative h-full shrink-0"
+          style={{ aspectRatio: "1234 / 101" }}
+        >
+          <FigmaImage
+            src={assets.featureBarBg}
+            alt=""
+            fill
+            className="object-contain object-left"
+            sizes="1234px"
+            loading="lazy"
+          />
+        </div>
+      </div>
     </section>
-
   );
-
 }
-
-

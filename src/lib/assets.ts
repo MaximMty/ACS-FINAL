@@ -17,7 +17,7 @@ export const assets = {
   hotelNavOtel: assetUrl("/images/hotel-nav-otel.png"),
 
   /** Figma Group 383 — chevron step bar background */
-  featureBarBg: assetUrl("/images/bottombarhero.svg"),
+  featureBarBg: assetUrl("/images/bottombar2.svg"),
 
   restaurantFood: assetUrl("/images/burger.webp"),
   restaurantDrink: assetUrl("/images/drink.webp"),
