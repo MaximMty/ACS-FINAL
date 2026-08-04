@@ -84,6 +84,21 @@
     -webkit-text-stroke: 2px #39ff14;
     color: transparent;
   }
+  .text-stroke-hotel {
+    -webkit-text-stroke: 4px white;
+    color: var(--color-avulus-hotel);
+    paint-order: stroke fill;
+  }
+  .text-stroke-restaurant {
+    -webkit-text-stroke: 4px white;
+    color: var(--color-avulus-restaurant);
+    paint-order: stroke fill;
+  }
+  .text-stroke-light {
+    -webkit-text-stroke: 4px var(--color-avulus-red);
+    color: white;
+    paint-order: stroke fill;
+  }
 
   /** Semi-transparent mobile header — content stays readable underneath */
   .glass-header {

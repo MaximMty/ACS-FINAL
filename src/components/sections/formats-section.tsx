@@ -141,9 +141,9 @@ function FormatCardItem({
         <h3
           className={cn(
             "text-[clamp(2.25rem,4.5vw,3.25rem)] font-black uppercase leading-none tracking-tight",
-            isDark
-              ? "text-stroke-white"
-              : "[-webkit-text-stroke:2px_#e31e24] text-white",
+            isHotel && "text-stroke-hotel",
+            isRestaurant && "text-stroke-restaurant",
+            !isDark && "text-stroke-light",
           )}
         >
           {card.title}
