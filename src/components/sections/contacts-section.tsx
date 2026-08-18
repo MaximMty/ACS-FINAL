@@ -136,13 +136,13 @@ export function ContactsSection() {
               href="/privacy-policy"
               className={cn("text-white", linkInteractive)}
             >
-              Политика конфиденциальности
+              Политика обработки персональных данных
             </Link>
             <Link
-              href="/public-offer"
+              href="/personal-data-consent"
               className={cn("text-white", linkInteractive)}
             >
-              Публичная оферта
+              Согласие на обработку персональных данных
             </Link>
           </div>
           <p className="text-white sm:text-right">© {currentYear} Avulus</p>

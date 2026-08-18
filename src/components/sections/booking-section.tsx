@@ -2,6 +2,7 @@
 
 import { Loader2 } from "lucide-react";
 import { ChangeEvent, FormEvent, ReactNode, useMemo, useState } from "react";
+import Link from "next/link";
 
 import { Container } from "@/components/avulus/container";
 import { CTAS, telegramBookingUrl } from "@/lib/ctas";
@@ -110,6 +111,7 @@ export function BookingSection({
   const [errors, setErrors] = useState<BookingFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [consent, setConsent] = useState(false);
 
   const minDate = useMemo(() => getTodayDate(), []);
 
@@ -158,6 +160,7 @@ export function BookingSection({
     setIsSubmitting(false);
     setIsSuccess(true);
     setValues(DEFAULT_VALUES);
+    setConsent(false);
   };
 
   return (
@@ -259,13 +262,45 @@ export function BookingSection({
               />
             </FormField>
 
+            <div className="flex flex-col gap-2.5 pt-1">
+              <label className="flex items-start gap-3 cursor-pointer text-sm text-white/95 select-none">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 size-4 accent-avulus-red cursor-pointer shrink-0 border border-white/20 bg-black"
+                />
+                <span className="leading-tight">
+                  Я даю{" "}
+                  <Link
+                    href="/personal-data-consent"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-white/80 transition-colors"
+                  >
+                    согласие на обработку персональных данных
+                  </Link>
+                </span>
+              </label>
+              <div className="pl-7">
+                <Link
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-white/50 underline hover:text-white/70 transition-colors"
+                >
+                  Политика обработки персональных данных
+                </Link>
+              </div>
+            </div>
+
             <div className="space-y-3 pt-1">
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !consent}
                 className={cn(
                   bookButtonFullClass,
-                  "h-[54px] text-sm tracking-wide disabled:cursor-not-allowed disabled:opacity-70",
+                  "h-[54px] text-sm tracking-wide disabled:cursor-not-allowed disabled:opacity-50",
                 )}
               >
                 {isSubmitting ? (
