@@ -27,7 +27,7 @@ export default function HomePage() {
       <link
         rel="preload"
         as="image"
-        href="/images/hero-title-composite-v4.webp"
+        href="/images/Hero Title PC.svg"
         fetchPriority="high"
         media="(min-width: 1024px)"
       />

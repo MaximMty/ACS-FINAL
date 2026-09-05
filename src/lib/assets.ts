@@ -22,7 +22,6 @@ export const assets = {
   restaurantFood: assetUrl("/images/burger.webp"),
   restaurantDrink: assetUrl("/images/drink.webp"),
 
-  promoHookah: assetUrl("/images/promo-hookah.webp"),
   promoX2: assetUrl("/images/x2.webp"),
   promoKal: assetUrl("/images/kal.webp"),
   promoDr: assetUrl("/images/dr.webp"),
@@ -59,9 +58,6 @@ export const assets = {
     stream: assetUrl("/images/room-stream-card.webp"),
     superVip: assetUrl("/images/room-super-vip-card.webp"),
   },
-
-  roomPrivate: assetUrl("/images/room-private.webp"),
-  hotelPrivate: assetUrl("/images/room-private-plus.webp"),
 
   iconUser: assetUrl("/images/logo.png"),
   iconPhone: assetUrl("/images/calllicon.svg"),

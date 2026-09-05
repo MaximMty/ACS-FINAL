@@ -16,8 +16,3 @@ export function useMediaQuery(query: string): boolean {
 
   return matches;
 }
-
-/** Tailwind `lg` — desktop menu layout */
-export function useIsDesktopMenu() {
-  return useMediaQuery("(min-width: 1024px)");
-}

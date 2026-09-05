@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 
 import { NavSectionLink } from "@/components/layout/nav-section-link";
 import { ExternalCta } from "@/components/ui/external-cta";
-import { useDigitalMenuOpen } from "@/contexts/digital-menu-context";
 import {
   avulusButtonShadow,
   btnOpacityInteractive,
@@ -22,15 +21,8 @@ type HeroMobileMenuProps = {
 
 export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
   const [open, setOpen] = useState(false);
-  const { isOpen: isDigitalMenuOpen } = useDigitalMenuOpen();
 
   const close = useCallback(() => setOpen(false), []);
-
-  useEffect(() => {
-    if (isDigitalMenuOpen) {
-      setOpen(false);
-    }
-  }, [isDigitalMenuOpen]);
 
   useEffect(() => {
     if (!open) return;
@@ -49,10 +41,6 @@ export function HeroMobileMenu({ className }: HeroMobileMenuProps) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, close]);
-
-  if (isDigitalMenuOpen) {
-    return null;
-  }
 
   return (
     <div className={cn("relative lg:hidden", className)}>

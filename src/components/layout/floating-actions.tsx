@@ -6,8 +6,6 @@ import Link from "next/link";
 
 import { useCallback, useState } from "react";
 
-import { useDigitalMenuOpen } from "@/contexts/digital-menu-context";
-
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 import { avulusFloatShadow } from "@/lib/cta-styles";
@@ -107,15 +105,9 @@ export function FloatingActions() {
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
-  const { isOpen: isDigitalMenuOpen } = useDigitalMenuOpen();
-
   const close = useCallback(() => setExpanded(false), []);
 
   const toggle = useCallback(() => setExpanded((value) => !value), []);
-
-  if (isDigitalMenuOpen) {
-    return null;
-  }
 
   const showActions = isDesktop || expanded;
 
