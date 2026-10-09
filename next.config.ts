@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   },
   outputFileTracingRoot: projectRoot,
   images: {
-    formats: ["image/avif", "image/webp"],
+    formats: ["image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 30,
     // Dev: skip on-the-fly optimization so hard refresh stays fast.
     unoptimized: process.env.NODE_ENV === "development",
